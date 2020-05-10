@@ -40,20 +40,64 @@ Most method calls cannot use this object until `tess_init()` called on it for in
 
 When the garbage collector collects this object the associated pointer object will be freed in the
 library.  The object can also be manually freed by calling `tess_delete!()` on it.
+
+See also: [`TessInst(languages::AbstractString, dataPath::AbstractString)`](@ref).
 """
 mutable struct TessInst
     ptr::Ptr{Cvoid}
+end
 
-    function TessInst()
-        local ptr    = ccall((:TessBaseAPICreate, TESSERACT), Ptr{Cvoid}, ())
-        local retval = new(ptr)
+# =================================================================================================
+"""
+    TessInst(
+        languages::AbstractString = "eng",
+        dataPath::AbstractString = TESS_DATA
+    )
 
-        finalizer(retval) do obj
-            tess_delete!(obj)
-        end
+Construct an initialize a TessInst object.
 
-        retval
+__Arguments:__
+
+| T | Name      | Default    | Description
+|:--| :-------- | :--------- | :----------
+| O | languages | `eng`      | The language(s) to load.
+| O | dataPath  | `tessdata` | The directory to look for the language files in.
+
+__Details:__
+
+To change the langauges identified by this instance you can call `tess_init()`.  Multiple
+langagues can be specified by seperating them with a plus.  So if you want english and spanish you
+could specify "eng+spa".  The language codes are (usually) the
+[ISO 639-3](https://en.wikipedia.org/wiki/ISO_639-3) code.
+
+__Example:__
+
+```jldoctest
+julia> using Tesseract
+
+julia> download_languages("eng+fra")
+true
+
+julia> instance = TessInst("eng+fra")
+Allocated Tesseract instance.
+```
+
+See also: [`tess_init`](@ref).
+"""
+function TessInst(
+            languages::AbstractString = "eng",
+            dataPath::AbstractString = TESS_DATA
+        )
+    local ptr    = ccall((:TessBaseAPICreate, TESSERACT), Ptr{Cvoid}, ())
+    local retval = TessInst(ptr)
+
+    finalizer(retval) do obj
+        tess_delete!(obj)
     end
+
+    tess_init(retval, languages, dataPath)
+
+    retval
 end
 
 # =================================================================================================
@@ -65,7 +109,7 @@ end
 
 Display summary information about the tesseract instance.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name  | Default | Description
 |---| :---- | :------ | :----------
@@ -77,9 +121,9 @@ function Base.show(
             inst::TessInst
         )::Nothing
     if is_valid(inst)
-        println(io, "Allocated Tesseract instance.")
+        print(io, "Allocated Tesseract instance.")
     else
-        println(io, "Freed Tesseract instance.")
+        print(io, "Freed Tesseract instance.")
     end
     nothing
 end
@@ -92,7 +136,7 @@ end
 
 Check if the isntance has been freed or if it's still valid.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name | Default | Description
 |---| :--- | :------ | :----------
@@ -106,21 +150,21 @@ end
 
 # =================================================================================================
 """
-    cconvert(
+    unsafe_convert(
         ::Type{Ptr{Cvoid}},
         inst::TessInst
     )::Ptr{Cvoid}
 
 "Convert" the instance into a the handle pointer used by the Tesseract library.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name               | Default | Description
 |---| :----------------- | :------ | :----------
 | R | ::Type{Ptr{Cvoid}} |         | The type to convert into.
 | R | inst               |         | The instance to return the Teseract handle for.
 """
-Base.cconvert(::Type{Ptr{Cvoid}}, inst::TessInst) = inst.ptr
+Base.unsafe_convert(::Type{Ptr{Cvoid}}, inst::TessInst) = inst.ptr
 
 # =================================================================================================
 """
@@ -130,7 +174,7 @@ Base.cconvert(::Type{Ptr{Cvoid}}, inst::TessInst) = inst.ptr
 
 Destroy the Tesseract object and release any associated memory.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name | Default | Description
 |---| :--- | :------ | :----------
@@ -172,11 +216,36 @@ end
 Perform the OCR extraction.  This will be called automatically if you call one of the retrieval
 functions so you don't need to call it directly.  Returns `false` if there was an error.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name | Default | Description
 |---| :--- | :------ | :----------
 | R | inst |         | The instance to perform the recognition with.
+
+__Example:__
+
+```jldoctest
+julia> using Tesseract
+
+julia> download_languages("eng+fra")
+true
+
+julia> instance = TessInst("eng+fra")
+Allocated Tesseract instance.
+
+julia> pix = sample_pix()
+Image (500, 600) at 32ppi
+
+julia> tess_image(instance, pix)
+
+julia> tess_resolution(instance, 72)
+
+julia> tess_recognize(instance)
+true
+```
+
+See also: [`tess_text`](@ref), [`tess_hocr`](@ref), [`tess_alto`](@ref), [`tess_tsv`](@ref),
+[`tess_parsed_tsv`](@ref).
 """
 function tess_recognize(
             inst::TessInst

@@ -21,8 +21,15 @@
 # SOFTWARE.
 using Suppressor
 
+datadir = mktempdir(;cleanup = false)
+
+@test download_languages("eng", datadir) == true
+
+include("tess_data.jl")
 include("common.jl")
 include("tess_inst.jl")
 include("tess_inst_config.jl")
 include("tess_inst_image.jl")
 include("tess_inst_output.jl")
+
+rm(datadir;recursive = true)

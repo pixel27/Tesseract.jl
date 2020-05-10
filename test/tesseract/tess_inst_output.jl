@@ -24,10 +24,9 @@ using Test
 # -------------------------------------------------------------------------------------------------
 # Test tess_text()
 @testset "tess_text" begin
-    local inst = TessInst()
+    local inst = TessInst("eng", datadir)
     local pix = pix_with()
 
-    @test tess_init(inst) == true
     @suppress @test tess_text(inst) == nothing
     @test_nowarn tess_image(inst, pix)
     @test_nowarn tess_resolution(inst, 72)
@@ -41,10 +40,9 @@ end
 # -------------------------------------------------------------------------------------------------
 # Test tess_text()
 @testset "tess_hocr" begin
-    local inst = TessInst()
+    local inst = TessInst("eng", datadir)
     local pix = pix_with()
 
-    @test tess_init(inst) == true
     @suppress @test tess_hocr(inst) == nothing
     @test_nowarn tess_image(inst, pix)
     @test_nowarn tess_resolution(inst, 72)
@@ -58,10 +56,9 @@ end
 # -------------------------------------------------------------------------------------------------
 # Test tess_alto()
 @testset "tess_alto" begin
-    local inst = TessInst()
+    local inst = TessInst("eng", datadir)
     local pix = pix_with()
 
-    @test tess_init(inst) == true
     @suppress @test tess_alto(inst) == nothing
     @test_nowarn tess_image(inst, pix)
     @test_nowarn tess_resolution(inst, 72)
@@ -75,10 +72,9 @@ end
 # -------------------------------------------------------------------------------------------------
 # Test tess_tsv()
 @testset "tess_tsv" begin
-    local inst = TessInst()
+    local inst = TessInst("eng", datadir)
     local pix = pix_with()
 
-    @test tess_init(inst) == true
     @suppress @test tess_tsv(inst) == nothing
     @test_nowarn tess_image(inst, pix)
     @test_nowarn tess_resolution(inst, 72)
@@ -92,10 +88,9 @@ end
 # -------------------------------------------------------------------------------------------------
 # Test tess_tsv()
 @testset "tess_parsed_tsv" begin
-    local inst = TessInst()
+    local inst = TessInst("eng", datadir)
     local pix = pix_with()
 
-    @test tess_init(inst) == true
     @suppress @test tess_parsed_tsv(inst) == nothing
     @test_nowarn tess_image(inst, pix)
     @test_nowarn tess_resolution(inst, 72)
@@ -114,10 +109,9 @@ end
 # -------------------------------------------------------------------------------------------------
 # Test tess_text_box()
 @testset "tess_text_box" begin
-    local inst = TessInst()
+    local inst = TessInst("eng", datadir)
     local pix = pix_with()
 
-    @test tess_init(inst) == true
     @suppress @test tess_text_box(inst) == nothing
     @test_nowarn tess_image(inst, pix)
     @test_nowarn tess_resolution(inst, 72)
@@ -131,10 +125,9 @@ end
 # -------------------------------------------------------------------------------------------------
 # Test tess_word_box()
 @testset "tess_word_box" begin
-    local inst = TessInst()
+    local inst = TessInst("eng", datadir)
     local pix = pix_with()
 
-    @test tess_init(inst) == true
     @suppress @test tess_word_box(inst) == nothing
     @test_nowarn tess_image(inst, pix)
     @test_nowarn tess_resolution(inst, 72)
@@ -148,10 +141,9 @@ end
 # -------------------------------------------------------------------------------------------------
 # Test tess_lstm_box()
 @testset "tess_lstm_box" begin
-    local inst = TessInst()
+    local inst = TessInst("eng", datadir)
     local pix = pix_with()
 
-    @test tess_init(inst) == true
     @suppress @test tess_lstm_box(inst) == nothing
     @test_nowarn tess_image(inst, pix)
     @test_nowarn tess_resolution(inst, 72)
@@ -165,10 +157,9 @@ end
 # -------------------------------------------------------------------------------------------------
 # Test tess_unlv()
 @testset "tess_unlv" begin
-    local inst = TessInst()
+    local inst = TessInst("eng", datadir)
     local pix = pix_with()
 
-    @test tess_init(inst) == true
     @suppress @test tess_unlv(inst) == nothing
     @test_nowarn tess_image(inst, pix)
     @test_nowarn tess_resolution(inst, 72)
@@ -182,10 +173,9 @@ end
 # -------------------------------------------------------------------------------------------------
 # Test tess_confidences()
 @testset "tess_confidences" begin
-    local inst = TessInst()
+    local inst = TessInst("eng", datadir)
     local pix = pix_with()
 
-    @test tess_init(inst) == true
     @suppress @test tess_confidences(inst) == nothing
     @test_nowarn tess_image(inst, pix)
     @test_nowarn tess_resolution(inst, 72)
@@ -200,10 +190,9 @@ end
 # -------------------------------------------------------------------------------------------------
 # Test tess_resolution()
 @testset "tess_resolution" begin
-    local inst = TessInst()
+    local inst = TessInst("eng", datadir)
     local pix = pix_with()
 
-    @test tess_init(inst) == true
     @test_nowarn tess_image(inst, pix)
     @test_nowarn tess_resolution(inst, 72)
 

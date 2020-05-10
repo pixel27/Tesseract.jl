@@ -28,12 +28,14 @@ using Tesseract
 # Generate a sample image if you don't have one handy.
 write("sample.tiff", sample_tiff())
 
+# Download the Tesseract training data for for the english language.
+download_languages()
+
 # Create an instance of the Tesseract API
 inst = TessInst()
 
-# Initialize Tesseract, load the data file, and set the image resolution.
-tess_init(inst; dataPath = "/usr/share/tessdata/")
-tess_image(inst, pix_read("sample.tiff"))
+# Load the data file, and set the image resolution.
+tess_image(inst, pix_read("sample.gif"))
 tess_resolution(inst, 72)
 
 # Write out the OCRed text in various formats.

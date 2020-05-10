@@ -31,7 +31,7 @@
 Load an image from from disk of an unspecified type.  Returns `nothing` if the file could not be
 loaded.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name             | Default | Description
 |:--| :--------------- | :------ | :----------
@@ -80,7 +80,7 @@ end
 
 Load an image from from a stream.  Returns `nothing` if the file could not be loaded.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name   | Default | Description
 |:--| :----- | :------ | :----------
@@ -107,7 +107,7 @@ end
 
 Load an image from from a byte array.  Returns `nothing` if the file could not be loaded.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name | Default | Description
 |:--| :--- | :------ | :----------
@@ -140,7 +140,7 @@ end
 
 Write an image to memory in the specified format.  If there is an error `(C_NULL, 0)` is returned.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name   | Default  | Description
 |:--| :----- | :------- | :----------
@@ -192,7 +192,7 @@ end
 
 Write an image to disk in the specified format.  If there is an error `false` is returned.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name     | Default       | Description
 |:--| :------- | :------------ | :----------
@@ -240,7 +240,7 @@ end
 
 Write an image to the IO stream in the specified format.  If there is an error `false` is returned.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name   | Default       | Description
 |:--| :----- | :------------ | :----------
@@ -284,7 +284,7 @@ end
 
 Write an image to a byte array in the specified format.  If there is an error `nothing` is returned.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name   | Default       | Description
 |:--| :----- | :------------ | :----------

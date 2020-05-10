@@ -19,6 +19,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+
 module Tesseract
 using Tesseract_jll
 using Leptonica_jll
@@ -27,13 +28,14 @@ const TESSERACT = Tesseract_jll.libtesseract
 const LEPTONICA = Leptonica_jll.liblept
 const TESS_VERSION = "4.1.0"
 const LEPT_VERSION = "leptonica-1.79.0"
-const TESS_DATA = "/usr/share/tessdata/"
+const TESS_DATA = "tessdata"
 
 include("leptonica/_package.jl")
 
 include("sample.jl")
 
 include("tesseract/_package.jl")
+
 #include("tess_result_renderer.jl")
 
 export tess_version
@@ -42,8 +44,8 @@ export tess_delete!, tess_image, tess_recognize, tess_text, tess_hocr, tess_alto
        tess_tsv, tess_text_box, tess_word_box, tess_lstm_box, tess_unlv, tess_confidences,
        tess_parsed_tsv, tess_resolution
 export tess_init, tess_initialized_languages, tess_loaded_languages, tess_available_languages,
-       tess_default_params, tess_read_config, tess_read_debug_config
-export sample_tiff, sample_image
+       tess_print_variables, tess_read_config, tess_read_debug_config, tess_print_variables_parsed
+export sample_tiff, sample_pix
 
 export Pix, PixBox
 export IFF, IFF_UNKNOWN, IFF_BMP, IFF_JFIF_JPEG, IFF_PNG, IFF_TIFF, IFF_TIFF_PACKBITS,
@@ -55,5 +57,8 @@ export pix_read_bmp, pix_write_bmp, pix_read_gif, pix_write_gif, pix_read_jp2k, 
        pix_write_tiff, pix_read_webp, pix_write_webp, pix_read, pix_write, pix_write_implied_format
 export pix_get_depth, pix_get_dimensions
 export pix_delete!, lept_version
+
+using .Data
+export update_languages, download_languages
 
 end

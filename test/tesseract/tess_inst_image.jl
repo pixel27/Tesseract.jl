@@ -24,10 +24,10 @@ using Test
 # -------------------------------------------------------------------------------------------------
 # Test tess_image()
 @testset "tess_image" begin
-    local inst = TessInst()
+    local inst = TessInst("eng", datadir)
     local pix = pix_with()
 
-    @test tess_init(inst) == true
+    @test tess_init(inst, "eng", datadir) == true
     @test_nowarn tess_image(inst, pix)
 
     local err  = "Instance has been freed."
@@ -35,7 +35,7 @@ using Test
     @test_logs (:error, err) tess_image(inst, pix)
 
     local err  = "Pix object has been freed."
-    local inst = TessInst()
+    local inst = TessInst("eng", datadir)
     pix_delete!(pix)
     @test_logs (:error, err) tess_image(inst, pix)
 end
@@ -43,10 +43,10 @@ end
 # -------------------------------------------------------------------------------------------------
 # Test tess_resolution()
 @testset "tess_resolution" begin
-    local inst = TessInst()
+    local inst = TessInst("eng", datadir)
     local pix = pix_with()
 
-    @test tess_init(inst) == true
+    @test tess_init(inst, "eng", datadir) == true
     @test_nowarn tess_image(inst, pix)
     @test_nowarn tess_resolution(inst, 72)
 

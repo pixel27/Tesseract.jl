@@ -28,7 +28,7 @@
 
 Free a string allocated by the Tesseract library.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name | Default | Description
 |---| :--- | :------ | :----------
@@ -54,7 +54,7 @@ end
 
 Free a byte array allocated by the Tesseract library.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name | Default | Description
 |---| :--- | :------ | :----------
@@ -80,7 +80,7 @@ end
 
 Free an array of strings allocated by the Tesseract library.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name  | Default | Description
 |---| :---- | :------ | :----------
@@ -106,7 +106,7 @@ end
 
 Free an array of integers allocated by the Tesseract library.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name  | Default | Description
 |---| :---- | :------ | :----------

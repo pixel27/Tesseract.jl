@@ -28,7 +28,7 @@
 
 Read a PNG image from the specified file.  Returns `nothing` on error.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name     | Default  | Description
 |:--| :------- | :------- | :----------
@@ -53,7 +53,7 @@ end
 
 Read a PNM image from the specified stream.  Returns `nothing` on error.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name   | Default  | Description
 |:--| :----- | :------- | :----------
@@ -79,7 +79,7 @@ end
 
 Read a PNM image from the byte array.  Returns `nothing` on error.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name | Default  | Description
 |:--| :--- | :------- | :----------
@@ -111,7 +111,7 @@ end
 
 Write an image to memory in the PNM image format.  If there is an error `(C_NULL, 0)` is returned.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name     | Default  | Description
 |:--| :------- | :------- | :----------
@@ -159,7 +159,7 @@ end
 
 Write an image to a file in the PNM image format.  If there is an error `false` is returned.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name     | Default  | Description
 |:--| :------- | :------- | :----------
@@ -210,7 +210,7 @@ end
 
 Write an image to an IO stream in the PNM image format.  If there is an error `false` is returned.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name   | Default  | Description
 |:--| :----- | :------- | :----------
@@ -246,7 +246,7 @@ end
 
 Write an image to a byte array in the PNM image format.  If there is an error `false` is returned.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name | Default  | Description
 |:--| :--- | :------- | :----------

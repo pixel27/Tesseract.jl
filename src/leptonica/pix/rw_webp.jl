@@ -28,7 +28,7 @@
 
 Read a WEBP image from the specified file.  Returns `nothing` on error.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name     | Default    | Description
 |:--| :------- | :--------- | :----------
@@ -53,7 +53,7 @@ end
 
 Read a WEBP image from the specified stream.  Returns `nothing` on error.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name   | Default  | Description
 |:--| :----- | :------- | :----------
@@ -79,7 +79,7 @@ end
 
 Read a WEBP image from the byte array.  Returns `nothing` on error.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name | Default  | Description
 |:--| :--- | :------- | :----------
@@ -114,7 +114,7 @@ end
 
 Write an image to a file in the WEBP image format.  If there is an error `false` is returned.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name     | Default     | Description
 |:--| :------- | :---------- | :----------
@@ -174,7 +174,7 @@ end
 
 Write an image to memory in the WEBP image format.  If there is an error `(C_NULL, 0)` is returned.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name     | Default  | Description
 |:--| :------- | :------- | :----------
@@ -242,7 +242,7 @@ end
 
 Write an image to a stream in the WEBP image format.  If there is an error `false` is returned.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name     | Default     | Description
 |:--| :------- | :---------- | :----------
@@ -294,7 +294,7 @@ end
 Write an image to a byte array in the WEBP image format.  If there is an error `nothing` is
 returned.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name     | Default     | Description
 |:--| :------- | :---------- | :----------

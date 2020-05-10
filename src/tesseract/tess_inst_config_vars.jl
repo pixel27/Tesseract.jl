@@ -55,11 +55,11 @@ end
         name::AbstractString,
         value::AbstractString,
         help::AbstractString
-    )::TessParam{T}
+    )::TessParam{T} where T
 
 Construct a new instance of the TessParam structure from the provided values.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name  | Default | Description
 |:--| :---- | :------ | :----------
@@ -75,7 +75,7 @@ function TessParam(
             name::AbstractString,
             value::AbstractString,
             help::AbstractString
-        )::TessParam{T}
+        )::TessParam
     if match(r"^-?[0-9]+\.[0-9]+$", value) != nothing
         return TessParam{Float64}(name, parse(Float64, value), help)
     elseif match(r"^-?[0-9]+$", value) != nothing
@@ -87,13 +87,13 @@ end
 
 # =================================================================================================
 """
-    print_variables_parsed(
+    tess_print_variables_parsed(
             inst::TessInst, # The instance to retrieve the default parameters from.
         )::Vector{TessParam}
 
 Retrieved all the Tesseract parameters with their valuse as an array of TessParam objects.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name | Default | Description
 |:--| :--- | :------ | :----------
@@ -109,12 +109,14 @@ Each line of text is split into 3 values:
 * Text describing the parameter.
 
 Each value is separated by a tab and the description is terminated by a new line.
+
+See also: [`tess_print_variables`](@ref)
 """
-function print_variables_parsed(
+function tess_print_variables_parsed(
             inst::TessInst
         )::Vector{TessParam}
-    local params =  Vector{TessParam}()
-    local data   = print_variables(inst)
+    local params = Vector{TessParam}()
+    local data   = tess_print_variables(inst)
 
     if data != nothing
         for m in eachmatch(r"([a-z0-9_]+)\t([^\t]*)\t([^\n]+)"sm, data)

@@ -23,35 +23,52 @@
 # =================================================================================================
 """
     tess_init(
-        inst::TessInst;
-        dataPath = TESS_DATA
-        language = "eng"
+        inst::TessInst,
+        languages::AbstractString = "eng",
+        dataPath::AbstractString = "tessdata"
     )::Bool
 
 Initialize the instance for the specified language(s).  Returns `false` if there was an error.
 
-__Parameters:__
+__Arguments:__
 
-| T | Name     | Default                | Description
-|:--| :------- | :--------------------- | :----------
-| R | inst     |                        | The instance to initialize.
-| O | dataPath | `/usr/share/tessdata/` | The directory to look for the language files in.
-| O | language | `eng`                  | The language(s) to load.
+| T | Name      | Default    | Description
+|:--| :-------- | :--------- | :----------
+| R | inst      |            | The instance to initialize.
+| O | languages | `eng`      | The language(s) to load.
+| O | dataPath  | `tessdata` | The directory to look for the language files in.
 
 __Details:__
 
 This method can be called multiple times to reinitialize the langauges to OCR with.  Multiple
 langagues can be specified by seperating them with a plus.  So if you want english and spanish you
-could specify "eng+spa".  The language codes are (usually) the ISO 639-3 code.
+could specify "eng+spa".  The language codes are (usually) the 
+[ISO 639-3](https://en.wikipedia.org/wiki/ISO_639-3) code.
 
 Note: The language files are NOT automatically downloaded.  If you do not have them installed via
-alternate means you can download them from
-[https://github.com/tesseract-ocr/tessdata_best](https://github.com/tesseract-ocr/tessdata_best).
+alternate means you can download them from https://github.com/tesseract-ocr/tessdata_best.
+
+__Example:__
+
+```jldoctest
+julia> using Tesseract
+
+julia> download_languages("eng+fra")
+true
+
+julia> instance = TessInst()
+Allocated Tesseract instance.
+
+julia> tess_init(instance, "spa")
+true
+```
+
+See also: [`TessInst()`](@ref)
 """
 function tess_init(
-            inst::TessInst;
-            dataPath = TESS_DATA,
-            language = ""
+            inst::TessInst,
+            languages::AbstractString = "eng",
+            dataPath::AbstractString = TESS_DATA
         )::Bool
     local result = -1
 
@@ -60,7 +77,7 @@ function tess_init(
         return false
     end
 
-    if isempty(dataPath) && isempty(language)
+    if isempty(dataPath) && isempty(languages)
         result = ccall(
             (:TessBaseAPIInit3, TESSERACT),
             Cint,
@@ -69,7 +86,7 @@ function tess_init(
             C_NULL,
             C_NULL
         )
-    elseif isempty(language)
+    elseif isempty(languages)
         result = ccall(
             (:TessBaseAPIInit3, TESSERACT),
             Cint,
@@ -85,7 +102,7 @@ function tess_init(
             (Ptr{Cvoid},Cstring,Cstring),
             inst,
             C_NULL,
-            language
+            languages
         )
     else
         result = ccall(
@@ -94,7 +111,7 @@ function tess_init(
             (Ptr{Cvoid},Cstring,Cstring),
             inst,
             dataPath,
-            language
+            languages
         )
     end
 
@@ -109,7 +126,7 @@ end
 
 Retrieve the last initialized language(s).  Returns `nothing` if there was an error.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name     | Default | Description
 |:--| :------- | :------ | :----------
@@ -118,6 +135,23 @@ __Parameters:__
 __Details:__
 
 This method returns the language string provided in the last `tess_init()` call.
+
+__Example:__
+
+```jldoctest
+julia> using Tesseract
+
+julia> download_languages("eng+fra")
+true
+
+julia> instance = TessInst("eng+fra")
+Allocated Tesseract instance.
+
+julia> tess_initialized_languages(instance)
+"eng+fra"
+```
+
+See also: [`tess_init`](@ref)
 """
 function tess_initialized_languages(
             inst::TessInst
@@ -158,7 +192,7 @@ end
 
 Get the the list of languages loaded into the OCR engine.  Returns `nothing` if there was an error.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name     | Default | Description
 |:--| :------- | :------ | :----------
@@ -169,6 +203,25 @@ __Details:__
 This method returns the language loaded into the Tesseract engine.  Some language files will load
 additional languages.  Unlike `tess_initialized_languages()` this method will return all the loaded
 languages not just the ones it was told to load by the client.
+
+__Example:__
+
+```jldoctest
+julia> using Tesseract
+
+julia> download_languages("eng+spa")
+true
+
+julia> instance = TessInst("eng+spa")
+Allocated Tesseract instance.
+
+julia> tess_loaded_languages(instance)
+2-element Array{String,1}:
+ "eng"
+ "spa"
+```
+
+See also: [`tess_init`](@ref)
 """
 function tess_loaded_languages(
             inst::TessInst
@@ -220,7 +273,7 @@ end
 
 Get the list of available languages that can be loaded.  Returns `nothing` if there was an error.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name     | Default | Description
 |:--| :------- | :------ | :----------
@@ -230,6 +283,26 @@ __Details:__
 
 Get the list of languages that can be used in the tess_init() function.  This method only returns
 something AFTER `tess_init()`` has been called.
+
+__Example:__
+
+```jldoctest
+julia> using Tesseract
+
+julia> download_languages("eng+fra+spa")
+true
+
+julia> instance = TessInst("eng")
+Allocated Tesseract instance.
+
+julia> tess_available_languages(instance)
+3-element Array{String,1}:
+ "eng"
+ "fra"
+ "spa"
+```
+
+See also: [`tess_init`](@ref), [`update_languages`](@ref), [`download_languages`](@ref)
 """
 function tess_available_languages(
             inst::TessInst
@@ -275,7 +348,7 @@ end
 
 # =================================================================================================
 """
-    print_variables(
+    tess_print_variables(
         inst::TessInst,
         filename::AbstractString
     )::Bool
@@ -283,7 +356,7 @@ end
 Print out all the variables with their values and help text to the specified file.  Returns false
 if there was an error.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name     | Default | Description
 |:--| :------- | :------ | :----------
@@ -295,7 +368,7 @@ __Details:__
 For each variable this method prints out it's name, it's value, and some descriptive text about the
 variable.  Each variable is on it's own line with a tab character seperating each value.
 """
-function print_variables(
+function tess_print_variables(
             inst::TessInst,
             filename::AbstractString
         )::Bool
@@ -322,7 +395,7 @@ end
 
 # =================================================================================================
 """
-    print_variables(
+    tess_print_variables(
         inst::TessInst,
         stream::IO
     )::Bool
@@ -330,7 +403,7 @@ end
 Print out all the variables with their values and help text to the specified stream.  Returns false
 if there was an error.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name   | Default | Description
 |:--| :----- | :------ | :----------
@@ -342,7 +415,7 @@ __Details:__
 For each variable this method prints out it's name, it's value, and some descriptive text about the
 variable.  Each variable is on it's own line with a tab character seperating each value.
 """
-function print_variables(
+function tess_print_variables(
             inst::TessInst,
             stream::IO
         )::Bool
@@ -362,7 +435,7 @@ function print_variables(
     try
         close(io)
 
-        if print_variables(inst, filename)
+        if tess_print_variables(inst, filename)
             local data = read(filename)
             write(stream, data)
             result = true
@@ -376,14 +449,14 @@ end
 
 # =================================================================================================
 """
-    print_variables(
+    tess_print_variables(
         inst::TessInst
     )::Union{String, Nothing}
 
 Print out all the variables with their values and help text to a string.  Returns `nothing` if
 there was an error.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name | Default | Description
 |:--| :--- | :------ | :----------
@@ -393,9 +466,10 @@ __Details:__
 
 The return string will contain multiple lines, each line contains the name of a variable, it's
 value, and some descriptive text about the variable.  The fields are separated by tabs.
-Also see `print_variables_parsed()` for the values in a more usable form.
+
+See also: [`tess_print_variables_parsed`](@ref)
 """
-function print_variables(
+function tess_print_variables(
             inst::TessInst
         )::Union{String, Nothing}
     local result = nothing
@@ -404,7 +478,7 @@ function print_variables(
     # Make sure the Tess object is not freed.
     if is_valid(inst) == false
         @error "Instance has been freed."
-        return false
+        return nothing
     end
 
     # ---------------------------------------------------------------------------------------------
@@ -414,8 +488,8 @@ function print_variables(
     try
         close(io)
 
-        if print_variables(inst, filename)
-            result = read(filename)
+        if tess_print_variables(inst, filename)
+            result = read(filename, String)
         end
     finally
         rm(filename)
@@ -433,12 +507,14 @@ end
 
 Load configuration settings from a file into the Tesseract instance.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name     | Default | Description
 |:--| :------- | :------ | :----------
 | R | inst     |         | The Tesseract instance to load the settings into.
 | R | filename |         | The name of the file to load the settings from.
+
+See also: [`tess_read_debug_config`](@ref)
 """
 function tess_read_config(
             inst::TessInst,
@@ -473,7 +549,7 @@ end
 
 Load debug configuration settings from a file into the Tesseract instance.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name     | Default | Description
 |:--| :------- | :------ | :----------
@@ -483,6 +559,8 @@ __Parameters:__
 __Details:__
 
 Only the debug settings will be loaded, all other settings will be ignored.
+
+See also: [`tess_read_config`](@ref)
 """
 function tess_read_debug_config(
             inst::TessInst,

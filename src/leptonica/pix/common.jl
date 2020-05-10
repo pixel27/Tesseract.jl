@@ -28,10 +28,13 @@
 
 Retrieves the color bit depth of the image.
 
-__Parameters:__
+__Arguments:__
+
 | T | Name | Default  | Description
 |---| :--- | :------- | :----------
 | R | pix  |          | The image to get the bit depth from.
+
+See also: [`pix_get_dimensions`](@ref)
 """
 function pix_get_depth(
             pix::Pix
@@ -59,7 +62,8 @@ end
 
 Retrieve the dimensions of the image.
 
-__Parameters:__
+__Arguments:__
+
 | T | Name | Default  | Description
 |---| :--- | :------- | :----------
 | R | pix  |          | The image to get the dimensions of.
@@ -71,6 +75,8 @@ This method returns a named tuple:
   * w - Image width.
   * h - Image height.
   * d - Color depth.
+
+See also: [`pix_get_depth`](@ref)
 """
 function pix_get_dimensions(
             pix::Pix

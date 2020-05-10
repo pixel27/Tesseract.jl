@@ -20,12 +20,38 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-include("utils.jl")
-include("common.jl")
-include("tess_inst.jl")
-include("tess_inst_config.jl")
-include("tess_inst_config_vars.jl")
-include("tess_inst_image.jl")
-include("tess_inst_output.jl")
-include("tess_inst_output_tsv.jl")
-include("data/_package.jl")
+# =================================================================================================
+"""
+    struct NetworkError
+        url::String
+    end
+
+Simple structure that is thrown internally if there was an error retrieving data from the network.
+
+__Values:__
+
+| Name | Description
+| :--- | :----------
+| url  | The URL that caused the network error.
+"""
+struct NetworkError
+    url::String
+end
+
+# =================================================================================================
+"""
+    struct FileError
+        file::String
+    end
+
+Simple structure that is thrown internally if there was an error accessing a file.
+
+__Values:__
+
+| Name | Description
+| :--- | :----------
+| file | The full path of the file that caused the error.
+"""
+struct FileError
+    file::String
+end

@@ -21,9 +21,10 @@
 # SOFTWARE.
 using Test
 using Tesseract
-
-const DATA_PATH = "/usr/share/tessdata/"
+using Documenter
 
 include("helper/generate_image.jl")
 include("leptonica/_package.jl")
 include("tesseract/_package.jl")
+
+doctest(Tesseract)

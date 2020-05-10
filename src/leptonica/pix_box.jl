@@ -56,7 +56,8 @@ end
 
 Write some summary information about the PixBox to the IO stream.
 
-__Parameters:__
+__Arguments:__
+
 | T | Name | Default | Description
 |---| :--- | :------ | :----------
 | R | io   |         | The stream to write the information to.

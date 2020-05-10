@@ -34,6 +34,19 @@ Tesseract.
 
 The text on this image is the first paragraph of the book War of World by H.G. Wells. This book is
 in the public domain, so no copyright exists.
+
+__Example:__
+
+```jldoctest
+julia> using Tesseract
+
+julia> data = sample_tiff();
+
+julia> pix = pix_read_tiff(data)
+Image (500, 600) at 32ppi
+```
+
+See also: [`sample_pix`](@ref)
 """
 function sample_tiff()::Vector{UInt8}
     return hex2bytes(vcat(
@@ -831,6 +844,29 @@ Tesseract.
 
 The text on this image is the first paragraph of the book War of World by H.G. Wells. This book is
 in the public domain, so no copyright exists.
+
+__Example:__
+
+```jldoctest
+julia> using Tesseract
+
+julia> update_languages()
+true
+
+julia> instance = TessInst()
+Allocated Tesseract instance.
+
+julia> pix = sample_pix()
+Image (500, 600) at 32ppi
+
+julia> tess_image(instance, pix)
+
+julia> tess_resolution(instance, 72)
+
+julia> text = tess_text(instance);
+```
+
+See also: [`sample_tiff`](@ref)
 """
 function sample_pix()::Pix
     local data = sample_tiff()

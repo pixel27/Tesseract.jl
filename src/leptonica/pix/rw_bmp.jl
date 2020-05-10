@@ -28,7 +28,7 @@
 
 Read a BMP image from the specified file.  Returns `nothing` on error.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name     | Default  | Description
 |:--| :------- | :------- | :----------
@@ -60,7 +60,7 @@ end
 
 Read a BMP image from the specified stream.  Returns `nothing` on error.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name   | Default  | Description
 |:--| :----- | :------- | :----------
@@ -86,7 +86,7 @@ end
 
 Read a BMP image from the byte array.  Returns `nothing` on error.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name | Default  | Description
 |:--| :--- | :------- | :----------
@@ -118,7 +118,7 @@ end
 
 Write an image to memory in the BMP image format.  If there is an error `(C_NULL, 0)` is returned.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name     | Default  | Description
 |:--| :------- | :------- | :----------
@@ -166,7 +166,7 @@ end
 
 Write an image to a file in the BMP image format.  If there is an error `false` is returned.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name     | Default  | Description
 |:--| :------- | :------- | :----------
@@ -216,7 +216,7 @@ end
 
 Write an image to an IO stream in the BMP image format.  If there is an error `false` is returned.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name   | Default  | Description
 |:--| :----- | :------- | :----------
@@ -255,7 +255,7 @@ end
 
 Write an image to a byte array in the BMP image format.  If there is an error `nothing` is returned.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name | Default  | Description
 |:--| :--- | :------- | :----------

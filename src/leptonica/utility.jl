@@ -50,7 +50,7 @@ end
 
 Call the leptonica library to free some memory it allocated.
 
-__Parameters:__
+__Arguments:__
 | T | Name | Default | Description
 |---| :--- | :------ | :----------
 | R | ptr  |         | The pointer to the memory allocated by leptonica.

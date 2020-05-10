@@ -71,6 +71,8 @@ Level identifies what information the line is providing:
 The left, top, width, and height values define a box in pixels that encompases the item.  So if the
 level is 1, the box describes the whole image.  If the level is `1`, then the box encloses the block
 that was extracted, and so on down to the word that was extracted.
+
+See also: [`tess_parsed_tsv`](@ref)
 """
 struct Tsv
     level::Int
@@ -96,7 +98,7 @@ end
 
 Display summary information about the object.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name | Default | Description
 |:--| :--- | :------ | :----------
@@ -131,7 +133,7 @@ end
 
 Create a Tsv object from a line of text.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name | Default | Description
 |:--| :--- | :------ | :----------
@@ -176,16 +178,36 @@ end
 Retrieve the TSV results from an recognition and parse it into a list of Tsv objects.  Returns
 nothing if there is an error.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name | Default    | Description
 |:--| :--- | :--------- | :----------
 | R | inst |            | The Tesseract instance to call.
 | O | page | `Int32(1)` | The page to get the data for.
 
-__Details:__
+__Example:__
 
-This method calls `tess_tsv()` then parses the results into something easier to access.
+```jldoctest
+julia> using Tesseract
+
+julia> download_languages()
+true
+
+julia> instance = TessInst()
+Allocated Tesseract instance.
+
+julia> pix = sample_pix()
+Image (500, 600) at 32ppi
+
+julia> tess_image(instance, pix)
+
+julia> tess_resolution(instance, 72)
+
+julia> tsv = tess_parsed_tsv(instance);
+```
+
+See also: [`tess_tsv`](@ref), [`tess_confidences`](@ref)
+
 """
 function tess_parsed_tsv(
             inst::TessInst,

@@ -24,9 +24,9 @@ using Test
 # -------------------------------------------------------------------------------------------------
 # Test constructing and freeing an instance.
 @testset "TessInst constructor" begin
-    @test_nowarn TessInst()
+    @test_nowarn TessInst("eng", datadir)
 
-    local inst = TessInst()
+    local inst = TessInst("eng", datadir)
     @suppress @test_nowarn show(inst)
     tess_delete!(inst)
     @suppress @test_nowarn show(inst)
@@ -35,7 +35,7 @@ end
 # -------------------------------------------------------------------------------------------------
 # Test tess_delete!()
 @testset "TessInst tess_delete!" begin
-    local tess = TessInst()
+    local tess = TessInst("eng", datadir)
 
     @test_nowarn tess_delete!(tess)
     @test_nowarn tess_delete!(tess)
@@ -44,12 +44,11 @@ end
 # -------------------------------------------------------------------------------------------------
 # Test tess_recognize()
 @testset "tess_recognize" begin
-    local inst = TessInst()
+    local inst = TessInst("eng", datadir)
     local pix  = pix_with()
 
     # ---------------------------------------------------------------------------------------------
     # Normal tests.
-    @test tess_init(inst) == true
     @suppress @test tess_recognize(inst) == false
     @test_nowarn tess_image(inst, pix)
     @test_nowarn tess_resolution(inst, 72)

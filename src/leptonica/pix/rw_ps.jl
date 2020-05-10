@@ -31,7 +31,7 @@
 
 Write an image to memory as a PostScript file. If there is an error `(C_NULL, 0)` is returned.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name     | Default  | Description
 |:--| :------- | :------- | :----------
@@ -154,7 +154,7 @@ end
 
 Write an image to a PostScript file.  If there is an error `false` is returned.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name     | Default        | Description
 |:--| :------- | :------------- | :----------
@@ -227,7 +227,7 @@ end
 
 Write an image to a PostScript file.  Returns 'false' if there was an error.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name     | Default        | Description
 |:--| :------- | :------------- | :----------
@@ -291,7 +291,7 @@ end
 
 Write an image to a byte array.  Returns 'nothing' if there was an error.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name     | Default        | Description
 |:--| :------- | :------------- | :----------

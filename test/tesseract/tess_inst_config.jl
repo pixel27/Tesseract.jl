@@ -20,53 +20,40 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 using Test
+using Tesseract
 
 # -------------------------------------------------------------------------------------------------
 # Test tess_init()
 @testset "tess_init" begin
-    local inst = TessInst()
-    @test tess_init(inst) == true
-
-    local inst = TessInst()
-    @test tess_init(inst; dataPath = DATA_PATH) == true
-
-    local inst = TessInst()
-    @test tess_init(inst; dataPath = DATA_PATH) == true
-
-    local inst = TessInst()
-    @test tess_init(inst; language = "eng") == true
-
-    local inst = TessInst()
-    @test tess_init(inst; dataPath = DATA_PATH, language = "eng") == true
+    local inst = TessInst("eng", datadir)
+    @test tess_init(inst, "eng", datadir) == true
 
     @suppress begin
-        local inst = TessInst()
-        @test tess_init(inst; dataPath = ".") == false
+        local inst = TessInst("eng", datadir)
+        @test tess_init(inst, "eng", ".") == false
 
-        local inst = TessInst()
-        @test tess_init(inst; language = "zzzz") == false
+        local inst = TessInst("eng", datadir)
+        @test tess_init(inst, "zzzz", datadir) == false
 
-        local inst = TessInst()
-        @test tess_init(inst; dataPath = ".", language = "zzzz") == false
+        local inst = TessInst("eng", datadir)
+        @test tess_init(inst, "zzzz", ".") == false
     end
 
     local err  = "Instance has been freed."
-    local inst = TessInst()
+    local inst = TessInst("eng", datadir)
     tess_delete!(inst)
-    @test (@test_logs (:error, err) tess_init(inst)) == false
+    @test (@test_logs (:error, err) tess_init(inst, "eng", datadir)) == false
 end
 
 # -------------------------------------------------------------------------------------------------
 # Test tess_initialized_languages()
 @testset "tess_initialized_languages" begin
-    local inst = TessInst()
+    local inst = TessInst("eng", datadir)
 
-    @test tess_initialized_languages(inst) == ""
-    @test tess_init(inst) == true
     @test tess_initialized_languages(inst) == "eng"
 
     local err  = "Instance has been freed."
-    local inst = TessInst()
+    local inst = TessInst("eng", datadir)
     tess_delete!(inst)
     @test (@test_logs (:error, err) tess_initialized_languages(inst)) == nothing
 end
@@ -74,14 +61,12 @@ end
 # -------------------------------------------------------------------------------------------------
 # Test tess_loaded_languages()
 @testset "tess_loaded_languages" begin
-    local inst = TessInst()
+    local inst = TessInst("eng", datadir)
 
-    @test isempty(tess_loaded_languages(inst))
-    @test tess_init(inst) == true
     @test tess_loaded_languages(inst) == [ "eng" ]
 
     local err  = "Instance has been freed."
-    local inst = TessInst()
+    local inst = TessInst("eng", datadir)
     tess_delete!(inst)
     @test (@test_logs (:error, err) tess_loaded_languages(inst)) == nothing
 end
@@ -89,38 +74,82 @@ end
 # -------------------------------------------------------------------------------------------------
 # Test tess_available_languages()
 @testset "tess_available_languages" begin
-    local inst = TessInst()
+    local inst = TessInst("eng", datadir)
 
-    @test tess_available_languages(inst) == Vector{String}()
-    @test tess_init(inst) == true
     @test length(tess_available_languages(inst)) > 0
 
     local err  = "Instance has been freed."
-    local inst = TessInst()
+    local inst = TessInst("eng", datadir)
     tess_delete!(inst)
     @test (@test_logs (:error, err) tess_available_languages(inst)) == nothing
 end
 
 # -------------------------------------------------------------------------------------------------
-# Test tess_default_params()
+# Test tess_print_variables()
 @testset "tess_default_params" begin
-    local inst = TessInst()
+    local inst = TessInst("eng", datadir)
 
-    @test tess_init(inst) == true
-    @test isempty(tess_available_languages(inst)) == false
+    @test isempty(tess_print_variables(inst)) == false
 
     local err  = "Instance has been freed."
-    local inst = TessInst()
+    local inst = TessInst("eng", datadir)
     tess_delete!(inst)
-    @test (@test_logs (:error, err) tess_available_languages(inst)) == nothing
+    @test (@test_logs (:error, err) tess_print_variables(inst)) == nothing
+end
+
+# -------------------------------------------------------------------------------------------------
+# Test tess_print_variables(filename)
+@testset "tess_default_params(filename)" begin
+    local inst = TessInst("eng", datadir)
+    local file = safe_tmp_file()
+
+    @test tess_print_variables(inst, file) == true
+    @test filesize(file) > 0
+    rm(file)
+
+    local err  = "Instance has been freed."
+    local file = safe_tmp_file()
+    local inst = TessInst("eng", datadir)
+    tess_delete!(inst)
+    @test (@test_logs (:error, err) tess_print_variables(inst, file)) == false
+    @test filesize(file) == 0
+    rm(file)
+end
+
+# -------------------------------------------------------------------------------------------------
+# Test tess_print_variables(IO)
+@testset "tess_default_params(IO)" begin
+    local inst = TessInst("eng", datadir)
+    
+    local buffer = IOBuffer()
+    @test tess_print_variables(inst, buffer) == true
+    @test length(take!(buffer)) > 0
+
+    local err  = "Instance has been freed."
+    local inst = TessInst("eng", datadir)
+    local buffer = IOBuffer()
+    tess_delete!(inst)
+    @test (@test_logs (:error, err) tess_print_variables(inst, buffer)) == false
+    @test length(take!(buffer)) == 0
+end
+
+# -------------------------------------------------------------------------------------------------
+# Test tess_print_variables_parsed()
+@testset "tess_print_variables_parsed" begin
+    local inst = TessInst("eng", datadir)
+
+    @test isempty(tess_print_variables_parsed(inst)) == false
+
+    local err  = "Instance has been freed."
+    local inst = TessInst("eng", datadir)
+    tess_delete!(inst)
+    @test (@test_logs (:error, err) isempty(tess_print_variables_parsed(inst))) == true
 end
 
 # -------------------------------------------------------------------------------------------------
 # Test tess_read_config()
 @testset "tess_read_config" begin
-    local inst = TessInst()
-
-    @test tess_init(inst) == true
+    local inst = TessInst("eng", datadir)
 
     local filename, io = mktemp(;cleanup=false)
 
@@ -134,7 +163,7 @@ end
     end
 
     local err  = "Instance has been freed."
-    local inst = TessInst()
+    local inst = TessInst("eng", datadir)
     tess_delete!(inst)
     @test_logs (:error, err) tess_read_config(inst, filename)
 end
@@ -142,9 +171,7 @@ end
 # -------------------------------------------------------------------------------------------------
 # Test tess_read_debug_config()
 @testset "tess_read_debug_config" begin
-    local inst = TessInst()
-
-    @test tess_init(inst) == true
+    local inst = TessInst("eng", datadir)
 
     local filename, io = mktemp(;cleanup=false)
 
@@ -158,7 +185,7 @@ end
     end
 
     local err  = "Instance has been freed."
-    local inst = TessInst()
+    local inst = TessInst("eng", datadir)
     tess_delete!(inst)
     @test_logs (:error, err) tess_read_debug_config(inst, filename)
 end

@@ -29,7 +29,7 @@
 
 Set the image to be OCRed.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name | Default | Description
 |:--| :--- | :------ | :----------
@@ -39,6 +39,25 @@ __Parameters:__
 __Details:__
 
 Only 1 image can be set, calling this multiple times will replace the last image.
+
+__Example:__
+
+```jldoctest
+julia> using Tesseract
+
+julia> download_languages()
+true
+
+julia> instance = TessInst()
+Allocated Tesseract instance.
+
+julia> pix = sample_pix()
+Image (500, 600) at 32ppi
+
+julia> tess_image(instance, pix)
+```
+
+See also: [`tess_resolution`](@ref), [`pix_read`](@ref)
 """
 function tess_image(
             inst::TessInst,
@@ -70,12 +89,33 @@ end
 
 Set the resolution of the image in ppi.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name | Default | Description
 |:--| :--- | :------ | :----------
 | R | inst |         | The instance of load the image into.
 | R | ppi  |         | The PPI (pixels per inch) of the source image.
+
+__Example:__
+
+```jldoctest
+julia> using Tesseract
+
+julia> download_languages()
+true
+
+julia> instance = TessInst()
+Allocated Tesseract instance.
+
+julia> pix = sample_pix()
+Image (500, 600) at 32ppi
+
+julia> tess_image(instance, pix)
+
+julia> tess_resolution(instance, 72)
+```
+
+See also: [`tess_image`](@ref)
 """
 function tess_resolution(
             inst::TessInst,

@@ -29,7 +29,7 @@ using StringEncodings
 
 Extract the text from the image.    If there is an error `nothing` will be returned.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name | Default | Description
 |:--| :--- | :------ | :----------
@@ -38,6 +38,30 @@ __Parameters:__
 __Details:__
 
 This method will call `tess_recognize()` if it has not been called yet for the image.
+
+__Example:__
+
+```jldoctest
+julia> using Tesseract
+
+julia> download_languages()
+true
+
+julia> instance = TessInst()
+Allocated Tesseract instance.
+
+julia> pix = sample_pix()
+Image (500, 600) at 32ppi
+
+julia> tess_image(instance, pix)
+
+julia> tess_resolution(instance, 72)
+
+julia> text = tess_text(instance);
+```
+
+See also: [`tess_hocr`](@ref), [`tess_alto`](@ref), [`tess_tsv`](@ref), [`tess_parsed_tsv`](@ref),
+[`tess_confidences`](@ref)
 """
 function tess_text(
             inst::TessInst
@@ -72,7 +96,7 @@ end
 
 Extract the text in hOCR format from the image.  Returns `nothing` if there is an error.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name | Default    | Description
 |:--| :--- | :--------- | :----------
@@ -82,7 +106,31 @@ __Parameters:__
 __Details:__
 
 This method will call `tess_recognize()` if it has not been called yet for the image.  The current
-hOCR spec can be accessed at [http://kba.cloud/hocr-spec/1.2/](http://kba.cloud/hocr-spec/1.2/).
+hOCR spec can be accessed at http://kba.cloud/hocr-spec/1.2/.
+
+__Example:__
+
+```jldoctest
+julia> using Tesseract
+
+julia> download_languages()
+true
+
+julia> instance = TessInst()
+Allocated Tesseract instance.
+
+julia> pix = sample_pix()
+Image (500, 600) at 32ppi
+
+julia> tess_image(instance, pix)
+
+julia> tess_resolution(instance, 72)
+
+julia> text = tess_hocr(instance);
+```
+
+See also: [`tess_text`](@ref), [`tess_alto`](@ref), [`tess_tsv`](@ref), [`tess_parsed_tsv`](@ref),
+[`tess_confidences`](@ref)
 """
 function tess_hocr(
             inst::TessInst,
@@ -119,7 +167,7 @@ end
 
 Extract the text in ALTO format from the image.  Returns `nothing` if there is an error.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name | Default    | Description
 |:--| :--- | :--------- | :----------
@@ -129,8 +177,31 @@ __Parameters:__
 __Details:__
 
 This method will call `tess_recognize()` if it has not been called yet for the image.  The current
-ALTO spec can be accessed at
-[https://github.com/altoxml/documentation/wiki/Versions](https://github.com/altoxml/documentation/wiki/Versions).
+ALTO spec can be accessed at https://github.com/altoxml/documentation/wiki/Versions.
+
+__Example:__
+
+```jldoctest
+julia> using Tesseract
+
+julia> download_languages()
+true
+
+julia> instance = TessInst()
+Allocated Tesseract instance.
+
+julia> pix = sample_pix()
+Image (500, 600) at 32ppi
+
+julia> tess_image(instance, pix)
+
+julia> tess_resolution(instance, 72)
+
+julia> text = tess_alto(instance);
+```
+
+See also: [`tess_text`](@ref), [`tess_hocr`](@ref), [`tess_tsv`](@ref), [`tess_parsed_tsv`](@ref),
+[`tess_confidences`](@ref)
 """
 function tess_alto(
             inst::TessInst,
@@ -166,7 +237,7 @@ end
 
 Retrieve the TSV results from an recognition as a string with tabbed separated values.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name | Default    | Description
 |:--| :--- | :--------- | :----------
@@ -208,6 +279,30 @@ Level identifies what information the line is providing:
 The left, top, width, and height values define a box in pixels that encompases the item.  So if the
 level is 1, the box describes the whole image.  If the level is `1`, then the box encloses the block
 that was extracted, and so on down to the word that was extracted.
+
+__Example:__
+
+```jldoctest
+julia> using Tesseract
+
+julia> download_languages()
+true
+
+julia> instance = TessInst()
+Allocated Tesseract instance.
+
+julia> pix = sample_pix()
+Image (500, 600) at 32ppi
+
+julia> tess_image(instance, pix)
+
+julia> tess_resolution(instance, 72)
+
+julia> text = tess_tsv(instance);
+```
+
+See also: [`tess_tsv`](@ref), [`tess_hocr`](@ref), [`tess_alto`](@ref), [`tess_parsed_tsv`](@ref),
+[`tess_confidences`](@ref)
 """
 function tess_tsv(
             inst::TessInst,
@@ -244,7 +339,7 @@ end
 Retrieve the boxes for the identified characters on the page.  If there is an error 'nothing' is
 returned.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name | Default    | Description
 |:--| :--- | :--------- | :----------
@@ -264,6 +359,8 @@ Each line in the result is a character identified with 6 values:
   * The right edge of the character measured in pixels from the left edge.
   * The top edge of the character measured in pixels from the bottom of the image.
   * The page used in the recogniztion 0 based.
+
+See also: [`tess_unlv`](@ref), [`tess_lstm_box`](@ref), [`tess_word_box`](@ref)
 """
 function tess_text_box(
             inst::TessInst,
@@ -299,7 +396,7 @@ end
 
 Create a UTF8 box file with WordStr strings,  If there is an error 'nothing' is returned.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name | Default    | Description
 |:--| :--- | :--------- | :----------
@@ -310,6 +407,8 @@ __Details:__
 
 This method will call `tess_recognize()` if it has not been called yet for the image.  The results
 are probably used for training.
+
+See also: [`tess_unlv`](@ref), [`tess_lstm_box`](@ref), [`tess_text_box`](@ref)
 """
 function tess_word_box(
             inst::TessInst,
@@ -345,7 +444,7 @@ end
 
 Return the UTF-8 box file for LSTM training.  If there is an error 'nothing' is returned.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name | Default    | Description
 |:--| :--- | :--------- | :----------
@@ -355,6 +454,8 @@ __Parameters:__
 __Details:__
 
 This method will call `tess_recognize()` if it has not been called yet for the image.
+
+See also: [`tess_unlv`](@ref), [`tess_word_box`](@ref), [`tess_text_box`](@ref)
 """
 function tess_lstm_box(
             inst::TessInst,
@@ -390,7 +491,7 @@ end
 Extract the text in UNLV format Latin-1 with reject and suspect codes.  If there is an error
 `nothing` is returned.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name | Default | Description
 |:--| :--- | :------ | :----------
@@ -401,6 +502,8 @@ __Details:__
 This method will call `tess_recognize()` if it has not been called yet for the image.
 
 This method is more used to test the OCR results than anything else.
+
+See also: [`tess_lstm_box`](@ref), [`tess_word_box`](@ref), [`tess_text_box`](@ref)
 """
 function tess_unlv(
             inst::TessInst
@@ -443,7 +546,7 @@ end
 
 Extract the confidences in the words that where extracted from the image.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name | Default | Description
 |:--| :--- | :------ | :----------
@@ -452,6 +555,29 @@ __Parameters:__
 __Details:__
 
 This method will call `tess_recognize()` if it has not been called yet for the image.
+
+__Example:__
+
+```jldoctest
+julia> using Tesseract
+
+julia> download_languages()
+true
+
+julia> instance = TessInst()
+Allocated Tesseract instance.
+
+julia> pix = sample_pix()
+Image (500, 600) at 32ppi
+
+julia> tess_image(instance, pix)
+
+julia> tess_resolution(instance, 72)
+
+julia> confidence = tess_confidences(instance);
+```
+
+See also: [`tess_tsv`](@ref), [`tess_parsed_tsv`](@ref)
 """
 function tess_confidences(
             inst::TessInst

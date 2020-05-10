@@ -29,7 +29,7 @@
 
 Read a TIFF image from the specified file.  Returns `nothing` on error.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name     | Default    | Description
 |:--| :------- | :--------- | :----------
@@ -75,7 +75,7 @@ end
 
 Read a TIFF image from the specified stream.  Returns `nothing` on error.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name     | Default    | Description
 |:--| :------- | :--------- | :----------
@@ -111,7 +111,7 @@ end
 
 Read a TIFF image from the byte array.  Returns `nothing` on error.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name | Default    | Description
 |:--| :--- | :--------- | :----------
@@ -158,7 +158,7 @@ end
 
 Verify that the compression can handle the bit depth of the image.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name        | Default    | Description
 |:--| :---------- | :--------- | :----------
@@ -200,7 +200,7 @@ end
 
 Write an image to memory in the PNG image format. If there is an error `(C_NULL, 0)` is returned.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name        | Default  | Description
 |:--| :---------- | :------- | :----------
@@ -280,7 +280,7 @@ end
 
 Write an image to a file in the TIFF image format. Returns `false` if there was an error.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name        | Default    | Description
 |:--| :---------- | :--------- | :----------
@@ -355,7 +355,7 @@ end
 
 Write an image to an IO stream in the TIFF image format. Returns `false` if there was an error.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name        | Default    | Description
 |:--| :---------- | :--------- | :----------
@@ -411,7 +411,7 @@ end
 
 Write an image to an byte array in the TIFF image format. Returns `nothing` if there was an error.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name        | Default    | Description
 |:--| :---------- | :--------- | :----------

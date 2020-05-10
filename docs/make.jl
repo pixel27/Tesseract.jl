@@ -19,13 +19,15 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+using Documenter, Pkg
 
-include("utils.jl")
-include("common.jl")
-include("tess_inst.jl")
-include("tess_inst_config.jl")
-include("tess_inst_config_vars.jl")
-include("tess_inst_image.jl")
-include("tess_inst_output.jl")
-include("tess_inst_output_tsv.jl")
-include("data/_package.jl")
+using Tesseract
+
+makedocs(
+    sitename="Tesseract.jl",
+    doctest=false
+    )
+deploydocs(repo = "github.com/pixel27/Tesseract.jl.git")
+
+println("Run a http server by executing:")
+println("cd build; python3 -m http.server --bind localhost")

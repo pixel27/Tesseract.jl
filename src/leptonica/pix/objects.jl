@@ -61,7 +61,7 @@ end
 
 Display summary information about the pix image.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name | Default | Description
 |---| :--- | :------ | :----------
@@ -74,9 +74,9 @@ function Base.show(
         )::Nothing
     if pix.ptr != C_NULL
         local dims = pix_get_dimensions(pix)
-        println(io, "Image ($(dims.w), $(dims.h)) at $(dims.d)ppi")
+        print(io, "Image ($(dims.w), $(dims.h)) at $(dims.d)ppi")
     else
-        println(io, "Freed image.")
+        print(io, "Freed image.")
     end
     nothing
 end
@@ -89,7 +89,7 @@ end
 
 Check if the image has been freed or if it's still valid.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name | Default | Description
 |---| :--- | :------ | :----------
@@ -103,21 +103,21 @@ end
 
 # =================================================================================================
 """
-    cconvert(
+    unsafe_convert(
         ::Type{Ptr{Cvoid}},
         pix::Pix
     )::Ptr{Cvoid}
 
 "Convert" the image into a the pointer used by the Leptonica library.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name               | Default | Description
 |---| :----------------- | :------ | :----------
 | R | ::Type{Ptr{Cvoid}} |         | The type to convert into.
 | R | pix                |         | The image to return the Leptonica pointer for.
 """
-Base.cconvert(::Type{Ptr{Cvoid}}, pix::Pix) = pix.ptr
+Base.unsafe_convert(::Type{Ptr{Cvoid}}, pix::Pix) = pix.ptr
 
 # =================================================================================================
 """
@@ -127,7 +127,7 @@ Base.cconvert(::Type{Ptr{Cvoid}}, pix::Pix) = pix.ptr
 
 Release the Pix object so it can be freed.
 
-__Parameters:__
+__Arguments:__
 
 | T | Name | Default | Description
 |---| :--- | :------ | :----------

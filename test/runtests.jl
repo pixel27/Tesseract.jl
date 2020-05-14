@@ -24,7 +24,15 @@ using Tesseract
 using Documenter
 
 include("helper/generate_image.jl")
-include("leptonica/_package.jl")
-include("tesseract/_package.jl")
 
-doctest(Tesseract)
+@testset "leptonica" begin
+    include("leptonica/_package.jl")
+end
+
+@testset "tesseract" begin
+    include("tesseract/_package.jl")
+end
+
+@testset "docs" begin
+    doctest(Tesseract)
+end

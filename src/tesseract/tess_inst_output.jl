@@ -19,7 +19,6 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-using StringEncodings
 
 # =================================================================================================
 """
@@ -27,7 +26,7 @@ using StringEncodings
         inst::TessInst
     )::Union{String, Nothing}
 
-Extract the text from the image.    If there is an error `nothing` will be returned.
+Extract the text from the image. If there is an error `nothing` will be returned.
 
 __Arguments:__
 
@@ -42,26 +41,33 @@ This method will call `tess_recognize()` if it has not been called yet for the i
 __Example:__
 
 ```jldoctest
-julia> using Tesseract
+using Tesseract
 
-julia> download_languages()
-true
+download_languages()
 
-julia> instance = TessInst()
-Allocated Tesseract instance.
+instance = TessInst()
+pix = sample_pix()
 
-julia> pix = sample_pix()
-Image (500, 600) at 32ppi
+tess_image(instance, pix)
+tess_resolution(instance, 72)
 
-julia> tess_image(instance, pix)
+text = tess_text(instance)
 
-julia> tess_resolution(instance, 72)
+for line in split(text, '\\n'; keepempty = false)[1:5]
+    println(line)
+end
 
-julia> text = tess_text(instance);
+# output
+
+No one would have believed in the last years of the
+the nineteenth century that this world was being watched
+watched keenly and closely by intelligences greater than
+than man’s and yet as mortal as his own; that as men busied
+busied themselves about their various concerns they were
 ```
 
-See also: [`tess_hocr`](@ref), [`tess_alto`](@ref), [`tess_tsv`](@ref), [`tess_parsed_tsv`](@ref),
-[`tess_confidences`](@ref)
+See also: [`tess_hocr`](@ref), [`tess_alto`](@ref), [`tess_tsv`](@ref),
+          [`tess_parsed_tsv`](@ref), [`tess_confidences`](@ref)
 """
 function tess_text(
             inst::TessInst
@@ -111,26 +117,33 @@ hOCR spec can be accessed at http://kba.cloud/hocr-spec/1.2/.
 __Example:__
 
 ```jldoctest
-julia> using Tesseract
+using Tesseract
 
-julia> download_languages()
-true
+download_languages()
 
-julia> instance = TessInst()
-Allocated Tesseract instance.
+instance = TessInst()
+pix = sample_pix()
 
-julia> pix = sample_pix()
-Image (500, 600) at 32ppi
+tess_image(instance, pix)
+tess_resolution(instance, 72)
 
-julia> tess_image(instance, pix)
+hocr = tess_hocr(instance)
 
-julia> tess_resolution(instance, 72)
+for line in split(hocr, '\\n'; keepempty = false)[1:5]
+    println(strip(line))
+end
 
-julia> text = tess_hocr(instance);
+# output
+
+<div class='ocr_page' id='page_1' title='image ""; bbox 0 0 500 600; ppageno 0'>
+<div class='ocr_carea' id='block_1_1' title="bbox 10 9 489 523">
+<p class='ocr_par' id='par_1_1' lang='eng' title="bbox 11 9 417 23">
+<span class='ocr_line' id='line_1_1' title="bbox 11 9 417 23; baseline 0 -3; x_size 22.717392; x_descenders 5.5; x_ascenders 5.7391305">
+<span class='ocrx_word' id='word_1_1' title='bbox 11 9 25 20; x_wconf 95'>No</span>
 ```
 
-See also: [`tess_text`](@ref), [`tess_alto`](@ref), [`tess_tsv`](@ref), [`tess_parsed_tsv`](@ref),
-[`tess_confidences`](@ref)
+See also: [`tess_text`](@ref), [`tess_alto`](@ref), [`tess_tsv`](@ref),
+          [`tess_parsed_tsv`](@ref), [`tess_confidences`](@ref)
 """
 function tess_hocr(
             inst::TessInst,
@@ -182,22 +195,29 @@ ALTO spec can be accessed at https://github.com/altoxml/documentation/wiki/Versi
 __Example:__
 
 ```jldoctest
-julia> using Tesseract
+using Tesseract
 
-julia> download_languages()
-true
+download_languages()
 
-julia> instance = TessInst()
-Allocated Tesseract instance.
+instance = TessInst()
+pix = sample_pix()
 
-julia> pix = sample_pix()
-Image (500, 600) at 32ppi
+tess_image(instance, pix)
+tess_resolution(instance, 72)
 
-julia> tess_image(instance, pix)
+alto = tess_alto(instance)
 
-julia> tess_resolution(instance, 72)
+for line in split(alto, '\\n'; keepempty = false)[1:5]
+    println(strip(line))
+end
 
-julia> text = tess_alto(instance);
+# output
+
+<Page WIDTH="500" HEIGHT="600" PHYSICAL_IMG_NR="0" ID="page_0">
+<PrintSpace HPOS="0" VPOS="0" WIDTH="500" HEIGHT="600">
+<ComposedBlock ID="cblock_0" HPOS="10" VPOS="9" WIDTH="479" HEIGHT="514">
+<TextBlock ID="block_0" HPOS="11" VPOS="9" WIDTH="406" HEIGHT="14">
+<TextLine ID="line_0" HPOS="11" VPOS="9" WIDTH="406" HEIGHT="14">
 ```
 
 See also: [`tess_text`](@ref), [`tess_hocr`](@ref), [`tess_tsv`](@ref), [`tess_parsed_tsv`](@ref),
@@ -282,23 +302,30 @@ that was extracted, and so on down to the word that was extracted.
 
 __Example:__
 
-```jldoctest
-julia> using Tesseract
+```jldoctest; filter = r"(\\s+)"
+using Tesseract
 
-julia> download_languages()
-true
+download_languages()
 
-julia> instance = TessInst()
-Allocated Tesseract instance.
+instance = TessInst()
+pix = sample_pix()
 
-julia> pix = sample_pix()
-Image (500, 600) at 32ppi
+tess_image(instance, pix)
+tess_resolution(instance, 72)
 
-julia> tess_image(instance, pix)
+tsv = tess_tsv(instance)
 
-julia> tess_resolution(instance, 72)
+for line in split(tsv, '\\n'; keepempty = false)[2:6]
+    println(strip(line))
+end
 
-julia> text = tess_tsv(instance);
+# output
+
+2 1   1   0   0   0   10  9   479 514 -1
+3 1   1   1   0   0   11  9   406 14  -1
+4 1   1   1   1   0   11  9   406 14  -1
+5 1   1   1   1   1   11  9   14  11  95  No
+5 1   1   1   1   2   35  12  22  8   95  one
 ```
 
 See also: [`tess_tsv`](@ref), [`tess_hocr`](@ref), [`tess_alto`](@ref), [`tess_parsed_tsv`](@ref),
@@ -360,6 +387,34 @@ Each line in the result is a character identified with 6 values:
   * The top edge of the character measured in pixels from the bottom of the image.
   * The page used in the recogniztion 0 based.
 
+__Example:__
+
+```jldoctest"
+using Tesseract
+
+download_languages()
+
+instance = TessInst()
+pix = sample_pix()
+
+tess_image(instance, pix)
+tess_resolution(instance, 72)
+
+box = tess_text_box(instance)
+
+for line in split(box, '\\n'; keepempty = false)[1:5]
+  println(line)
+end
+
+# output
+
+N 11 580 17 591 0
+o 11 580 25 591 0
+o 35 580 42 588 0
+n 35 580 41 588 0
+e 43 580 57 588 0
+```
+
 See also: [`tess_unlv`](@ref), [`tess_lstm_box`](@ref), [`tess_word_box`](@ref)
 """
 function tess_text_box(
@@ -408,6 +463,34 @@ __Details:__
 This method will call `tess_recognize()` if it has not been called yet for the image.  The results
 are probably used for training.
 
+__Example:__
+
+```jldoctest; filter = r"(\\s+)"
+using Tesseract
+
+download_languages()
+
+instance = TessInst()
+pix = sample_pix()
+
+tess_image(instance, pix)
+tess_resolution(instance, 72)
+
+box = tess_word_box(instance)
+
+for line in split(box, '\\n'; keepempty = false)[1:5]
+    println(line)
+end
+
+# output
+
+WordStr 11 577 417 591 0 #No one would have believed in the last years of the
+    418 577 422 591 0
+WordStr 11 557 457 571 0 #the nineteenth century that this world was being watched
+    458 557 462 571 0
+WordStr 10 537 457 551 0 #watched keenly and closely by intelligences greater than
+```
+
 See also: [`tess_unlv`](@ref), [`tess_lstm_box`](@ref), [`tess_text_box`](@ref)
 """
 function tess_word_box(
@@ -455,6 +538,34 @@ __Details:__
 
 This method will call `tess_recognize()` if it has not been called yet for the image.
 
+__Example:__
+
+```jldoctest; filter = r"(\\s+)"
+using Tesseract
+
+download_languages()
+
+instance = TessInst()
+pix = sample_pix()
+
+tess_image(instance, pix)
+tess_resolution(instance, 72)
+
+box = tess_lstm_box(instance)
+
+for line in split(box, '\\n'; keepempty = false)[1:5]
+    println(line)
+end
+
+# output
+
+N 11 577 422 591 0
+o 11 577 422 591 0
+  11 577 422 591 0
+o 11 577 422 591 0
+n 11 577 422 591 0
+```
+
 See also: [`tess_unlv`](@ref), [`tess_word_box`](@ref), [`tess_text_box`](@ref)
 """
 function tess_lstm_box(
@@ -482,13 +593,13 @@ function tess_lstm_box(
     return retval
 end
 
-# =================================================================================================
+# =========================================================================================
 """
     tess_unlv(
         inst::TessInst
     )::Union{String, Nothing}
 
-Extract the text in UNLV format Latin-1 with reject and suspect codes.  If there is an error
+Extract the text in UNLV format UTF-8 with reject and suspect codes.  If there is an error
 `nothing` is returned.
 
 __Arguments:__
@@ -501,9 +612,39 @@ __Details:__
 
 This method will call `tess_recognize()` if it has not been called yet for the image.
 
-This method is more used to test the OCR results than anything else.
+This method is more used to test the OCR results than anything else.  If you want the
+original Latin1 encoding use [`tess_unlv_latin1`](@ref) method.
 
-See also: [`tess_lstm_box`](@ref), [`tess_word_box`](@ref), [`tess_text_box`](@ref)
+__Example:__
+
+```jldoctest
+using Tesseract
+
+download_languages()
+
+instance = TessInst()
+pix = sample_pix()
+
+tess_image(instance, pix)
+tess_resolution(instance, 72)
+
+unlv = tess_unlv(instance)
+
+for line in split(unlv, '\\n'; keepempty = false)[1:5]
+    println(line)
+end
+
+# output
+
+No one would have believed in the last years of the
+the nineteenth century that this world was being watched
+watched keenly and closely by intelligences greater than
+than man's and yet as mortal as his own; that as men busied
+busied themselves about their various concerns they were
+```
+
+See also: [`tess_lstm_box`](@ref), [`tess_word_box`](@ref), [`tess_text_box`](@ref),
+          [`tess_unlv_latin1`](@ref)
 """
 function tess_unlv(
             inst::TessInst
@@ -522,15 +663,122 @@ function tess_unlv(
             return nothing
         end
 
-        local size = 0
-        while unsafe_load(bytes, size+1) != 0x00
-            size += 1
+        local buffer = Vector{UInt8}()
+
+        local offset = 1
+        while unsafe_load(bytes, offset) != 0x00
+            local by = unsafe_load(bytes, offset)
+            if by < 128
+                push!(buffer, by)
+            else
+                push!(buffer, 0xc0 | (by >> 6))
+                push!(buffer, 0x80 | (by & 0x3f))
+            end
+            offset += 1
         end
-        local buffer = Vector{UInt8}(undef, size)
-        unsafe_copyto!(pointer(buffer), bytes, size)
         delete_text(bytes)
 
-        retval = decode(buffer, enc"LATIN1")
+        retval = String(buffer)
+    else
+        @error "Instance has been freed."
+    end
+
+    return retval
+end
+
+# =========================================================================================
+"""
+    tess_unlv_latin1(
+        inst::TessInst
+    )::Union{String, Nothing}
+
+Extract the text in UNLV format Latin-1 with reject and suspect codes.  If there is an error
+`nothing` is returned.
+
+__Arguments:__
+
+| T | Name | Default | Description
+|:--| :--- | :------ | :----------
+| R | inst |         | The Tesseract instance to call.
+
+__Details:__
+
+This method will call `tess_recognize()` if it has not been called yet for the image.
+
+This method is more used to test the OCR results than anything else.  This method returns
+the OCR data in Latin1 encoding.  If you want to use it as a string in Julia use the
+[`tess_unlv`](@ref) method which will convert it to UTF-8 for you.
+
+__Example:__
+
+```jldoctest
+using Tesseract
+
+download_languages()
+
+instance = TessInst()
+pix = sample_pix()
+
+tess_image(instance, pix)
+tess_resolution(instance, 72)
+
+unlv = tess_unlv_latin1(instance)
+
+# output
+
+1470-element Array{UInt8,1}:
+ 0x4e
+ 0x6f
+ 0x20
+ 0x6f
+ 0x6e
+ 0x65
+ 0x20
+ 0x77
+ 0x6f
+ 0x75
+    ⋮
+ 0x6f
+ 0x6e
+ 0x6d
+ 0x65
+ 0x6e
+ 0x74
+ 0x2e
+ 0x0a
+ 0x0a
+```
+
+See also: [`tess_lstm_box`](@ref), [`tess_word_box`](@ref), [`tess_text_box`](@ref),
+          [`tess_unlv`](@ref)
+"""
+function tess_unlv_latin1(
+            inst::TessInst
+        )::Union{Vector{UInt8}, Nothing}
+    local retval = nothing
+
+    if is_valid(inst) == true
+        local bytes = ccall(
+            (:TessBaseAPIGetUNLVText, TESSERACT),
+            Ptr{UInt8},
+            (Ptr{Cvoid},),
+            inst
+        )
+
+        if bytes == C_NULL
+            return nothing
+        end
+
+        local size = 0
+        while unsafe_load(bytes, size + 1) != 0x00
+            size += 1
+        end
+
+        retval = Vector{UInt8}(undef, size)
+
+        unsafe_copyto!(pointer(retval), bytes, size)
+
+        delete_text(bytes)
     else
         @error "Instance has been freed."
     end
@@ -559,22 +807,41 @@ This method will call `tess_recognize()` if it has not been called yet for the i
 __Example:__
 
 ```jldoctest
-julia> using Tesseract
+using Tesseract
 
-julia> download_languages()
-true
+download_languages()
 
-julia> instance = TessInst()
-Allocated Tesseract instance.
+instance = TessInst()
+pix = sample_pix()
 
-julia> pix = sample_pix()
-Image (500, 600) at 32ppi
+tess_image(instance, pix)
+tess_resolution(instance, 72)
 
-julia> tess_image(instance, pix)
+confidence = tess_confidences(instance)
 
-julia> tess_resolution(instance, 72)
+# output
 
-julia> confidence = tess_confidences(instance);
+256-element Array{Int64,1}:
+ 95
+ 95
+ 93
+ 93
+ 96
+ 96
+ 96
+ 96
+ 96
+ 96
+  ⋮
+ 96
+ 96
+ 96
+ 96
+ 96
+ 96
+ 96
+ 87
+ 87
 ```
 
 See also: [`tess_tsv`](@ref), [`tess_parsed_tsv`](@ref)

@@ -85,25 +85,25 @@ end
 end
 
 # -------------------------------------------------------------------------------------------------
-# Test tess_print_variables()
-@testset "tess_default_params" begin
+# Test tess_params()
+@testset "tess_params()" begin
     local inst = TessInst("eng", datadir)
 
-    @test isempty(tess_print_variables(inst)) == false
+    @test isempty(tess_params(inst)) == false
 
     local err  = "Instance has been freed."
     local inst = TessInst("eng", datadir)
     tess_delete!(inst)
-    @test (@test_logs (:error, err) tess_print_variables(inst)) == nothing
+    @test (@test_logs (:error, err) tess_params(inst)) == nothing
 end
 
 # -------------------------------------------------------------------------------------------------
-# Test tess_print_variables(filename)
-@testset "tess_default_params(filename)" begin
+# Test tess_params(filename)
+@testset "tess_params(filename)" begin
     local inst = TessInst("eng", datadir)
     local file = safe_tmp_file()
 
-    @test tess_print_variables(inst, file) == true
+    @test tess_params(inst, file) == true
     @test filesize(file) > 0
     rm(file)
 
@@ -111,39 +111,39 @@ end
     local file = safe_tmp_file()
     local inst = TessInst("eng", datadir)
     tess_delete!(inst)
-    @test (@test_logs (:error, err) tess_print_variables(inst, file)) == false
+    @test (@test_logs (:error, err) tess_params(inst, file)) == false
     @test filesize(file) == 0
     rm(file)
 end
 
 # -------------------------------------------------------------------------------------------------
-# Test tess_print_variables(IO)
+# Test tess_params(IO)
 @testset "tess_default_params(IO)" begin
     local inst = TessInst("eng", datadir)
-    
+
     local buffer = IOBuffer()
-    @test tess_print_variables(inst, buffer) == true
+    @test tess_params(inst, buffer) == true
     @test length(take!(buffer)) > 0
 
     local err  = "Instance has been freed."
     local inst = TessInst("eng", datadir)
     local buffer = IOBuffer()
     tess_delete!(inst)
-    @test (@test_logs (:error, err) tess_print_variables(inst, buffer)) == false
+    @test (@test_logs (:error, err) tess_params(inst, buffer)) == false
     @test length(take!(buffer)) == 0
 end
 
 # -------------------------------------------------------------------------------------------------
-# Test tess_print_variables_parsed()
-@testset "tess_print_variables_parsed" begin
+# Test tess_params_parsed()
+@testset "tess_params_parsed()" begin
     local inst = TessInst("eng", datadir)
 
-    @test isempty(tess_print_variables_parsed(inst)) == false
+    @test isempty(tess_params_parsed(inst)) == false
 
     local err  = "Instance has been freed."
     local inst = TessInst("eng", datadir)
     tess_delete!(inst)
-    @test (@test_logs (:error, err) isempty(tess_print_variables_parsed(inst))) == true
+    @test (@test_logs (:error, err) isempty(tess_params_parsed(inst))) == true
 end
 
 # -------------------------------------------------------------------------------------------------

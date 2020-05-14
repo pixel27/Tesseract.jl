@@ -23,13 +23,29 @@ using Suppressor
 
 datadir = mktempdir(;cleanup = false)
 
-@test download_languages("eng", datadir) == true
+@test download_languages("eng"; target = datadir) == true
+@test download_pdf_font(;target = datadir) == true
 
 include("tess_data.jl")
 include("common.jl")
 include("tess_inst.jl")
 include("tess_inst_config.jl")
+include("tess_inst_get_var.jl")
+include("tess_inst_set_var.jl")
+include("tess_inst_set_debug_var.jl")
 include("tess_inst_image.jl")
 include("tess_inst_output.jl")
+include("tess_output.jl")
+include("tess_run_pipeline_callback.jl")
+include("tess_run_pipeline_filename.jl")
+include("tess_pipeline_alto.jl")
+include("tess_pipeline_hocr.jl")
+include("tess_pipeline_lstm_box.jl")
+include("tess_pipeline_pdf.jl")
+include("tess_pipeline_text.jl")
+include("tess_pipeline_tsv.jl")
+include("tess_pipeline_unlv.jl")
+include("tess_pipeline_word_box.jl")
+include("tess_pipeline_all.jl")
 
 rm(datadir;recursive = true)

@@ -171,6 +171,22 @@ end
 end
 
 # -------------------------------------------------------------------------------------------------
+# Test tess_unlv_latin1()
+@testset "tess_unlv_latin1" begin
+    local inst = TessInst("eng", datadir)
+    local pix = pix_with()
+
+    @suppress @test tess_unlv_latin1(inst) == nothing
+    @test_nowarn tess_image(inst, pix)
+    @test_nowarn tess_resolution(inst, 72)
+    @test tess_unlv_latin1(inst) != nothing
+
+    local err = "Instance has been freed."
+    tess_delete!(inst)
+    @test (@test_logs (:error, err) tess_unlv_latin1(inst)) == nothing
+end
+
+# -------------------------------------------------------------------------------------------------
 # Test tess_confidences()
 @testset "tess_confidences" begin
     local inst = TessInst("eng", datadir)

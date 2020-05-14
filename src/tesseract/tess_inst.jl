@@ -134,7 +134,7 @@ end
         inst::TessInst
     )::Bool
 
-Check if the isntance has been freed or if it's still valid.
+Check if the instance has been freed or if it's still valid.
 
 __Arguments:__
 
@@ -155,7 +155,7 @@ end
         inst::TessInst
     )::Ptr{Cvoid}
 
-"Convert" the instance into a the handle pointer used by the Tesseract library.
+Convert the instance into a the handle pointer used by the Tesseract library.
 
 __Arguments:__
 
@@ -253,7 +253,7 @@ function tess_recognize(
     local result = -1
 
     if is_valid(inst) == true
-        result = ccall(
+        result = @threadcall(
             (:TessBaseAPIRecognize, TESSERACT),
             Cint,
             (Ptr{Cvoid}, Ptr{Cvoid}),

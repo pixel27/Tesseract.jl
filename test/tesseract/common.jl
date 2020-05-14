@@ -20,11 +20,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+# =========================================================================================
+# Check the tesseract version.
 @testset "version" begin
     local version = tess_version()
     @test version != ""
 
     if version != Tesseract.TESS_VERSION
-        @warn "TESSERACT: Tested version $(JuliaTesseract.TESS_VERSION) != Current verion $version."
+        @warn "TESSERACT: Tested version $(Tesseract.TESS_VERSION) != Current verion $version."
     end
 end

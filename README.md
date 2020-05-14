@@ -1,49 +1,38 @@
-# JuliaTesseract
+# Tesseract.jl
 
-Julia bindings for the Tesseract Library and to a lesser extent the Leptonica library.
+[![](https://img.shields.io/badge/docs-stable-blue.svg)](https://pixel27.github.io/Tesseract.jl/stable)
+[![](https://img.shields.io/badge/docs-dev-blue.svg)](https://pixel27.github.io/Tesseract.jl/dev)
 
-This project is still in it's early stages.  Next steps are:
+This Julia packages provides support for performing OCR on scanned images.  This is done by using the [Tesseract](https://github.com/tesseract-ocr/tesseract) C library.  Tesseract.jl tries to provide a direct mapping of the Tesseract API to Julia with additional functionality added to fit better into the Julia ecosystem.
 
-  * Add examples in the documentation.
-  * Add calls to more of Tesseract's API.
-  * Review the API of Leptonica and see if it makes sense to expose more of it's API.
-
-However what I have currently should be usable.
-
-## Tesseract data
-
-This library currently doesn't ship with the Tesseract data files.  The data files can be
-downloaded from:
-
-  * https://github.com/tesseract-ocr/tessdata
-  * https://github.com/tesseract-ocr/tessdata_best
-
-The files run several megabytes each, however you only need to download the languages you are interested in decoding.  Each file is prefixed with the [ISO 639-3](https://en.wikipedia.org/wiki/ISO_639-3) code for the language it provides.
-
-## Usage
-
-```julia
+```
 using Tesseract
 
-# Generate a sample image if you don't have one handy.
-write("sample.tiff", sample_tiff())
+# Generate some pages to load.
+write("page01.tiff", sample_tiff())
+write("page02.tiff", sample_tiff())
+write("page03.tiff", sample_tiff())
 
-# Download the Tesseract training data for for the english language.
-download_languages()
+# Download the Tesseract English data files
+download_languages("eng")
 
-# Create an instance of the Tesseract API
-inst = TessInst()
+# Initialize the library to generate a text file.
+instance = TessInst("eng")
+pipeline = TessPipeline(instance)
 
-# Load the data file, and set the image resolution.
-tess_image(inst, pix_read("sample.gif"))
-tess_resolution(inst, 72)
+tess_pipeline_text(pipeline, "My Book.txt")
 
-# Write out the OCRed text in various formats.
-write("output.txt", tess_text(inst))
-write("output_hocr.xml", tess_hocr(inst))
-write("output_alto.xml", tess_alto(inst))
-write("output.tsv", tess_tsv(inst))
+# Process all the pages in the book.
+tess_run_pipeline(pipeline, "My First Book") do add
+    add(pix_read("page01.tiff"), 72)
+    add(pix_read("page02.tiff"), 72)
+    add(pix_read("page03.tiff"), 72)
+end
 
-# Retrieve details about each word extracted from the image.
-details = tess_parsed_tsv(inst)
+# The results will be saved in "My Book.txt".
+println("My Book.txt: $(filesize("My Book.txt")) bytes.")
+
+# output
+
+My Book.txt: 123
 ```

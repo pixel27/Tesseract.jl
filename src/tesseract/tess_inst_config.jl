@@ -42,7 +42,7 @@ __Details:__
 
 This method can be called multiple times to reinitialize the langauges to OCR with.  Multiple
 langagues can be specified by seperating them with a plus.  So if you want english and spanish you
-could specify "eng+spa".  The language codes are (usually) the 
+could specify "eng+spa".  The language codes are (usually) the
 [ISO 639-3](https://en.wikipedia.org/wiki/ISO_639-3) code.
 
 Note: The language files are NOT automatically downloaded.  If you do not have them installed via
@@ -53,7 +53,7 @@ __Example:__
 ```jldoctest
 julia> using Tesseract
 
-julia> download_languages("eng+fra")
+julia> download_languages("eng+spa")
 true
 
 julia> instance = TessInst()
@@ -121,8 +121,8 @@ end
 # =================================================================================================
 """
     tess_initialized_languages(
-            inst::TessInst
-        )::Union{String, Nothing}
+        inst::TessInst
+    )::Union{String, Nothing}
 
 Retrieve the last initialized language(s).  Returns `nothing` if there was an error.
 
@@ -187,8 +187,8 @@ end
 # =================================================================================================
 """
     tess_loaded_languages(
-            inst::TessInst
-        )::Union{Vector{String}, Nothing}
+        inst::TessInst
+    )::Union{Vector{String}, Nothing}
 
 Get the the list of languages loaded into the OCR engine.  Returns `nothing` if there was an error.
 
@@ -268,8 +268,8 @@ end
 # =================================================================================================
 """
     tess_available_languages(
-            inst::TessInst
-        )::Union{Vector{String}, Nothing}
+        inst::TessInst
+    )::Union{Vector{String}, Nothing}
 
 Get the list of available languages that can be loaded.  Returns `nothing` if there was an error.
 
@@ -346,15 +346,15 @@ function tess_available_languages(
     return retval
 end
 
-# =================================================================================================
+# =========================================================================================
 """
-    tess_print_variables(
+    tess_params(
         inst::TessInst,
         filename::AbstractString
     )::Bool
 
-Print out all the variables with their values and help text to the specified file.  Returns false
-if there was an error.
+Print out all the parameters with their values and help text to the specified file.
+Returns false if there was an error.
 
 __Arguments:__
 
@@ -365,10 +365,13 @@ __Arguments:__
 
 __Details:__
 
-For each variable this method prints out it's name, it's value, and some descriptive text about the
-variable.  Each variable is on it's own line with a tab character seperating each value.
+For each parameter this method prints out it's name, it's value, and some descriptive text
+about the variable.  Each variable is on it's own line with a tab character seperating each
+value.
+
+See also: [`tess_params_parsed`](@ref), [`tess_get_param`](@ref), [`tess_set_param`](@ref)
 """
-function tess_print_variables(
+function tess_params(
             inst::TessInst,
             filename::AbstractString
         )::Bool
@@ -393,15 +396,15 @@ function tess_print_variables(
     return retval == 1
 end
 
-# =================================================================================================
+# =========================================================================================
 """
-    tess_print_variables(
+    tess_params(
         inst::TessInst,
         stream::IO
     )::Bool
 
-Print out all the variables with their values and help text to the specified stream.  Returns false
-if there was an error.
+Print out all the parameters with their values and help text to the specified stream.
+Returns false if there was an error.
 
 __Arguments:__
 
@@ -412,10 +415,13 @@ __Arguments:__
 
 __Details:__
 
-For each variable this method prints out it's name, it's value, and some descriptive text about the
-variable.  Each variable is on it's own line with a tab character seperating each value.
+For each parameter this method prints out it's name, it's value, and some descriptive text
+about the variable.  Each variable is on it's own line with a tab character seperating each
+value.
+
+See also: [`tess_params_parsed`](@ref), [`tess_get_param`](@ref), [`tess_set_param`](@ref)
 """
-function tess_print_variables(
+function tess_params(
             inst::TessInst,
             stream::IO
         )::Bool
@@ -435,7 +441,7 @@ function tess_print_variables(
     try
         close(io)
 
-        if tess_print_variables(inst, filename)
+        if tess_params(inst, filename)
             local data = read(filename)
             write(stream, data)
             result = true
@@ -447,29 +453,30 @@ function tess_print_variables(
     return result
 end
 
-# =================================================================================================
+# =========================================================================================
 """
-    tess_print_variables(
+    tess_params(
         inst::TessInst
     )::Union{String, Nothing}
 
-Print out all the variables with their values and help text to a string.  Returns `nothing` if
-there was an error.
+Print out all the parameters with their values and help text to a string.  Returns
+`nothing` if there was an error.
 
 __Arguments:__
 
 | T | Name | Default | Description
 |:--| :--- | :------ | :----------
-| R | inst |         | The Tesseract instance to get get the parameters from.
+| R | inst |         | The Tesseract instance to get the parameters from.
 
 __Details:__
 
-The return string will contain multiple lines, each line contains the name of a variable, it's
-value, and some descriptive text about the variable.  The fields are separated by tabs.
+The return string will contain multiple lines, each line contains the name of a variable,
+it's value, and some descriptive text about the variable.  The fields are separated by
+tabs.
 
-See also: [`tess_print_variables_parsed`](@ref)
+See also: [`tess_params_parsed`](@ref), [`tess_get_param`](@ref), [`tess_set_param`](@ref)
 """
-function tess_print_variables(
+function tess_params(
             inst::TessInst
         )::Union{String, Nothing}
     local result = nothing
@@ -488,7 +495,7 @@ function tess_print_variables(
     try
         close(io)
 
-        if tess_print_variables(inst, filename)
+        if tess_params(inst, filename)
             result = read(filename, String)
         end
     finally
@@ -501,9 +508,9 @@ end
 # =================================================================================================
 """
     tess_read_config(
-            inst::TessInst,
-            filename::AbstractString
-        )::Nothing
+        inst::TessInst,
+        filename::AbstractString
+    )::Nothing
 
 Load configuration settings from a file into the Tesseract instance.
 
@@ -543,9 +550,9 @@ end
 # =================================================================================================
 """
     tess_read_debug_config(
-            inst::TessInst,
-            filename::AbstractString
-        )::Nothing
+        inst::TessInst,
+        filename::AbstractString
+    )::Nothing
 
 Load debug configuration settings from a file into the Tesseract instance.
 

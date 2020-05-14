@@ -3,12 +3,6 @@
 [[Base64]]
 uuid = "2a0f44e3-6c83-55bd-87e4-b1978d98bd5f"
 
-[[BinaryProvider]]
-deps = ["Libdl", "Logging", "SHA"]
-git-tree-sha1 = "428e9106b1ff27593cbd979afac9b45b82372b8c"
-uuid = "b99e7846-7c00-51b0-8f62-c81ae34c0232"
-version = "0.5.9"
-
 [[Bzip2_jll]]
 deps = ["Libdl", "Pkg"]
 git-tree-sha1 = "3663bfffede2ef41358b6fc2e1d8a6d50b3c3904"
@@ -232,9 +226,9 @@ version = "1.42.4+8"
 
 [[Parsers]]
 deps = ["Dates", "Test"]
-git-tree-sha1 = "72c3451932513427caffbd8bab15643ad693804b"
+git-tree-sha1 = "f0abb338b4d00306500056a3fd44c221b8473ef2"
 uuid = "69de0a69-1ddd-5017-9359-2bf0b02dc9f0"
-version = "1.0.3"
+version = "1.0.4"
 
 [[Pixman_jll]]
 deps = ["Libdl", "Pkg"]
@@ -267,17 +261,11 @@ uuid = "9e88b42a-f829-5b0c-bbe9-9e923198166b"
 [[Sockets]]
 uuid = "6462fe0b-24de-5631-8697-dd941f90decc"
 
-[[StringEncodings]]
-deps = ["BinaryProvider", "Libdl", "Test"]
-git-tree-sha1 = "558e2aa14f061ee6a8b49f55241a74f69b84a196"
-uuid = "69024149-9ee7-55f6-a4c4-859efe599b68"
-version = "0.3.1"
-
 [[Tesseract_jll]]
 deps = ["Cairo_jll", "CompilerSupportLibraries_jll", "Giflib_jll", "JpegTurbo_jll", "Leptonica_jll", "Libdl", "Libtiff_jll", "Pango_jll", "Pkg", "Zlib_jll", "libpng_jll"]
-git-tree-sha1 = "420ea60838428e0f4a0801bb0434a1e4f7d37b5d"
+git-tree-sha1 = "1feb799ff08a0c76c7c67744966de4a41422cab5"
 uuid = "efd95c89-babc-5260-8753-618084eaf9d7"
-version = "4.1.0+0"
+version = "4.1.1+0"
 
 [[Test]]
 deps = ["Distributed", "InteractiveUtils", "Logging", "Random"]
@@ -352,9 +340,9 @@ version = "1.4.0+1"
 
 [[Zlib_jll]]
 deps = ["Libdl", "Pkg"]
-git-tree-sha1 = "2f6c3e15e20e036ee0a0965879b31442b7ec50fa"
+git-tree-sha1 = "a2e0d558f6031002e380a90613b199e37a8565bf"
 uuid = "83775a58-1f1d-513f-b197-d71354ab007a"
-version = "1.2.11+9"
+version = "1.2.11+10"
 
 [[Zstd_jll]]
 deps = ["Libdl", "Pkg"]

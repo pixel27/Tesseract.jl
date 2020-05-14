@@ -20,12 +20,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# =================================================================================================
+# =========================================================================================
 """
     struct TessParam{T}
-        name::String  # The name/key of the parameter.
-        default::T    # The default value which will be either a Float64, Int32, or String.
-        desc::String  # The description of the parameter.
+        name::String
+        default::T
+        desc::String
+        debug::Bool
     end
 
 Holds details about the default value of a parameter.
@@ -37,19 +38,23 @@ __Values:__
 | name    | The name/ID of the parameter.
 | default | The default value of the parameter.
 | desc    | The description of the variable.
+| debug   | True if the value is a debug parameter.
 
 __Details:__
 
-This structure currently comes in 3 flavors, T may be Float64, Int32, or a String based on the
-default value.
+This structure currently comes in 3 flavors, T may be Float64, Int32, or a String based on
+the default value.
+
+See also: [`tess_params_parsed`](@ref), [`tess_get_param`](@ref), [`tess_set_param`](@ref)
 """
 struct TessParam{T}
     name::String
     default::T
     desc::String
+    debug::Bool
 end
 
-# =================================================================================================
+# =========================================================================================
 """
     TessParam(
         name::AbstractString,
@@ -57,7 +62,7 @@ end
         help::AbstractString
     )::TessParam{T} where T
 
-Construct a new instance of the TessParam structure from the provided values.
+Construct a new instance of the [`TessParam`](@ref) structure from the provided values.
 
 __Arguments:__
 
@@ -69,40 +74,47 @@ __Arguments:__
 
 __Details:__
 
-This method looks at the contents of `value` and determines the correct TessParam type to create.
+This method looks at the contents of `value` and determines the correct [`TessParam`](@ref)
+type to create.
+
+See also: [`tess_params_parsed`](@ref)
 """
 function TessParam(
             name::AbstractString,
             value::AbstractString,
             help::AbstractString
         )::TessParam
+    local debug = findfirst("debug", name) !== nothing ||
+                  findfirst("display", name) !== nothing
+
     if match(r"^-?[0-9]+\.[0-9]+$", value) != nothing
-        return TessParam{Float64}(name, parse(Float64, value), help)
+        return TessParam{Float64}(name, parse(Float64, value), help, debug)
     elseif match(r"^-?[0-9]+$", value) != nothing
-        return TessParam{Int32}(name, parse(Int32, value), help)
+        return TessParam{Int32}(name, parse(Int32, value), help, debug)
     else
-        return TessParam{String}(name, value, help)
+        return TessParam{String}(name, value, help, debug)
     end
 end
 
-# =================================================================================================
+# =========================================================================================
 """
-    tess_print_variables_parsed(
-            inst::TessInst, # The instance to retrieve the default parameters from.
+    tess_params_parsed(
+            inst::TessInst
         )::Vector{TessParam}
 
-Retrieved all the Tesseract parameters with their valuse as an array of TessParam objects.
+Retrieved all the Tesseract parameters with their valuse as an array of [`TessParam`](@ref)
+objects.
 
 __Arguments:__
 
 | T | Name | Default | Description
 |:--| :--- | :------ | :----------
-| R | inst |         | The Tesseract instance to get get the parameters from.
+| R | inst |         | The Tesseract instance to get the parameters from.
 
 __Details:__
 
-Parses the result of `print_variables()` into something more easily digested by a computer.
-Each line of text is split into 3 values:
+Parses the result of `[`tess_params`](@ref) into something more easily digested by a
+computer.  Each line of text is split into 3 values:
 
 * The name of the parameter.
 * The default value of the parameter (may be an empty string).
@@ -110,13 +122,14 @@ Each line of text is split into 3 values:
 
 Each value is separated by a tab and the description is terminated by a new line.
 
-See also: [`tess_print_variables`](@ref)
+See also: [`TessParam`](@ref), [`tess_params`](@ref), [`tess_get_param`](@ref),
+          [`tess_set_param`](@ref)
 """
-function tess_print_variables_parsed(
+function tess_params_parsed(
             inst::TessInst
         )::Vector{TessParam}
     local params = Vector{TessParam}()
-    local data   = tess_print_variables(inst)
+    local data   = tess_params(inst)
 
     if data != nothing
         for m in eachmatch(r"([a-z0-9_]+)\t([^\t]*)\t([^\n]+)"sm, data)

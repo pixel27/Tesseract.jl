@@ -135,7 +135,7 @@ end
 
 # output
 
-<div class='ocr_page' id='page_1' title='image ""; bbox 0 0 500 600; ppageno 0'>
+<div class='ocr_page' id='page_1' title='image "unknown"; bbox 0 0 500 600; ppageno 0; scan_res 72 72'>
 <div class='ocr_carea' id='block_1_1' title="bbox 10 9 489 523">
 <p class='ocr_par' id='par_1_1' lang='eng' title="bbox 11 9 417 23">
 <span class='ocr_line' id='line_1_1' title="bbox 11 9 417 23; baseline 0 -3; x_size 22.717392; x_descenders 5.5; x_ascenders 5.7391305">
@@ -321,11 +321,11 @@ end
 
 # output
 
-2 1   1   0   0   0   10  9   479 514 -1
-3 1   1   1   0   0   11  9   406 14  -1
-4 1   1   1   1   0   11  9   406 14  -1
-5 1   1   1   1   1   11  9   14  11  95  No
-5 1   1   1   1   2   35  12  22  8   95  one
+2	1	1	0	0	0	10	9	479	514	-1
+3	1	1	1	0	0	11	9	406	14	-1
+4	1	1	1	1	0	11	9	406	14	-1
+5	1	1	1	1	1	11	9	14	11	95.791931	No
+5	1	1	1	1	2	35	12	22	8	95.791931	one
 ```
 
 See also: [`tess_tsv`](@ref), [`tess_hocr`](@ref), [`tess_alto`](@ref), [`tess_parsed_tsv`](@ref),
@@ -409,10 +409,10 @@ end
 # output
 
 N 11 580 17 591 0
-o 11 580 25 591 0
-o 35 580 42 588 0
-n 35 580 41 588 0
-e 43 580 57 588 0
+o 19 580 25 588 0
+o 35 580 41 588 0
+n 43 580 49 588 0
+e 51 580 57 588 0
 ```
 
 See also: [`tess_unlv`](@ref), [`tess_lstm_box`](@ref), [`tess_word_box`](@ref)
@@ -726,7 +726,7 @@ unlv = tess_unlv_latin1(instance)
 
 # output
 
-1470-element Array{UInt8,1}:
+1470-element Vector{UInt8}:
  0x4e
  0x6f
  0x20
@@ -821,11 +821,11 @@ confidence = tess_confidences(instance)
 
 # output
 
-256-element Array{Int64,1}:
+256-element Vector{Int64}:
  95
  95
- 93
- 93
+ 92
+ 92
  96
  96
  96
@@ -840,8 +840,8 @@ confidence = tess_confidences(instance)
  96
  96
  96
- 87
- 87
+ 86
+ 86
 ```
 
 See also: [`tess_tsv`](@ref), [`tess_parsed_tsv`](@ref)

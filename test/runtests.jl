@@ -25,13 +25,13 @@ using Documenter
 
 include("helper/generate_image.jl")
 
-# @testset "leptonica" begin
-#     include("leptonica/_package.jl")
-# end
+@testset "leptonica" begin
+    include("leptonica/_package.jl")
+end
 
-# @testset "tesseract" begin
-#     include("tesseract/_package.jl")
-# end
+@testset "tesseract" begin
+    include("tesseract/_package.jl")
+end
 
 @testset "docs" begin
     doctest(Tesseract)

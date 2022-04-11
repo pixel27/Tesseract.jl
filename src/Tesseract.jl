@@ -45,7 +45,8 @@ export tess_delete!, tess_image, tess_recognize, tess_text, tess_hocr, tess_alto
        tess_confidences, tess_parsed_tsv, tess_resolution
 export tess_init, tess_initialized_languages, tess_loaded_languages,
        tess_available_languages, tess_params, tess_read_config,
-       tess_read_debug_config, tess_params_parsed, tess_set_input_name
+       tess_read_debug_config, tess_params_parsed,
+       tess_set_input_name, tess_get_input_name
 export tess_get_param, tess_set_param, tess_set_debug_param
 export sample_tiff, sample_pix
 

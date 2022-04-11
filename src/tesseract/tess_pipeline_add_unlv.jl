@@ -68,7 +68,7 @@ function unlv_copy(
         filename
     )
 
-    pipeline_add_renderer(pipe, ptr, task)
+    pipeline_add_renderer(pipe, ptr, task, RENDERER_UNLV)
 
     return true
 end
@@ -116,7 +116,7 @@ function unlv_transcode(
     # Create the task to generate the output string.
     local task = pipeline_start_task(path, "output.unlv", filename)
 
-    pipeline_add_renderer(pipe, ptr, task)
+    pipeline_add_renderer(pipe, ptr, task, RENDERER_UNLV)
 
     return true
 end
@@ -291,7 +291,7 @@ function tess_pipeline_unlv(
     local out = TessOutput(String)
     local task = pipeline_start_task(path, "output.unlv", out, true)
 
-    pipeline_add_renderer(pipe, ptr, task)
+    pipeline_add_renderer(pipe, ptr, task, RENDERER_UNLV)
 
     return out
 end
@@ -371,7 +371,7 @@ function tess_pipeline_unlv_latin1(
     local out = TessOutput(Vector{UInt8})
     local task = pipeline_start_task(path, "output.unlv", out)
 
-    pipeline_add_renderer(pipe, ptr, task)
+    pipeline_add_renderer(pipe, ptr, task, RENDERER_UNLV)
 
     return out
 end
@@ -468,7 +468,7 @@ function tess_pipeline_unlv(
     # Create the task to generate the output string.
     local task = pipeline_start_task(path, "output.unlv", func, "", true)
 
-    pipeline_add_renderer(pipe, ptr, task)
+    pipeline_add_renderer(pipe, ptr, task, RENDERER_UNLV)
 
     return true
 end

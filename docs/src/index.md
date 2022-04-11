@@ -29,7 +29,7 @@ println("My Book.txt: $(filesize("My Book.txt")) bytes.")
 
 # output
 
-My Book.txt: 4437 bytes.
+My Book.txt: 4436 bytes.
 ```
 
 This Julia packages provides support for performing OCR on scanned images.  This is done by using the [Tesseract](https://github.com/tesseract-ocr/tesseract) C library.  Tesseract.jl tries to provide a direct mapping of the Tesseract API to Julia with additional functionality added to fit better into the Julia ecosystem.

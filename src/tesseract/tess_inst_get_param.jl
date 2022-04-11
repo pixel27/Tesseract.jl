@@ -180,7 +180,7 @@ julia> instance = TessInst()
 Allocated Tesseract instance.
 
 julia> tess_get_param(instance, "classify_min_slope", Float64)
-0.414213562
+0.414214
 ```
 
 See also: [`tess_params`](@ref), [`tess_params_parsed`](@ref), [`tess_set_param`](@ref)

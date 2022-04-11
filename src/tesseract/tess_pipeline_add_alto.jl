@@ -112,7 +112,7 @@ function tess_pipeline_alto(
         filename
     )
 
-    pipeline_add_renderer(pipe, ptr, task)
+    pipeline_add_renderer(pipe, ptr, task, RENDERER_ALTO)
 
     return true
 end
@@ -198,7 +198,7 @@ function tess_pipeline_alto(
     local out = TessOutput(String)
     local task = pipeline_start_task(path, "output.xml", out)
 
-    pipeline_add_renderer(pipe, ptr, task)
+    pipeline_add_renderer(pipe, ptr, task, RENDERER_ALTO)
 
     return out
 end
@@ -295,7 +295,7 @@ function tess_pipeline_alto(
     # Create the task to generate the output string.
     local task = pipeline_start_task(path, "output.xml", func, "")
 
-    pipeline_add_renderer(pipe, ptr, task)
+    pipeline_add_renderer(pipe, ptr, task, RENDERER_ALTO)
 
     return true
 end

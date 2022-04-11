@@ -80,7 +80,7 @@ end
     <head>
         <title>My First Book</title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-        <meta name='ocr-system' content='tesseract 4.1.1' />
+        <meta name='ocr-system' content='tesseract 5.1.0' />
         <meta name='ocr-capabilities' content='ocr_page ocr_carea ocr_par ocr_line ocrx_word ocrp_wconf'/>
     </head>
 ```
@@ -114,7 +114,7 @@ function tess_pipeline_hocr(
         filename
     )
 
-    pipeline_add_renderer(pipe, ptr, task)
+    pipeline_add_renderer(pipe, ptr, task, RENDERER_HOCR)
 
     return true
 end
@@ -172,7 +172,7 @@ end
     <head>
         <title>My First Book</title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-        <meta name='ocr-system' content='tesseract 4.1.1' />
+        <meta name='ocr-system' content='tesseract 5.1.0' />
         <meta name='ocr-capabilities' content='ocr_page ocr_carea ocr_par ocr_line ocrx_word ocrp_wconf'/>
     </head>
 ```
@@ -204,7 +204,7 @@ function tess_pipeline_hocr(
     local out = TessOutput(String)
     local task = pipeline_start_task(path, "output.hocr", out)
 
-    pipeline_add_renderer(pipe, ptr, task)
+    pipeline_add_renderer(pipe, ptr, task, RENDERER_HOCR)
 
     return out
 end
@@ -272,7 +272,7 @@ end
     <head>
         <title>My First Book</title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-        <meta name='ocr-system' content='tesseract 4.1.1' />
+        <meta name='ocr-system' content='tesseract 5.1.0' />
         <meta name='ocr-capabilities' content='ocr_page ocr_carea ocr_par ocr_line ocrx_word ocrp_wconf'/>
     </head>
 true
@@ -305,7 +305,7 @@ function tess_pipeline_hocr(
     # Create the task to generate the output string.
     local task = pipeline_start_task(path, "output.hocr", func, "")
 
-    pipeline_add_renderer(pipe, ptr, task)
+    pipeline_add_renderer(pipe, ptr, task, RENDERER_HOCR)
 
     return true
 end

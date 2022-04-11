@@ -21,12 +21,24 @@
 # SOFTWARE.
 using .Pipeline
 
+@enum ResultRendererType begin
+    RENDERER_UNKNOWN
+    RENDERER_ALTO
+    RENDERER_HOCR
+    RENDERER_LSTM_BOX
+    RENDERER_PDF
+    RENDERER_TEXT
+    RENDERER_TSV
+    RENDERER_UNLV
+    RENDERER_WORD_BOX
+end
 # =========================================================================================
 """
     mutable struct TessPipeline
         inst::TessInst
         ptr::Ptr{Cvoid}
         tasks::Vector{PipelineTask}
+        types::Vector{ResultRendererType}
     end
 
 Allows the client to process multiple images in sequence.
@@ -38,6 +50,7 @@ __Values:__
 | inst   | The TessInst that will be processing the images.
 | ptr    | The Tesseract pipeline that will be outputing the data.
 | task   | The list of background tasks associated with pipeline.
+| types  | The list of renderers used in the pipeline.
 
 See also: [`tess_run_pipeline`](@ref)
 """
@@ -45,6 +58,7 @@ mutable struct TessPipeline
     inst::TessInst
     ptr::Ptr{Cvoid}
     tasks::Vector{PipelineTask}
+    types::Vector{ResultRendererType}
 end
 
 # =========================================================================================
@@ -65,7 +79,7 @@ See also: [`tess_run_pipeline`](@ref)
 function TessPipeline(
             inst::TessInst
         )
-    local retval = TessPipeline(inst, C_NULL, Vector{PipelineTask}())
+    local retval = TessPipeline(inst, C_NULL, Vector{PipelineTask}(), Vector{ResultRendererType}())
 
     finalizer(retval) do obj
         tess_delete!(obj, false)
@@ -155,6 +169,7 @@ function tess_delete!(
             pipeline_stop_task(task, wait)
         end
         resize!(pipe.tasks, 0)
+        resize!(pipe.types, 0)
     end
 end
 
@@ -163,7 +178,8 @@ end
     pipeline_add_renderer(
         pipe::TessPipeline,
         ptr::Ptr{Cvoid},
-        task::PipelineTask
+        task::PipelineTask,
+        type::ResultRendererType
     )
 
 Add a renderer to the pipeline.
@@ -175,6 +191,7 @@ __Arguments:__
 | R | pipe |         | The pipeline to add the renderer to.
 | R | ptr  |         | The Tesseract renderer to add.
 | R | task |         | The task that processes the results from the renderer.
+| R | type | unknown | The type of the renderer.
 
 __Details:__
 
@@ -184,7 +201,8 @@ really a series of independant extractors so the order doesn't matter.
 function pipeline_add_renderer(
             pipe::TessPipeline,
             ptr::Ptr{Cvoid},
-            task::PipelineTask
+            task::PipelineTask,
+            type::ResultRendererType = RENDERER_UNKNOWN
         )::Nothing
 
     # ---------------------------------------------------------------------------------------------
@@ -206,6 +224,7 @@ function pipeline_add_renderer(
     # ---------------------------------------------------------------------------------------------
     # Add the task to the end of our list.
     push!(pipe.tasks, task)
+    push!(pipe.types, type)
 
     nothing
 end
@@ -429,6 +448,10 @@ function tess_run_pipeline(
         tess_delete!(pipe)
         return false
     end
+    # See https://github.com/tesseract-ocr/tesseract/issues/2700
+    if RENDERER_ALTO ∈ pipe.types && tess_get_input_name(pipe.inst) === nothing
+        tess_set_input_name(pipe.inst, title == "" ? " " : title)
+    end
 
     try
         # ---------------------------------------------------------------------------------
@@ -525,6 +548,7 @@ Providing a file with a list of images to process:
 
 ```jldoctest
 using Tesseract
+using Suppressor
 
 # Generate some pages to load.
 write("page01.tiff", sample_tiff())
@@ -545,7 +569,7 @@ open("pages.lst", create = true, write = true) do io
     println(io, "page03.tiff")
 end
 
-tess_run_pipeline(pipeline, "pages.lst")
+@suppress tess_run_pipeline(pipeline, "pages.lst")
 
 for line in split(book[], "\\n")[1:10]
     println(line)
@@ -568,6 +592,7 @@ Using a multipage TIFF:
 
 ```jldoctest
 using Tesseract
+using Suppressor
 
 # Generate some pages to load.
 pix_write_tiff("book.tiff", sample_pix())
@@ -581,7 +606,7 @@ pipeline = TessPipeline(instance)
 
 book = tess_pipeline_text(pipeline)
 
-tess_run_pipeline(pipeline, "book.tiff")
+@suppress tess_run_pipeline(pipeline, "book.tiff")
 
 for line in split(book[], "\\n")[1:10]
     println(line)

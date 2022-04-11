@@ -432,7 +432,7 @@ function tess_run_pipeline(
 
     try
         # ---------------------------------------------------------------------------------
-        # This function si called by the client to process an image.
+        # This function is called by the client to process an image.
         function process(
                     pix::Pix,
                     res::Integer

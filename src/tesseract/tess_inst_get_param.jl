@@ -86,7 +86,7 @@ end
 
 # =========================================================================================
 """
-tess_get_param(
+    tess_get_param(
         inst::TessInst,
         name::AbstractString,
         ::Type{Bool}
@@ -215,7 +215,7 @@ end
 
 # =========================================================================================
 """
-tess_get_param(
+    tess_get_param(
         inst::TessInst,
         name::AbstractString,
         ::Type{String}

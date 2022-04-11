@@ -27,7 +27,7 @@ using Test
     local inst = TessInst("eng", datadir)
 
     @test tess_get_param(inst, "editor_image_xpos", type) == 590
-    @test tess_get_param(inst, "textord_testregion_top", type) == -1
+    @test tess_get_param(inst, "textord_testregion_left", type) == -1
     @test tess_get_param(inst, "edges_debug", type) === nothing
     @test tess_get_param(inst, "textord_skew_lag", type) === nothing
     @test tess_get_param(inst, "chs_trailing_punct1", type) === nothing

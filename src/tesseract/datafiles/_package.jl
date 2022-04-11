@@ -32,8 +32,8 @@ const DATE_FORMAT = @dateformat_str("HH:MM:SS dd-mm-yyyy")
 
 const GITHUB_CONTENTS_BASE = "https://api.github.com/repos"
 
-const DATA_URL  = "https://raw.githubusercontent.com/tesseract-ocr/tessdata_best/master/"
-const PDF_FONT_URL  = "https://raw.githubusercontent.com/tesseract-ocr/tessconfigs/master/"
+const DATA_URL  = "https://raw.githubusercontent.com/tesseract-ocr/tessdata_best/main/"
+const PDF_FONT_URL  = "https://raw.githubusercontent.com/tesseract-ocr/tessconfigs/main/"
                        
 include("errors.jl")
 include("common.jl")
@@ -43,8 +43,8 @@ include("github_project.jl")
 include("languages.jl")
 include("pdf_font_info.jl")
 
-const DATA_REPO     = GitHubProject("tesseract-ocr", "tessdata_best", "master", "")
-const PDF_FONT_REPO = GitHubProject("tesseract-ocr", "tessconfigs", "master", "")
+const DATA_REPO     = GitHubProject("tesseract-ocr", "tessdata_best", "main", "")
+const PDF_FONT_REPO = GitHubProject("tesseract-ocr", "tessconfigs", "main", "")
 
 export DATA_FILE_EXT, DATA_URL, PDF_FONT_URL, DATA_REPO, PDF_FONT_REPO
 export Languages, GitHubProject, FileError, NetworkError

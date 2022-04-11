@@ -50,10 +50,10 @@ using Test
     else
         @test strip(lines[9]) == "<meta name='ocr-capabilities' content='ocr_page ocr_carea ocr_par ocr_line ocrx_word ocrp_wconf'/>"
     end
-    @test strip(lines[20]) == "<span class='ocrx_word' id='word_1_5' title='bbox 162 11 170 20; x_wconf 69'>®</span>"
-    @test strip(lines[31]) == "<span class='ocrx_word' id='word_2_3' title='bbox 75 9 113 23; x_wconf 95'>image</span>"
-    @test strip(lines[41]) == "<span class='ocrx_word' id='word_3_1' title='bbox 10 9 41 20; x_wconf 95'>This</span>"
-    @test strip(lines[51]) == """<p class='ocr_par' id='par_4_1' lang='eng' title="bbox 10 9 159 23">"""
+    @test strip(lines[20]) == "<span class='ocrx_word' id='word_1_5' title='bbox 161 8 173 20; x_wconf 93'>®</span>"
+    @test strip(lines[31]) == "<span class='ocrx_word' id='word_2_3' title='bbox 65 8 113 23; x_wconf 96'>image</span>"
+    @test strip(lines[41]) == "<span class='ocrx_word' id='word_3_1' title='bbox 10 8 42 20; x_wconf 95'>This</span>"
+    @test strip(lines[51]) == """<p class='ocr_par' id='par_4_1' lang='eng' title="bbox 10 8 152 23">"""
     @test strip(lines[61]) == "</body>"
 
     rm(output)
@@ -87,10 +87,10 @@ end
     else
         @test strip(lines[9]) == "<meta name='ocr-capabilities' content='ocr_page ocr_carea ocr_par ocr_line ocrx_word ocrp_wconf'/>"
     end
-    @test strip(lines[20]) == "<span class='ocrx_word' id='word_1_5' title='bbox 162 11 170 20; x_wconf 69'>®</span>"
-    @test strip(lines[31]) == "<span class='ocrx_word' id='word_2_3' title='bbox 75 9 113 23; x_wconf 95'>image</span>"
-    @test strip(lines[41]) == "<span class='ocrx_word' id='word_3_1' title='bbox 10 9 41 20; x_wconf 95'>This</span>"
-    @test strip(lines[51]) == """<p class='ocr_par' id='par_4_1' lang='eng' title="bbox 10 9 159 23">"""
+    @test strip(lines[20]) == "<span class='ocrx_word' id='word_1_5' title='bbox 161 8 173 20; x_wconf 93'>®</span>"
+    @test strip(lines[31]) == "<span class='ocrx_word' id='word_2_3' title='bbox 65 8 113 23; x_wconf 96'>image</span>"
+    @test strip(lines[41]) == "<span class='ocrx_word' id='word_3_1' title='bbox 10 8 42 20; x_wconf 95'>This</span>"
+    @test strip(lines[51]) == """<p class='ocr_par' id='par_4_1' lang='eng' title="bbox 10 8 152 23">"""
     @test strip(lines[61]) == "</body>"
 end
 
@@ -120,9 +120,9 @@ end
     else
         @test strip(lines[9]) == "<meta name='ocr-capabilities' content='ocr_page ocr_carea ocr_par ocr_line ocrx_word ocrp_wconf'/>"
     end
-    @test strip(lines[20]) == "<span class='ocrx_word' id='word_1_5' title='bbox 162 11 170 20; x_wconf 69'>®</span>"
-    @test strip(lines[31]) == "<span class='ocrx_word' id='word_2_3' title='bbox 75 9 113 23; x_wconf 95'>image</span>"
-    @test strip(lines[41]) == "<span class='ocrx_word' id='word_3_1' title='bbox 10 9 41 20; x_wconf 95'>This</span>"
-    @test strip(lines[51]) == """<p class='ocr_par' id='par_4_1' lang='eng' title="bbox 10 9 159 23">"""
+    @test strip(lines[20]) == "<span class='ocrx_word' id='word_1_5' title='bbox 161 8 173 20; x_wconf 93'>®</span>"
+    @test strip(lines[31]) == "<span class='ocrx_word' id='word_2_3' title='bbox 65 8 113 23; x_wconf 96'>image</span>"
+    @test strip(lines[41]) == "<span class='ocrx_word' id='word_3_1' title='bbox 10 8 42 20; x_wconf 95'>This</span>"
+    @test strip(lines[51]) == """<p class='ocr_par' id='par_4_1' lang='eng' title="bbox 10 8 152 23">"""
     @test strip(lines[61]) == "</body>"
 end

@@ -34,7 +34,7 @@ using Printf
         top::Int
         width::Int
         height::Int
-        conf::Int
+        conf::Float32
         text::String
     end
 
@@ -85,7 +85,7 @@ struct Tsv
     top::Int
     width::Int
     height::Int
-    conf::Int
+    conf::Float32
     text::String
 end
 
@@ -163,7 +163,7 @@ function tsv_from(
         parse(Int, a[8]),
         parse(Int, a[9]),
         parse(Int, a[10]),
-        parse(Int, a[11]),
+        parse(Float32, a[11]),
         a[12]
         )
 end

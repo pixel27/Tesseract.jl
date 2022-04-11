@@ -41,7 +41,7 @@ using Test
     @test filesize(output) > 0
 
     local text  = read(output, String)
-    local lines = split(text, "\n\f"; keepempty=false)
+    local lines = split(text, r"[\n\f]"; keepempty=false)
     @test length(lines) == 4
 
     @test lines[1] == "This is image one. ®"
@@ -71,7 +71,7 @@ end
     @test is_available(output) == true
     @test output[] != nothing
 
-    local lines = split(output[], "\n\f"; keepempty=false)
+    local lines = split(output[], r"[\n\f]"; keepempty=false)
     @test length(lines) == 4
 
     @test lines[1] == "This is image one. ®"
@@ -98,7 +98,7 @@ end
         @test add(pix_with([Line("This is image four.")]), 72) == true
     end) == true
 
-    @test length(lines) == 8
+    @test length(lines) == 7
 
     @test lines[1] == "This is image one. ®\n"
     @test lines[2] == "\f"
@@ -107,7 +107,6 @@ end
     @test lines[5] == "This is image three.\n"
     @test lines[6] == "\f"
     @test lines[7] == "This is image four.\n"
-    @test lines[8] == "\f"
 end
 
 # =========================================================================================
@@ -131,9 +130,9 @@ end
         @test add(pix_with([Line("This is image four.")]), 72) == true
     end) == true
 
-    @test length(split(read(filename, String), "\n\f"; keepempty=false)) == 4
-    @test length(split(str[], "\n\f"; keepempty=false)) == 4
-    @test length(callback) == 8
+    @test length(split(read(filename, String), r"[\n\f]"; keepempty=false)) == 4
+    @test length(split(str[], r"[\n\f]"; keepempty=false)) == 4
+    @test length(callback) == 7
 
     rm(filename)
 end

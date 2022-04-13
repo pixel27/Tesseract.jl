@@ -43,15 +43,15 @@ using Test
     local lines = split(text, "\n"; keepempty=false)
     @test length(lines) == 81
 
-    @test strip(lines[1]) == "T 10 577 175 591 0"
-    @test strip(lines[11]) == "a 10 577 175 591 0"
-    @test strip(lines[20]) == "® 10 577 175 591 0"
-    @test strip(lines[31]) == "m 10 577 156 591 1"
-    @test strip(lines[41]) == "T 10 577 172 591 2"
-    @test strip(lines[51]) == "a 10 577 172 591 2"
-    @test strip(lines[61]) == "10 577 172 591 2"
-    @test strip(lines[71]) == "m 10 577 164 591 3"
-    @test strip(lines[81]) == "10 577 164 591 3"
+    @test strip(lines[1]) == "T 10 577 178 592 0"
+    @test strip(lines[11]) == "a 10 577 178 592 0"
+    @test strip(lines[20]) == "® 10 577 178 592 0"
+    @test strip(lines[31]) == "m 10 577 152 592 1"
+    @test strip(lines[41]) == "T 10 577 166 592 2"
+    @test strip(lines[51]) == "a 10 577 166 592 2"
+    @test strip(lines[61]) == "10 577 166 592 2"
+    @test strip(lines[71]) == "m 10 577 157 592 3"
+    @test strip(lines[81]) == "10 577 157 592 3"
 
     rm(output)
 end
@@ -78,15 +78,15 @@ end
     local lines = split(output[], "\n"; keepempty=false)
     @test length(lines) == 81
 
-    @test strip(lines[1]) == "T 10 577 175 591 0"
-    @test strip(lines[11]) == "a 10 577 175 591 0"
-    @test strip(lines[20]) == "® 10 577 175 591 0"
-    @test strip(lines[31]) == "m 10 577 156 591 1"
-    @test strip(lines[41]) == "T 10 577 172 591 2"
-    @test strip(lines[51]) == "a 10 577 172 591 2"
-    @test strip(lines[61]) == "10 577 172 591 2"
-    @test strip(lines[71]) == "m 10 577 164 591 3"
-    @test strip(lines[81]) == "10 577 164 591 3"
+    @test strip(lines[1]) == "T 10 577 178 592 0"
+    @test strip(lines[11]) == "a 10 577 178 592 0"
+    @test strip(lines[20]) == "® 10 577 178 592 0"
+    @test strip(lines[31]) == "m 10 577 152 592 1"
+    @test strip(lines[41]) == "T 10 577 166 592 2"
+    @test strip(lines[51]) == "a 10 577 166 592 2"
+    @test strip(lines[61]) == "10 577 166 592 2"
+    @test strip(lines[71]) == "m 10 577 157 592 3"
+    @test strip(lines[81]) == "10 577 157 592 3"
 end
 
 # =========================================================================================
@@ -109,13 +109,13 @@ end
 
     @test length(lines) == 81
 
-    @test strip(lines[1]) == "T 10 577 175 591 0"
-    @test strip(lines[11]) == "a 10 577 175 591 0"
-    @test strip(lines[20]) == "® 10 577 175 591 0"
-    @test strip(lines[31]) == "m 10 577 156 591 1"
-    @test strip(lines[41]) == "T 10 577 172 591 2"
-    @test strip(lines[51]) == "a 10 577 172 591 2"
-    @test strip(lines[61]) == "10 577 172 591 2"
-    @test strip(lines[71]) == "m 10 577 164 591 3"
-    @test strip(lines[81]) == "10 577 164 591 3"
+    @test strip(lines[1]) == "T 10 577 178 592 0"
+    @test strip(lines[11]) == "a 10 577 178 592 0"
+    @test strip(lines[20]) == "® 10 577 178 592 0"
+    @test strip(lines[31]) == "m 10 577 152 592 1"
+    @test strip(lines[41]) == "T 10 577 166 592 2"
+    @test strip(lines[51]) == "a 10 577 166 592 2"
+    @test strip(lines[61]) == "10 577 166 592 2"
+    @test strip(lines[71]) == "m 10 577 157 592 3"
+    @test strip(lines[81]) == "10 577 157 592 3"
 end

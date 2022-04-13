@@ -111,7 +111,7 @@ function tess_pipeline_word_box(
         filename
     )
 
-    pipeline_add_renderer(pipe, ptr, task)
+    pipeline_add_renderer(pipe, ptr, task, RENDERER_WORD_BOX)
 
     return true
 end
@@ -196,7 +196,7 @@ function tess_pipeline_word_box(
     local out = TessOutput(String)
     local task = pipeline_start_task(path, "output.box", out)
 
-    pipeline_add_renderer(pipe, ptr, task)
+    pipeline_add_renderer(pipe, ptr, task, RENDERER_WORD_BOX)
 
     return out
 end
@@ -292,7 +292,7 @@ function tess_pipeline_word_box(
     # Create the task to generate the output string.
     local task = pipeline_start_task(path, "output.box", func, "")
 
-    pipeline_add_renderer(pipe, ptr, task)
+    pipeline_add_renderer(pipe, ptr, task, RENDERER_WORD_BOX)
 
     return true
 end

@@ -95,7 +95,7 @@ end
     @test length(split(alto[], "\n"; keepempty=false)) == 75
     @test length(split(hocr[], "\n"; keepempty=false)) == 62
     @test length(split(lstm[], "\n"; keepempty=false)) == 81
-    @test length(pdf[]) == 14589
+    @test length(pdf[]) == 15035
     @test length(split(text[], "\n\f"; keepempty=false)) == 4
     @test length(split(unlv[], "\n"; keepempty=false)) == 4
     @test length(split(box[], "\n"; keepempty=false)) == 8

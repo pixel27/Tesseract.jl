@@ -112,7 +112,7 @@ function tess_pipeline_lstm_box(
         filename
     )
 
-    pipeline_add_renderer(pipe, ptr, task)
+    pipeline_add_renderer(pipe, ptr, task, RENDERER_LSTM_BOX)
 
     return true
 end
@@ -197,7 +197,7 @@ function tess_pipeline_lstm_box(
     local out = TessOutput(String)
     local task = pipeline_start_task(path, "output.box", out)
 
-    pipeline_add_renderer(pipe, ptr, task)
+    pipeline_add_renderer(pipe, ptr, task, RENDERER_LSTM_BOX)
 
     return out
 end
@@ -293,7 +293,7 @@ function tess_pipeline_lstm_box(
     # Create the task to generate the output string.
     local task = pipeline_start_task(path, "output.box", func, "")
 
-    pipeline_add_renderer(pipe, ptr, task)
+    pipeline_add_renderer(pipe, ptr, task, RENDERER_LSTM_BOX)
 
     return true
 end

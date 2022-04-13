@@ -41,7 +41,7 @@ using Test
 
     @test tess_run_pipeline(pipeline, output) == true
 
-    @test result[] == "One 1\n\fTwo 2\n\fThree 3\n\f"
+    @test result[] == "One 1\n\fTwo 2\n\fThree 3\n"
 
     rm(pix1)
     rm(pix2)
@@ -63,7 +63,7 @@ end
 
     @test tess_run_pipeline(pipeline, pix) == true
 
-    @test result[] == "One 1\n\fTwo 2\n\fThree 3\n\f"
+    @test result[] == "One 1\n\fTwo 2\n\fThree 3\n"
 
     rm(pix)
 end

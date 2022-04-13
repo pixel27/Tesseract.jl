@@ -111,7 +111,7 @@ function tess_pipeline_text(
         filename
     )
 
-    pipeline_add_renderer(pipe, ptr, task)
+    pipeline_add_renderer(pipe, ptr, task, RENDERER_TEXT)
 
     return true
 end
@@ -201,7 +201,7 @@ function tess_pipeline_text(
     local out = TessOutput(String)
     local task = pipeline_start_task(path, "output.txt", out)
 
-    pipeline_add_renderer(pipe, ptr, task)
+    pipeline_add_renderer(pipe, ptr, task, RENDERER_TEXT)
 
     return out
 end
@@ -303,7 +303,7 @@ function tess_pipeline_text(
     local separator = tess_get_param(pipe.inst, "page_separator", String)
     local task      = pipeline_start_task(path, "output.txt", func, separator)
 
-    pipeline_add_renderer(pipe, ptr, task)
+    pipeline_add_renderer(pipe, ptr, task, RENDERER_TEXT)
 
     return true
 end

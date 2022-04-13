@@ -25,6 +25,6 @@
     @test version != ""
 
     if version != Tesseract.LEPT_VERSION
-        @warn "LEPTONICA: Tested version $(JuliaTesseract.LEPT_VERSION) != Current verion $version."
+        @warn "LEPTONICA: Tested version $(Tesseract.LEPT_VERSION) != Current verion $version."
     end
 end

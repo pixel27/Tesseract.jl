@@ -45,9 +45,9 @@ using Test
     @test length(lines) == 34
 
     @test strip(lines[1])  == "level\tpage_num\tblock_num\tpar_num\tline_num\tword_num\tleft\ttop\twidth\theight\tconf\ttext"
-    @test strip(lines[10]) == "5\t1\t1\t1\t1\t5\t162\t11\t8\t9\t69\t®"
-    @test strip(lines[20]) == "2\t3\t1\t0\t0\t0\t10\t9\t157\t14\t-1"
-    @test strip(lines[30]) == "4\t4\t1\t1\t1\t0\t10\t9\t149\t14\t-1"
+    @test strip(lines[10]) == "5\t1\t1\t1\t1\t5\t161\t8\t12\t12\t93.001213\t®"
+    @test strip(lines[20]) == "2\t3\t1\t0\t0\t0\t10\t8\t151\t15\t-1"
+    @test strip(lines[30]) == "4\t4\t1\t1\t1\t0\t10\t8\t142\t15\t-1"
 
     rm(output)
 end
@@ -69,15 +69,15 @@ end
     end) == true
 
     @test is_available(output) == true
-    @test output[] != nothing
+    @test output[] !== nothing
 
     local lines = split(output[], "\n"; keepempty=false)
     @test length(lines) == 34
 
     @test strip(lines[1])  == "level\tpage_num\tblock_num\tpar_num\tline_num\tword_num\tleft\ttop\twidth\theight\tconf\ttext"
-    @test strip(lines[10]) == "5\t1\t1\t1\t1\t5\t162\t11\t8\t9\t69\t®"
-    @test strip(lines[20]) == "2\t3\t1\t0\t0\t0\t10\t9\t157\t14\t-1"
-    @test strip(lines[30]) == "4\t4\t1\t1\t1\t0\t10\t9\t149\t14\t-1"
+    @test strip(lines[10]) == "5\t1\t1\t1\t1\t5\t161\t8\t12\t12\t93.001213\t®"
+    @test strip(lines[20]) == "2\t3\t1\t0\t0\t0\t10\t8\t151\t15\t-1"
+    @test strip(lines[30]) == "4\t4\t1\t1\t1\t0\t10\t8\t142\t15\t-1"
 end
 
 # =========================================================================================
@@ -101,7 +101,7 @@ end
     @test length(lines) == 34
 
     @test strip(lines[1])  == "level\tpage_num\tblock_num\tpar_num\tline_num\tword_num\tleft\ttop\twidth\theight\tconf\ttext"
-    @test strip(lines[10]) == "5\t1\t1\t1\t1\t5\t162\t11\t8\t9\t69\t®"
-    @test strip(lines[20]) == "2\t3\t1\t0\t0\t0\t10\t9\t157\t14\t-1"
-    @test strip(lines[30]) == "4\t4\t1\t1\t1\t0\t10\t9\t149\t14\t-1"
+    @test strip(lines[10]) == "5\t1\t1\t1\t1\t5\t161\t8\t12\t12\t93.001213\t®"
+    @test strip(lines[20]) == "2\t3\t1\t0\t0\t0\t10\t8\t151\t15\t-1"
+    @test strip(lines[30]) == "4\t4\t1\t1\t1\t0\t10\t8\t142\t15\t-1"
 end

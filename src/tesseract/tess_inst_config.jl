@@ -216,7 +216,7 @@ julia> instance = TessInst("eng+spa")
 Allocated Tesseract instance.
 
 julia> tess_loaded_languages(instance)
-2-element Array{String,1}:
+2-element Vector{String}:
  "eng"
  "spa"
 ```
@@ -296,7 +296,7 @@ julia> instance = TessInst("eng")
 Allocated Tesseract instance.
 
 julia> tess_available_languages(instance)
-3-element Array{String,1}:
+3-element Vector{String}:
  "eng"
  "fra"
  "spa"

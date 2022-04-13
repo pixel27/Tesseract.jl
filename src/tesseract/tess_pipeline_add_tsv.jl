@@ -71,16 +71,16 @@ end
 
 # output
 
-level page_num    block_num   par_num line_num    word_num    left    top width   height  conf    text
-1 1   0   0   0   0   0   0   500 600 -1
-2 1   1   0   0   0   10  9   479 514 -1
-3 1   1   1   0   0   11  9   406 14  -1
-4 1   1   1   1   0   11  9   406 14  -1
-5 1   1   1   1   1   11  9   14  11  95  No
-5 1   1   1   1   2   35  12  22  8   95  one
-5 1   1   1   1   3   66  9   39  11  93  would
-5 1   1   1   1   4   115 9   30  11  93  have
-5 1   1   1   1   5   155 9   62  11  96  believed
+level	page_num	block_num	par_num	line_num	word_num	left	top	width	height	conf	text
+1	1	0	0	0	0	0	0	500	600	-1
+2	1	1	0	0	0	10	9	479	514	-1
+3	1	1	1	0	0	11	9	406	14	-1
+4	1	1	1	1	0	11	9	406	14	-1
+5	1	1	1	1	1	11	9	14	11	95.791931	No
+5	1	1	1	1	2	35	12	22	8	95.791931	one
+5	1	1	1	1	3	66	9	39	11	92.953789	would
+5	1	1	1	1	4	115	9	30	11	92.953789	have
+5	1	1	1	1	5	155	9	62	11	96.819153	believed
 ```
 
 See also: [`tess_run_pipeline`](@ref), [`tess_pipeline_alto`](@ref),
@@ -112,7 +112,7 @@ function tess_pipeline_tsv(
         filename
     )
 
-    pipeline_add_renderer(pipe, ptr, task)
+    pipeline_add_renderer(pipe, ptr, task, RENDERER_TEXT)
 
     return true
 end
@@ -162,16 +162,16 @@ end
 
 # output
 
-level page_num    block_num   par_num line_num    word_num    left    top width   height  conf    text
-1 1   0   0   0   0   0   0   500 600 -1
-2 1   1   0   0   0   10  9   479 514 -1
-3 1   1   1   0   0   11  9   406 14  -1
-4 1   1   1   1   0   11  9   406 14  -1
-5 1   1   1   1   1   11  9   14  11  95  No
-5 1   1   1   1   2   35  12  22  8   95  one
-5 1   1   1   1   3   66  9   39  11  93  would
-5 1   1   1   1   4   115 9   30  11  93  have
-5 1   1   1   1   5   155 9   62  11  96  believed
+level	page_num	block_num	par_num	line_num	word_num	left	top	width	height	conf	text
+1	1	0	0	0	0	0	0	500	600	-1
+2	1	1	0	0	0	10	9	479	514	-1
+3	1	1	1	0	0	11	9	406	14	-1
+4	1	1	1	1	0	11	9	406	14	-1
+5	1	1	1	1	1	11	9	14	11	95.791931	No
+5	1	1	1	1	2	35	12	22	8	95.791931	one
+5	1	1	1	1	3	66	9	39	11	92.953789	would
+5	1	1	1	1	4	115	9	30	11	92.953789	have
+5	1	1	1	1	5	155	9	62	11	96.819153	believed
 ```
 
 See also: [`tess_run_pipeline`](@ref), [`tess_pipeline_alto`](@ref),
@@ -199,7 +199,7 @@ function tess_pipeline_tsv(
     local out = TessOutput(String)
     local task = pipeline_start_task(path, "output.tsv", out)
 
-    pipeline_add_renderer(pipe, ptr, task)
+    pipeline_add_renderer(pipe, ptr, task, RENDERER_TEXT)
 
     return out
 end
@@ -259,16 +259,16 @@ end
 
 # output
 
-level page_num    block_num   par_num line_num    word_num    left    top width   height  conf    text
-1 1   0   0   0   0   0   0   500 600 -1
-2 1   1   0   0   0   10  9   479 514 -1
-3 1   1   1   0   0   11  9   406 14  -1
-4 1   1   1   1   0   11  9   406 14  -1
-5 1   1   1   1   1   11  9   14  11  95  No
-5 1   1   1   1   2   35  12  22  8   95  one
-5 1   1   1   1   3   66  9   39  11  93  would
-5 1   1   1   1   4   115 9   30  11  93  have
-5 1   1   1   1   5   155 9   62  11  96  believed
+level	page_num	block_num	par_num	line_num	word_num	left	top	width	height	conf	text
+1	1	0	0	0	0	0	0	500	600	-1
+2	1	1	0	0	0	10	9	479	514	-1
+3	1	1	1	0	0	11	9	406	14	-1
+4	1	1	1	1	0	11	9	406	14	-1
+5	1	1	1	1	1	11	9	14	11	95.791931	No
+5	1	1	1	1	2	35	12	22	8	95.791931	one
+5	1	1	1	1	3	66	9	39	11	92.953789	would
+5	1	1	1	1	4	115	9	30	11	92.953789	have
+5	1	1	1	1	5	155	9	62	11	96.819153	believed
 true
 ```
 
@@ -297,7 +297,7 @@ function tess_pipeline_tsv(
     # Create the task to generate the output string.
     local task = pipeline_start_task(path, "output.tsv", func, "")
 
-    pipeline_add_renderer(pipe, ptr, task)
+    pipeline_add_renderer(pipe, ptr, task, RENDERER_TEXT)
 
     return true
 end

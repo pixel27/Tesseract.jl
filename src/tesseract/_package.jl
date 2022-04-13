@@ -37,6 +37,7 @@ include("datafiles/_package.jl")
 include("data_file_download.jl")
 include("data_file_update.jl")
 
+include("tess_input_name.jl")
 include("tess_output.jl")
 include("pipeline/_package.jl")
 include("tess_pipeline.jl")

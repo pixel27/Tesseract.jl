@@ -31,12 +31,12 @@ println("TSV  size: $(length(tsv[]))")
 
 # output
 
-Text size: 4431
-HOCR size: 91051
-TSV  size: 29558
+Text size: 4430
+HOCR size: 91120
+TSV  size: 34934
 ```
 
-To process multiple pages and combine them all into a single document you use the [TessPipeline](ref/tess_pipeline.md) object.  First a [TessInst](ref/tess_inst.md) object is created to handle the OCR then the it's passed to the [TessPipeline](ref/tess_pipeline.md) durring initialization.  
+To process multiple pages and combine them all into a single document you use the [TessPipeline](ref/tess_pipeline.md) object.  First a [TessInst](ref/tess_inst.md) object is created to handle the OCR then the it's passed to the [TessPipeline](ref/tess_pipeline.md) durring initialization.
 
 You can generate multiple document types simultaneously.  In the above example we use [tess\_pipeline\_text](ref/tess_pipeline_text.md) to generate a TXT file, [tess\_pipeline\_hocr](ref/tess_pipeline_hocr.md) to generate a HORC XML file, and [tess\_pipeline\_tsv](ref/tess_pipeline_tsv.md) to get details about the OCR in the Tabbed Separated Format.
 

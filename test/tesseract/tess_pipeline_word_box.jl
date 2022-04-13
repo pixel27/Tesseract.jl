@@ -44,10 +44,10 @@ using Test
     local lines = split(text, "\n"; keepempty=false)
     @test length(lines) == 8
 
-    @test strip(lines[1]) == "WordStr 10 577 170 591 0 #This is image one. ®"
-    @test strip(lines[2]) == "171 577 175 591 0"
-    @test strip(lines[5]) == "WordStr 10 577 167 591 2 #This is image three."
-    @test strip(lines[6]) == "168 577 172 591 2"
+    @test strip(lines[1]) == "WordStr 10 577 173 592 0 #This is image one. ®"
+    @test strip(lines[2]) == "174 577 178 592 0"
+    @test strip(lines[5]) == "WordStr 10 577 161 592 2 #This is image three."
+    @test strip(lines[6]) == "162 577 166 592 2"
 
     rm(output)
 end
@@ -69,15 +69,15 @@ end
     end) == true
 
     @test is_available(output) == true
-    @test output[] != nothing
+    @test output[] !== nothing
 
     local lines = split(output[], "\n"; keepempty=false)
     @test length(lines) == 8
 
-    @test strip(lines[1]) == "WordStr 10 577 170 591 0 #This is image one. ®"
-    @test strip(lines[2]) == "171 577 175 591 0"
-    @test strip(lines[5]) == "WordStr 10 577 167 591 2 #This is image three."
-    @test strip(lines[6]) == "168 577 172 591 2"
+    @test strip(lines[1]) == "WordStr 10 577 173 592 0 #This is image one. ®"
+    @test strip(lines[2]) == "174 577 178 592 0"
+    @test strip(lines[5]) == "WordStr 10 577 161 592 2 #This is image three."
+    @test strip(lines[6]) == "162 577 166 592 2"
 end
 
 # =========================================================================================
@@ -100,8 +100,8 @@ end
 
     @test length(lines) == 8
 
-    @test strip(lines[1]) == "WordStr 10 577 170 591 0 #This is image one. ®"
-    @test strip(lines[2]) == "171 577 175 591 0"
-    @test strip(lines[5]) == "WordStr 10 577 167 591 2 #This is image three."
-    @test strip(lines[6]) == "168 577 172 591 2"
+    @test strip(lines[1]) == "WordStr 10 577 173 592 0 #This is image one. ®"
+    @test strip(lines[2]) == "174 577 178 592 0"
+    @test strip(lines[5]) == "WordStr 10 577 161 592 2 #This is image three."
+    @test strip(lines[6]) == "162 577 166 592 2"
 end

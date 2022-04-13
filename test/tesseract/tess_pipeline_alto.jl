@@ -46,10 +46,10 @@ using Test
 
     @test strip(lines[1])  == """<?xml version="1.0" encoding="UTF-8"?>"""
     @test strip(lines[10]) == """<processingSoftware>"""
-    @test strip(lines[21]) == """<TextLine ID="line_0" HPOS="10" VPOS="9" WIDTH="160" HEIGHT="14">"""
-    @test strip(lines[26]) == """<String ID="string_4" HPOS="162" VPOS="11" WIDTH="8" HEIGHT="9" WC="0.69" CONTENT="®"/>"""
+    @test strip(lines[21]) == """<TextLine ID="line_0" HPOS="10" VPOS="8" WIDTH="163" HEIGHT="15">"""
+    @test strip(lines[26]) == """<String ID="string_4" HPOS="161" VPOS="8" WIDTH="12" HEIGHT="12" WC="0.93" CONTENT="®"/>"""
     @test strip(lines[41]) == """</TextLine>"""
-    @test strip(lines[51]) == """<String ID="string_0" HPOS="10" VPOS="9" WIDTH="31" HEIGHT="11" WC="0.95" CONTENT="This"/><SP WIDTH="10" VPOS="9" HPOS="41"/>"""
+    @test strip(lines[51]) == """<String ID="string_0" HPOS="10" VPOS="8" WIDTH="32" HEIGHT="12" WC="0.95" CONTENT="This"/><SP WIDTH="6" VPOS="8" HPOS="42"/>"""
     @test strip(lines[61]) == """<PrintSpace HPOS="0" VPOS="0" WIDTH="300" HEIGHT="600">"""
     @test strip(lines[71]) == """</ComposedBlock>"""
 
@@ -80,10 +80,10 @@ end
 
     @test strip(lines[1])  == """<?xml version="1.0" encoding="UTF-8"?>"""
     @test strip(lines[10]) == """<processingSoftware>"""
-    @test strip(lines[21]) == """<TextLine ID="line_0" HPOS="10" VPOS="9" WIDTH="160" HEIGHT="14">"""
-    @test strip(lines[26]) == """<String ID="string_4" HPOS="162" VPOS="11" WIDTH="8" HEIGHT="9" WC="0.69" CONTENT="®"/>"""
+    @test strip(lines[21]) == """<TextLine ID="line_0" HPOS="10" VPOS="8" WIDTH="163" HEIGHT="15">"""
+    @test strip(lines[26]) == """<String ID="string_4" HPOS="161" VPOS="8" WIDTH="12" HEIGHT="12" WC="0.93" CONTENT="®"/>"""
     @test strip(lines[41]) == """</TextLine>"""
-    @test strip(lines[51]) == """<String ID="string_0" HPOS="10" VPOS="9" WIDTH="31" HEIGHT="11" WC="0.95" CONTENT="This"/><SP WIDTH="10" VPOS="9" HPOS="41"/>"""
+    @test strip(lines[51]) == """<String ID="string_0" HPOS="10" VPOS="8" WIDTH="32" HEIGHT="12" WC="0.95" CONTENT="This"/><SP WIDTH="6" VPOS="8" HPOS="42"/>"""
     @test strip(lines[61]) == """<PrintSpace HPOS="0" VPOS="0" WIDTH="300" HEIGHT="600">"""
     @test strip(lines[71]) == """</ComposedBlock>"""
 end
@@ -110,10 +110,10 @@ end
 
     @test strip(lines[1])  == """<?xml version="1.0" encoding="UTF-8"?>"""
     @test strip(lines[10]) == """<processingSoftware>"""
-    @test strip(lines[21]) == """<TextLine ID="line_0" HPOS="10" VPOS="9" WIDTH="160" HEIGHT="14">"""
-    @test strip(lines[26]) == """<String ID="string_4" HPOS="162" VPOS="11" WIDTH="8" HEIGHT="9" WC="0.69" CONTENT="®"/>"""
+    @test strip(lines[21]) == """<TextLine ID="line_0" HPOS="10" VPOS="8" WIDTH="163" HEIGHT="15">"""
+    @test strip(lines[26]) == """<String ID="string_4" HPOS="161" VPOS="8" WIDTH="12" HEIGHT="12" WC="0.93" CONTENT="®"/>"""
     @test strip(lines[41]) == """</TextLine>"""
-    @test strip(lines[51]) == """<String ID="string_0" HPOS="10" VPOS="9" WIDTH="31" HEIGHT="11" WC="0.95" CONTENT="This"/><SP WIDTH="10" VPOS="9" HPOS="41"/>"""
+    @test strip(lines[51]) == """<String ID="string_0" HPOS="10" VPOS="8" WIDTH="32" HEIGHT="12" WC="0.95" CONTENT="This"/><SP WIDTH="6" VPOS="8" HPOS="42"/>"""
     @test strip(lines[61]) == """<PrintSpace HPOS="0" VPOS="0" WIDTH="300" HEIGHT="600">"""
     @test strip(lines[71]) == """</ComposedBlock>"""
 end

@@ -111,7 +111,7 @@ function tess_pipeline_pdf(
         filename
     )
 
-    pipeline_add_renderer(pipe, ptr, task)
+    pipeline_add_renderer(pipe, ptr, task, RENDERER_PDF)
 
     return true
 end
@@ -195,7 +195,7 @@ function tess_pipeline_pdf(
     local out = TessOutput(Vector{UInt8})
     local task = pipeline_start_task(path, "output.pdf", out)
 
-    pipeline_add_renderer(pipe, ptr, task)
+    pipeline_add_renderer(pipe, ptr, task, RENDERER_PDF)
 
     return out
 end

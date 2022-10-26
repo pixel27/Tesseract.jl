@@ -27,14 +27,14 @@ using Test
     local inst = TessInst("eng", datadir)
     local pix = pix_with()
 
-    @suppress @test tess_text(inst) == nothing
+    @suppress @test tess_text(inst) === nothing
     @test_nowarn tess_image(inst, pix)
     @test_nowarn tess_resolution(inst, 72)
-    @test tess_text(inst) != nothing
+    @test tess_text(inst) !== nothing
 
     local err = "Instance has been freed."
     tess_delete!(inst)
-    @test (@test_logs (:error, err) tess_text(inst)) == nothing
+    @test (@test_logs (:error, err) tess_text(inst)) === nothing
 end
 
 # -------------------------------------------------------------------------------------------------
@@ -43,14 +43,14 @@ end
     local inst = TessInst("eng", datadir)
     local pix = pix_with()
 
-    @suppress @test tess_hocr(inst) == nothing
+    @suppress @test tess_hocr(inst) === nothing
     @test_nowarn tess_image(inst, pix)
     @test_nowarn tess_resolution(inst, 72)
-    @test tess_hocr(inst) != nothing
+    @test tess_hocr(inst) !== nothing
 
     local err = "Instance has been freed."
     tess_delete!(inst)
-    @test (@test_logs (:error, err) tess_hocr(inst)) == nothing
+    @test (@test_logs (:error, err) tess_hocr(inst)) === nothing
 end
 
 # -------------------------------------------------------------------------------------------------
@@ -59,14 +59,14 @@ end
     local inst = TessInst("eng", datadir)
     local pix = pix_with()
 
-    @suppress @test tess_alto(inst) == nothing
+    @suppress @test tess_alto(inst) === nothing
     @test_nowarn tess_image(inst, pix)
     @test_nowarn tess_resolution(inst, 72)
-    @test tess_alto(inst) != nothing
+    @test tess_alto(inst) !== nothing
 
     local err = "Instance has been freed."
     tess_delete!(inst)
-    @test (@test_logs (:error, err) tess_alto(inst)) == nothing
+    @test (@test_logs (:error, err) tess_alto(inst)) === nothing
 end
 
 # -------------------------------------------------------------------------------------------------
@@ -75,14 +75,14 @@ end
     local inst = TessInst("eng", datadir)
     local pix = pix_with()
 
-    @suppress @test tess_tsv(inst) == nothing
+    @suppress @test tess_tsv(inst) === nothing
     @test_nowarn tess_image(inst, pix)
     @test_nowarn tess_resolution(inst, 72)
-    @test tess_tsv(inst) != nothing
+    @test tess_tsv(inst) !== nothing
 
     local err = "Instance has been freed."
     tess_delete!(inst)
-    @test (@test_logs (:error, err) tess_tsv(inst)) == nothing
+    @test (@test_logs (:error, err) tess_tsv(inst)) === nothing
 end
 
 # -------------------------------------------------------------------------------------------------
@@ -91,19 +91,19 @@ end
     local inst = TessInst("eng", datadir)
     local pix = pix_with()
 
-    @suppress @test tess_parsed_tsv(inst) == nothing
+    @suppress @test tess_parsed_tsv(inst) === nothing
     @test_nowarn tess_image(inst, pix)
     @test_nowarn tess_resolution(inst, 72)
     local result = tess_parsed_tsv(inst)
-    @test result != nothing
+    @test result !== nothing
     @test isempty(result) == false
     @suppress @test_nowarn show(result[1])
 
-    local result = tess_parsed_tsv(inst, 2) == nothing
+    local result = tess_parsed_tsv(inst, 2) === nothing
 
     local err = "Instance has been freed."
     tess_delete!(inst)
-    @test (@test_logs (:error, err) tess_parsed_tsv(inst)) == nothing
+    @test (@test_logs (:error, err) tess_parsed_tsv(inst)) === nothing
 end
 
 # -------------------------------------------------------------------------------------------------
@@ -112,14 +112,14 @@ end
     local inst = TessInst("eng", datadir)
     local pix = pix_with()
 
-    @suppress @test tess_text_box(inst) == nothing
+    @suppress @test tess_text_box(inst) === nothing
     @test_nowarn tess_image(inst, pix)
     @test_nowarn tess_resolution(inst, 72)
-    @test tess_text_box(inst) != nothing
+    @test tess_text_box(inst) !== nothing
 
     local err = "Instance has been freed."
     tess_delete!(inst)
-    @test (@test_logs (:error, err) tess_text_box(inst)) == nothing
+    @test (@test_logs (:error, err) tess_text_box(inst)) === nothing
 end
 
 # -------------------------------------------------------------------------------------------------
@@ -128,14 +128,14 @@ end
     local inst = TessInst("eng", datadir)
     local pix = pix_with()
 
-    @suppress @test tess_word_box(inst) == nothing
+    @suppress @test tess_word_box(inst) === nothing
     @test_nowarn tess_image(inst, pix)
     @test_nowarn tess_resolution(inst, 72)
-    @test tess_word_box(inst) != nothing
+    @test tess_word_box(inst) !== nothing
 
     local err = "Instance has been freed."
     tess_delete!(inst)
-    @test (@test_logs (:error, err) tess_word_box(inst)) == nothing
+    @test (@test_logs (:error, err) tess_word_box(inst)) === nothing
 end
 
 # -------------------------------------------------------------------------------------------------
@@ -144,14 +144,14 @@ end
     local inst = TessInst("eng", datadir)
     local pix = pix_with()
 
-    @suppress @test tess_lstm_box(inst) == nothing
+    @suppress @test tess_lstm_box(inst) === nothing
     @test_nowarn tess_image(inst, pix)
     @test_nowarn tess_resolution(inst, 72)
-    @test tess_lstm_box(inst) != nothing
+    @test tess_lstm_box(inst) !== nothing
 
     local err = "Instance has been freed."
     tess_delete!(inst)
-    @test (@test_logs (:error, err) tess_lstm_box(inst)) == nothing
+    @test (@test_logs (:error, err) tess_lstm_box(inst)) === nothing
 end
 
 # -------------------------------------------------------------------------------------------------
@@ -160,14 +160,14 @@ end
     local inst = TessInst("eng", datadir)
     local pix = pix_with()
 
-    @suppress @test tess_unlv(inst) == nothing
+    @suppress @test tess_unlv(inst) === nothing
     @test_nowarn tess_image(inst, pix)
     @test_nowarn tess_resolution(inst, 72)
-    @test tess_unlv(inst) != nothing
+    @test tess_unlv(inst) !== nothing
 
     local err = "Instance has been freed."
     tess_delete!(inst)
-    @test (@test_logs (:error, err) tess_unlv(inst)) == nothing
+    @test (@test_logs (:error, err) tess_unlv(inst)) === nothing
 end
 
 # -------------------------------------------------------------------------------------------------
@@ -176,14 +176,14 @@ end
     local inst = TessInst("eng", datadir)
     local pix = pix_with()
 
-    @suppress @test tess_unlv_latin1(inst) == nothing
+    @suppress @test tess_unlv_latin1(inst) === nothing
     @test_nowarn tess_image(inst, pix)
     @test_nowarn tess_resolution(inst, 72)
-    @test tess_unlv_latin1(inst) != nothing
+    @test tess_unlv_latin1(inst) !== nothing
 
     local err = "Instance has been freed."
     tess_delete!(inst)
-    @test (@test_logs (:error, err) tess_unlv_latin1(inst)) == nothing
+    @test (@test_logs (:error, err) tess_unlv_latin1(inst)) === nothing
 end
 
 # -------------------------------------------------------------------------------------------------
@@ -192,15 +192,15 @@ end
     local inst = TessInst("eng", datadir)
     local pix = pix_with()
 
-    @suppress @test tess_confidences(inst) == nothing
+    @suppress @test tess_confidences(inst) === nothing
     @test_nowarn tess_image(inst, pix)
     @test_nowarn tess_resolution(inst, 72)
     @test tess_recognize(inst) == true
-    @test tess_confidences(inst) != nothing
+    @test tess_confidences(inst) !== nothing
 
     local err = "Instance has been freed."
     tess_delete!(inst)
-    @test (@test_logs (:error, err) tess_confidences(inst)) == nothing
+    @test (@test_logs (:error, err) tess_confidences(inst)) === nothing
 end
 
 # -------------------------------------------------------------------------------------------------
@@ -214,5 +214,5 @@ end
 
     local err = "Instance has been freed."
     tess_delete!(inst)
-    @test (@test_logs (:error, err) tess_resolution(inst, 72)) == nothing
+    @test (@test_logs (:error, err) tess_resolution(inst, 72)) === nothing
 end

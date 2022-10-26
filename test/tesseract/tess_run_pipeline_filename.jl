@@ -99,7 +99,7 @@ end
     local pipeline = TessPipeline(inst)
     local err      = "Instance has been freed."
 
-    @test tess_pipeline_text(pipeline) != nothing
+    @test tess_pipeline_text(pipeline) !== nothing
 
     local pix1, io = mktemp(;cleanup=false); close(io)
     local pix2, io = mktemp(;cleanup=false); close(io)

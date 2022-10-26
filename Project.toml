@@ -1,7 +1,7 @@
 name = "Tesseract"
 uuid = "11879493-52b3-4e20-990d-281c54a395a1"
 authors = ["Joshua Gentry <pixel@deathbysoftware.com>"]
-version = "0.4.0"
+version = "0.4.1"
 
 [deps]
 Base64 = "2a0f44e3-6c83-55bd-87e4-b1978d98bd5f"
@@ -14,8 +14,8 @@ SHA = "ea8e919c-243c-51af-8825-aaa63cd721ce"
 Tesseract_jll = "efd95c89-babc-5260-8753-618084eaf9d7"
 
 [compat]
-HTTP = "0.9"
+HTTP = "1.5"
 JSON = "0.21"
 Leptonica_jll = "1.82.0"
 Tesseract_jll = "5.1.0"
-julia = "1.6"
+julia = "1.8"

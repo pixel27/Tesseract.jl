@@ -27,7 +27,7 @@
     local original = pix_write_pam(pix)
 
     function unchanged(test)
-        test != nothing && pix_write_pam(test) == original
+        test !== nothing && pix_write_pam(test) == original
     end
 
     # ---------------------------------------------------------------------------------------------
@@ -71,7 +71,7 @@ end
     local original = pix_write_pam(pix)
 
     function unchanged(test)
-        test != nothing && pix_write_pam(test) == original
+        test !== nothing && pix_write_pam(test) == original
     end
 
     # ---------------------------------------------------------------------------------------------
@@ -93,7 +93,7 @@ end
     # To/From a byte array.
     local data  = webp_with()
     local bytes = pix_write_webp(pix; quality = quality, lossless = true)
-    @test bytes != nothing
+    @test bytes !== nothing
     @test length(bytes) > 0
     @test unchanged(pix_read_webp(bytes)) == true
 end
@@ -107,7 +107,7 @@ end
     # To/From a file.
     local filename = safe_tmp_file()
     @test pix_write_webp(filename, pix; quality = quality, lossless = true) == true
-    @test pix_read_webp(filename) != nothing
+    @test pix_read_webp(filename) !== nothing
     rm(filename)
 
     # ---------------------------------------------------------------------------------------------
@@ -116,15 +116,15 @@ end
     @test pix_write_webp(buffer, pix; quality = quality, lossless = true) == true
     @test position(buffer) != 0
     seekstart(buffer)
-    @test pix_read_webp(buffer) != nothing
+    @test pix_read_webp(buffer) !== nothing
 
     # ---------------------------------------------------------------------------------------------
     # To/From a byte array.
     local data  = webp_with()
     local bytes = pix_write_webp(pix; quality = quality, lossless = true)
-    @test bytes != nothing
+    @test bytes !== nothing
     @test length(bytes) > 0
-    @test pix_read_webp(bytes) != nothing
+    @test pix_read_webp(bytes) !== nothing
 end
 
 # =================================================================================================
@@ -134,19 +134,19 @@ end
         # -----------------------------------------------------------------------------------------
         # From a file.
         local filename = safe_tmp_file()
-        @test pix_read_webp(filename) == nothing
-        @test pix_read_webp("xyzzy.webp") == nothing
+        @test pix_read_webp(filename) === nothing
+        @test pix_read_webp("xyzzy.webp") === nothing
         rm(filename)
 
         # -----------------------------------------------------------------------------------------
         # From an IOBuffer.
         local buffer = IOBuffer()
-        @test pix_read_webp(buffer) == nothing
+        @test pix_read_webp(buffer) === nothing
 
         # -----------------------------------------------------------------------------------------
         # To/From a byte array.
         local bytes = Vector{UInt8}()
-        @test pix_read_webp(bytes) == nothing
+        @test pix_read_webp(bytes) === nothing
     end
 end
 
@@ -175,8 +175,8 @@ end
 
     # ---------------------------------------------------------------------------------------------
     # To a byte array.
-    @test (@test_logs (:error, err) pix_write_webp(pix; lossless = false, quality = 0)) == nothing
-    @test (@test_logs (:error, err) pix_write_webp(pix; lossless = false, quality = 101)) == nothing
+    @test (@test_logs (:error, err) pix_write_webp(pix; lossless = false, quality = 0)) === nothing
+    @test (@test_logs (:error, err) pix_write_webp(pix; lossless = false, quality = 101)) === nothing
 end
 
 # =================================================================================================
@@ -199,5 +199,5 @@ end
 
     # ---------------------------------------------------------------------------------------------
     # To a byte array.
-    @test (@test_logs (:error, err) pix_write_webp(pix)) == nothing
+    @test (@test_logs (:error, err) pix_write_webp(pix)) === nothing
 end

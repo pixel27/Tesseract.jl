@@ -113,10 +113,10 @@ end
 
     # ---------------------------------------------------------------------------------------------
     # To a byte array.
-    @test (@test_logs (:error, errPpi) pix_write_ps(pix; ppi = -300)) == nothing
-    @test (@test_logs (:error, errScale) pix_write_ps(pix; scale = -1.0)) == nothing
-    @test (@test_logs (:error, errPpi) pix_write_ps(pix; box=box, ppi = -300)) == nothing
-    @test (@test_logs (:error, errScale) pix_write_ps(pix; box=box, scale = -1.0)) == nothing
+    @test (@test_logs (:error, errPpi) pix_write_ps(pix; ppi = -300)) === nothing
+    @test (@test_logs (:error, errScale) pix_write_ps(pix; scale = -1.0)) === nothing
+    @test (@test_logs (:error, errPpi) pix_write_ps(pix; box=box, ppi = -300)) === nothing
+    @test (@test_logs (:error, errScale) pix_write_ps(pix; box=box, scale = -1.0)) === nothing
 end
 
 # =================================================================================================
@@ -139,5 +139,5 @@ end
 
     # ---------------------------------------------------------------------------------------------
     # To a byte array.
-    @test (@test_logs (:error, err) pix_write_ps(pix)) == nothing
+    @test (@test_logs (:error, err) pix_write_ps(pix)) === nothing
 end

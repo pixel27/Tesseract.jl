@@ -45,5 +45,5 @@ end
 
     pix_delete!(pix)
 
-    @test (@test_logs (:error, err) pix_get_dimensions(pix)) == nothing
+    @test (@test_logs (:error, err) pix_get_dimensions(pix)) === nothing
 end

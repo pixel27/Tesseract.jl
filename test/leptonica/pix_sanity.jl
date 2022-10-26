@@ -38,8 +38,8 @@
         pix_write_spix(pix)
     ]
 
-    for i = 1:length(formats)
-        for j = 1:length(formats)
+    for i = eachindex(formats)
+        for j = eachindex(formats)
             if i != j
                 @test formats[i] != formats[j]
             end

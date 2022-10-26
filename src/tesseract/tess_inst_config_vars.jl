@@ -87,9 +87,9 @@ function TessParam(
     local debug = findfirst("debug", name) !== nothing ||
                   findfirst("display", name) !== nothing
 
-    if match(r"^-?[0-9]+\.[0-9]+$", value) != nothing
+    if match(r"^-?[0-9]+\.[0-9]+$", value) !== nothing
         return TessParam{Float64}(name, parse(Float64, value), help, debug)
-    elseif match(r"^-?[0-9]+$", value) != nothing
+    elseif match(r"^-?[0-9]+$", value) !== nothing
         return TessParam{Int32}(name, parse(Int32, value), help, debug)
     else
         return TessParam{String}(name, value, help, debug)
@@ -131,7 +131,7 @@ function tess_params_parsed(
     local params = Vector{TessParam}()
     local data   = tess_params(inst)
 
-    if data != nothing
+    if data !== nothing
         for m in eachmatch(r"([a-z0-9_]+)\t([^\t]*)\t([^\n]+)"sm, data)
             local name, value, help = m.captures
             push!(params, TessParam(name, value, help))

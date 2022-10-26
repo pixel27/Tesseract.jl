@@ -27,7 +27,7 @@
     local original = pix_write_pam(pix)
 
     function unchanged(test)
-        test != nothing && pix_write_pam(test) == original
+        test !== nothing && pix_write_pam(test) == original
     end
 
     # ---------------------------------------------------------------------------------------------
@@ -71,27 +71,27 @@ end
         # -----------------------------------------------------------------------------------------
         # From a file.
         local filename = safe_tmp_file()
-        @test pix_read_png(filename) == nothing
-        @test pix_read_png("xyzzy.png") == nothing
+        @test pix_read_png(filename) === nothing
+        @test pix_read_png("xyzzy.png") === nothing
         rm(filename)
 
         # -----------------------------------------------------------------------------------------
         # From an IOBuffer.
         local buffer = IOBuffer()
-        @test pix_read_png(buffer) == nothing
+        @test pix_read_png(buffer) === nothing
 
         # -----------------------------------------------------------------------------------------
         # From an IOStream
         local filename = safe_tmp_file()
         local file     = open(filename, read=true, write=true)
-        @test pix_read_png(file) == nothing
+        @test pix_read_png(file) === nothing
         close(file)
         rm(filename)
 
         # -----------------------------------------------------------------------------------------
         # To/From a byte array.
         local bytes = Vector{UInt8}()
-        @test pix_read_png(bytes) == nothing
+        @test pix_read_png(bytes) === nothing
     end
 end
 
@@ -104,7 +104,7 @@ end
     # To/From a file.
     local filename = safe_tmp_file()
     @test pix_write_png(filename, pix; gamma = gamma) == true
-    @test pix_read_png(filename) != nothing
+    @test pix_read_png(filename) !== nothing
     rm(filename)
 
     # ---------------------------------------------------------------------------------------------
@@ -113,7 +113,7 @@ end
     @test pix_write_png(buffer, pix; gamma = gamma) == true
     @test position(buffer) != 0
     seekstart(buffer)
-    @test pix_read_png(buffer) != nothing
+    @test pix_read_png(buffer) !== nothing
 
     # ---------------------------------------------------------------------------------------------
     # To/From an IOStream
@@ -122,7 +122,7 @@ end
     @test pix_write_png(file, pix; gamma = gamma) == true
     @test position(file) != 0
     seekstart(file)
-    @test pix_read_png(file) != nothing
+    @test pix_read_png(file) !== nothing
     close(file)
     rm(filename)
 
@@ -130,7 +130,7 @@ end
     # To/From a byte array.
     local bytes = pix_write_png(pix; gamma = gamma)
     @test length(bytes) > 0
-    @test pix_read_png(bytes) != nothing
+    @test pix_read_png(bytes) !== nothing
 end
 
 # =================================================================================================
@@ -153,7 +153,7 @@ end
 
     # ---------------------------------------------------------------------------------------------
     # To/From a byte array.
-    @test (@test_logs (:error, err) pix_write_png(pix; gamma = gamma)) == nothing
+    @test (@test_logs (:error, err) pix_write_png(pix; gamma = gamma)) === nothing
 end
 
 # =================================================================================================
@@ -176,5 +176,5 @@ end
 
     # ---------------------------------------------------------------------------------------------
     # To a byte array.
-    @test (@test_logs (:error, err) pix_write_png(pix)) == nothing
+    @test (@test_logs (:error, err) pix_write_png(pix)) === nothing
 end

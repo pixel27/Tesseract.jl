@@ -30,7 +30,7 @@
     # To/From a file.
     local filename = safe_tmp_file()
     @test pix_write_tiff(filename, pix; compression = compression) == true
-    @test pix_read_tiff(filename) != nothing
+    @test pix_read_tiff(filename) !== nothing
     rm(filename)
 
     # ---------------------------------------------------------------------------------------------
@@ -39,7 +39,7 @@
     @test pix_write_tiff(buffer, pix; compression = compression) == true
     @test position(buffer) != 0
     seekstart(buffer)
-    @test pix_read_tiff(buffer) != nothing
+    @test pix_read_tiff(buffer) !== nothing
 
     # ---------------------------------------------------------------------------------------------
     # To/From an IOStream
@@ -48,7 +48,7 @@
     @test pix_write_tiff(file, pix; compression = compression) == true
     @test position(file) != 0
     seekstart(file)
-    @test pix_read_tiff(file) != nothing
+    @test pix_read_tiff(file) !== nothing
     close(file)
     rm(filename)
 
@@ -57,7 +57,7 @@
     local data  = tiff_with()
     local bytes = pix_write_tiff(pix; compression = compression)
     @test length(bytes) > 0
-    @test pix_read_tiff(bytes) != nothing
+    @test pix_read_tiff(bytes) !== nothing
 end
 
 # =================================================================================================
@@ -68,27 +68,27 @@ end
         # -----------------------------------------------------------------------------------------
         # From a file.
         local filename = safe_tmp_file()
-        @test pix_read_tiff(filename) == nothing
-        @test pix_read_tiff("xyzzy.tiff") == nothing
+        @test pix_read_tiff(filename) === nothing
+        @test pix_read_tiff("xyzzy.tiff") === nothing
         rm(filename)
 
         # -----------------------------------------------------------------------------------------
         # From an IOBuffer.
         local buffer = IOBuffer()
-        @test pix_read_tiff(buffer) == nothing
+        @test pix_read_tiff(buffer) === nothing
 
         # -----------------------------------------------------------------------------------------
         # From an IOStream
         local filename = safe_tmp_file()
         local file     = open(filename, read=true, write=true)
-        @test pix_read_tiff(file) == nothing
+        @test pix_read_tiff(file) === nothing
         close(file)
         rm(filename)
 
         # -----------------------------------------------------------------------------------------
         # To/From a byte array.
         local bytes = Vector{UInt8}()
-        @test pix_read_tiff(bytes) == nothing
+        @test pix_read_tiff(bytes) === nothing
     end
 end
 
@@ -129,7 +129,7 @@ end
     local data  = tiff_with()
     @test (
         @test_logs (:error, err) pix_write_tiff(pix; compression = compression)
-        ) == nothing
+        ) === nothing
 end
 
 # =================================================================================================
@@ -143,7 +143,7 @@ end
     ]
 
     function equal(pic, i)
-        pic != nothing && pix_write_pam(pic) == pix_write_pam(pixs[i])
+        pic !== nothing && pix_write_pam(pic) == pix_write_pam(pixs[i])
     end
 
     # ---------------------------------------------------------------------------------------------
@@ -152,18 +152,18 @@ end
     @test pix_write_tiff(filename, pixs[1]; compression=compression, append=false) == true
     @test pix_write_tiff(filename, pixs[2]; compression=compression, append=true) == true
     @test pix_write_tiff(filename, pixs[3]; compression=compression, append=true) == true
-    @test pix_read_tiff(filename; page=0) == nothing
+    @test pix_read_tiff(filename; page=0) === nothing
     @test equal(pix_read_tiff(filename; page=1), 1) == true
     @test equal(pix_read_tiff(filename; page=2), 2) == true
     @test equal(pix_read_tiff(filename; page=3), 3) == true
-    @test pix_read_tiff(filename; page=4) == nothing
+    @test pix_read_tiff(filename; page=4) === nothing
 
     # ---------------------------------------------------------------------------------------------
     # From an IOBuffer.
     local buffer = IOBuffer(read(filename))
     @test equal(pix_read_tiff(buffer), 1) == true
     seekstart(buffer)
-    @test pix_read_tiff(buffer; page=0) == nothing
+    @test pix_read_tiff(buffer; page=0) === nothing
     seekstart(buffer)
     @test equal(pix_read_tiff(buffer; page=1), 1) == true
     seekstart(buffer)
@@ -171,14 +171,14 @@ end
     seekstart(buffer)
     @test equal(pix_read_tiff(buffer; page=3), 3) == true
     seekstart(buffer)
-    @test pix_read_tiff(buffer; page=4) == nothing
+    @test pix_read_tiff(buffer; page=4) === nothing
 
     # ---------------------------------------------------------------------------------------------
     # From an IOStream
     local file = open(filename, read=true, write=true)
     @test equal(pix_read_tiff(file), 1) == true
     seekstart(file)
-    @test pix_read_tiff(file; page=0) == nothing
+    @test pix_read_tiff(file; page=0) === nothing
     seekstart(file)
     @test equal(pix_read_tiff(file; page=1), 1) == true
     seekstart(file)
@@ -186,18 +186,18 @@ end
     seekstart(file)
     @test equal(pix_read_tiff(file; page=3), 3) == true
     seekstart(file)
-    @test pix_read_tiff(file; page=4) == nothing
+    @test pix_read_tiff(file; page=4) === nothing
     close(file)
 
     # ---------------------------------------------------------------------------------------------
     # From a byte array.
     local data = read(filename)
     @test equal(pix_read_tiff(data), 1) == true
-    @test pix_read_tiff(filename; page=0) == nothing
+    @test pix_read_tiff(filename; page=0) === nothing
     @test equal(pix_read_tiff(data; page=1), 1) == true
     @test equal(pix_read_tiff(data; page=2), 2) == true
     @test equal(pix_read_tiff(data; page=3), 3) == true
-    @test pix_read_tiff(filename; page=4) == nothing
+    @test pix_read_tiff(filename; page=4) === nothing
 
     rm(filename)
 end
@@ -217,52 +217,52 @@ end
     @test pix_write_tiff(filename, pixs[1]; compression=IFF_TIFF_JPEG, append=false) == true
     @test pix_write_tiff(filename, pixs[2]; compression=IFF_TIFF_JPEG, append=true) == true
     @test pix_write_tiff(filename, pixs[3]; compression=IFF_TIFF_JPEG, append=true) == true
-    @test pix_read_tiff(filename; page=0) == nothing
-    @test pix_read_tiff(filename; page=1) != nothing
-    @test pix_read_tiff(filename; page=2) != nothing
-    @test pix_read_tiff(filename; page=3) != nothing
-    @test pix_read_tiff(filename; page=4) == nothing
+    @test pix_read_tiff(filename; page=0) === nothing
+    @test pix_read_tiff(filename; page=1) !== nothing
+    @test pix_read_tiff(filename; page=2) !== nothing
+    @test pix_read_tiff(filename; page=3) !== nothing
+    @test pix_read_tiff(filename; page=4) === nothing
 
     # ---------------------------------------------------------------------------------------------
     # From an IOBuffer.
     local buffer = IOBuffer(read(filename))
-    @test pix_read_tiff(buffer) != nothing
+    @test pix_read_tiff(buffer) !== nothing
     seekstart(buffer)
-    @test pix_read_tiff(buffer; page=0) == nothing
+    @test pix_read_tiff(buffer; page=0) === nothing
     seekstart(buffer)
-    @test pix_read_tiff(buffer; page=1) != nothing
+    @test pix_read_tiff(buffer; page=1) !== nothing
     seekstart(buffer)
-    @test pix_read_tiff(buffer; page=2) != nothing
+    @test pix_read_tiff(buffer; page=2) !== nothing
     seekstart(buffer)
-    @test pix_read_tiff(buffer; page=3) != nothing
+    @test pix_read_tiff(buffer; page=3) !== nothing
     seekstart(buffer)
-    @test pix_read_tiff(buffer; page=4) == nothing
+    @test pix_read_tiff(buffer; page=4) === nothing
 
     # ---------------------------------------------------------------------------------------------
     # From an IOStream
     local file = open(filename, read=true, write=true)
-    @test pix_read_tiff(file) != nothing
+    @test pix_read_tiff(file) !== nothing
     seekstart(file)
-    @test pix_read_tiff(file; page=0) == nothing
+    @test pix_read_tiff(file; page=0) === nothing
     seekstart(file)
-    @test pix_read_tiff(file; page=1) != nothing
+    @test pix_read_tiff(file; page=1) !== nothing
     seekstart(file)
-    @test pix_read_tiff(file; page=2) != nothing
+    @test pix_read_tiff(file; page=2) !== nothing
     seekstart(file)
-    @test pix_read_tiff(file; page=3) != nothing
+    @test pix_read_tiff(file; page=3) !== nothing
     seekstart(file)
-    @test pix_read_tiff(file; page=4) == nothing
+    @test pix_read_tiff(file; page=4) === nothing
     close(file)
 
     # ---------------------------------------------------------------------------------------------
     # From a byte array.
     local data = read(filename)
-    @test pix_read_tiff(data) != nothing
-    @test pix_read_tiff(data; page=0) == nothing
-    @test pix_read_tiff(data; page=1) != nothing
-    @test pix_read_tiff(data; page=2) != nothing
-    @test pix_read_tiff(data; page=3) != nothing
-    @test pix_read_tiff(data; page=4) == nothing
+    @test pix_read_tiff(data) !== nothing
+    @test pix_read_tiff(data; page=0) === nothing
+    @test pix_read_tiff(data; page=1) !== nothing
+    @test pix_read_tiff(data; page=2) !== nothing
+    @test pix_read_tiff(data; page=3) !== nothing
+    @test pix_read_tiff(data; page=4) === nothing
 
     rm(filename)
 end
@@ -287,5 +287,5 @@ end
 
     # ---------------------------------------------------------------------------------------------
     # To a byte array.
-    @test (@test_logs (:error, err) pix_write_tiff(pix)) == nothing
+    @test (@test_logs (:error, err) pix_write_tiff(pix)) === nothing
 end

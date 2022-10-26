@@ -31,7 +31,7 @@
         # To/From a file.
         local filename = safe_tmp_file()
         @test pix_write_jp2k(filename, pix) == true
-        @test pix_read_jp2k(filename) != nothing
+        @test pix_read_jp2k(filename) !== nothing
         rm(filename)
 
         # -----------------------------------------------------------------------------------------
@@ -40,7 +40,7 @@
         @test pix_write_jp2k(buffer, pix) == true
         @test position(buffer) != 0
         seekstart(buffer)
-        @test pix_read_jp2k(buffer) != nothing
+        @test pix_read_jp2k(buffer) !== nothing
 
         # -----------------------------------------------------------------------------------------
         # To/From an IOStream
@@ -49,7 +49,7 @@
         @test pix_write_jp2k(file, pix) == true
         @test position(file) != 0
         seekstart(file)
-        @test pix_read_jp2k(file) != nothing
+        @test pix_read_jp2k(file) !== nothing
         close(file)
         rm(filename)
 
@@ -58,7 +58,7 @@
         local data  = jp2k_with()
         local bytes = pix_write_jp2k(pix)
         @test length(bytes) > 0
-        @test pix_read_jp2k(bytes) != nothing
+        @test pix_read_jp2k(bytes) !== nothing
     end
 end
 
@@ -74,7 +74,7 @@ end
         local filename = safe_tmp_file()
         @test pix_write_jp2k(filename, pix; quality = quality, levels = levels) == true
         for i in 1:levels
-            @test pix_read_jp2k(filename; reduction = 2^(i-1)) != nothing
+            @test pix_read_jp2k(filename; reduction = 2^(i-1)) !== nothing
         end
         rm(filename)
 
@@ -85,7 +85,7 @@ end
         @test position(buffer) != 0
         for i in 1:levels
             seekstart(buffer)
-            @test pix_read_jp2k(buffer; reduction = 2^(i-1)) != nothing
+            @test pix_read_jp2k(buffer; reduction = 2^(i-1)) !== nothing
         end
 
         # -----------------------------------------------------------------------------------------
@@ -94,7 +94,7 @@ end
         local bytes = pix_write_jp2k(pix; quality = quality, levels = levels)
         @test length(bytes) > 0
         for i in 1:levels
-            @test pix_read_jp2k(bytes; reduction = 2^(i-1)) != nothing
+            @test pix_read_jp2k(bytes; reduction = 2^(i-1)) !== nothing
         end
     end
 end
@@ -115,7 +115,7 @@ end
         # To/From a file.
         local filename = safe_tmp_file()
         @test pix_write_jp2k(filename, pix) == true
-        @test pix_read_jp2k(filename; box = box, reduction=2^(level-1)) != nothing
+        @test pix_read_jp2k(filename; box = box, reduction=2^(level-1)) !== nothing
         rm(filename)
 
         # -----------------------------------------------------------------------------------------
@@ -124,14 +124,14 @@ end
         @test pix_write_jp2k(buffer, pix) == true
         @test position(buffer) != 0
         seekstart(buffer)
-        @test pix_read_jp2k(buffer; box = box, reduction=2^(level-1)) != nothing
+        @test pix_read_jp2k(buffer; box = box, reduction=2^(level-1)) !== nothing
 
         # -----------------------------------------------------------------------------------------
         # To/From a byte array.
         local data  = jp2k_with()
         local bytes = pix_write_jp2k(pix)
         @test length(bytes) > 0
-        @test pix_read_jp2k(bytes; box = box, reduction=2^(level-1)) != nothing
+        @test pix_read_jp2k(bytes; box = box, reduction=2^(level-1)) !== nothing
     end
 
 end
@@ -143,19 +143,19 @@ end
         # -----------------------------------------------------------------------------------------
         # From a file.
         local filename = safe_tmp_file()
-        @test pix_read_jp2k(filename) == nothing
-        @test pix_read_jp2k("xyzzy.j2k") == nothing
+        @test pix_read_jp2k(filename) === nothing
+        @test pix_read_jp2k("xyzzy.j2k") === nothing
         rm(filename)
 
         # -----------------------------------------------------------------------------------------
         # From an IOBuffer.
         local buffer = IOBuffer()
-        @test pix_read_jp2k(buffer) == nothing
+        @test pix_read_jp2k(buffer) === nothing
 
         # -----------------------------------------------------------------------------------------
         # To/From a byte array.
         local bytes = Vector{UInt8}()
-        @test pix_read_jp2k(bytes) == nothing
+        @test pix_read_jp2k(bytes) === nothing
     end
 end
 
@@ -187,9 +187,9 @@ end
     @test length(take!(buffer)) == 0
     # ---------------------------------------------------------------------------------------------
     # To a byte array.
-    @test (@test_logs (:error, err) pix_write_jp2k(pix; quality = -1)) == nothing
-    @test (@test_logs (:error, err) pix_write_jp2k(pix; quality = 0)) == nothing
-    @test (@test_logs (:error, err) pix_write_jp2k(pix; quality = 101)) == nothing
+    @test (@test_logs (:error, err) pix_write_jp2k(pix; quality = -1)) === nothing
+    @test (@test_logs (:error, err) pix_write_jp2k(pix; quality = 0)) === nothing
+    @test (@test_logs (:error, err) pix_write_jp2k(pix; quality = 101)) === nothing
 end
 
 # =================================================================================================
@@ -220,9 +220,9 @@ end
     @test length(take!(buffer)) == 0
     # ---------------------------------------------------------------------------------------------
     # To a byte array.
-    @test (@test_logs (:error, err) pix_write_jp2k(pix; levels = -1)) == nothing
-    @test (@test_logs (:error, err) pix_write_jp2k(pix; levels = 0)) == nothing
-    @test (@test_logs (:error, err) pix_write_jp2k(pix; levels = 11)) == nothing
+    @test (@test_logs (:error, err) pix_write_jp2k(pix; levels = -1)) === nothing
+    @test (@test_logs (:error, err) pix_write_jp2k(pix; levels = 0)) === nothing
+    @test (@test_logs (:error, err) pix_write_jp2k(pix; levels = 11)) === nothing
 end
 
 # =================================================================================================
@@ -235,9 +235,9 @@ end
     # To/From a file.
     local filename = safe_tmp_file()
     @test pix_write_jp2k(filename, pix) == true
-    @test (@test_logs (:error, err) pix_read_jp2k(filename; reduction = -1)) == nothing
-    @test (@test_logs (:error, err) pix_read_jp2k(filename; reduction = 0)) == nothing
-    @test (@test_logs (:error, err) pix_read_jp2k(filename; reduction = 13)) == nothing
+    @test (@test_logs (:error, err) pix_read_jp2k(filename; reduction = -1)) === nothing
+    @test (@test_logs (:error, err) pix_read_jp2k(filename; reduction = 0)) === nothing
+    @test (@test_logs (:error, err) pix_read_jp2k(filename; reduction = 13)) === nothing
     rm(filename)
 
     # ---------------------------------------------------------------------------------------------
@@ -246,19 +246,19 @@ end
     @test pix_write_jp2k(buffer, pix) == true
     @test position(buffer) != 0
     seekstart(buffer)
-    @test (@test_logs (:error, err) pix_read_jp2k(buffer; reduction = -1)) == nothing
+    @test (@test_logs (:error, err) pix_read_jp2k(buffer; reduction = -1)) === nothing
     seekstart(buffer)
-    @test (@test_logs (:error, err) pix_read_jp2k(buffer; reduction = 0)) == nothing
+    @test (@test_logs (:error, err) pix_read_jp2k(buffer; reduction = 0)) === nothing
     seekstart(buffer)
-    @test (@test_logs (:error, err) pix_read_jp2k(buffer; reduction = 9)) == nothing
+    @test (@test_logs (:error, err) pix_read_jp2k(buffer; reduction = 9)) === nothing
 
     # ---------------------------------------------------------------------------------------------
     # To/From a byte array.
     local bytes = pix_write_jp2k(pix)
     @test length(bytes) > 0
-    @test (@test_logs (:error, err) pix_read_jp2k(bytes; reduction = -1)) == nothing
-    @test (@test_logs (:error, err) pix_read_jp2k(bytes; reduction = 0)) == nothing
-    @test (@test_logs (:error, err) pix_read_jp2k(bytes; reduction = 6)) == nothing
+    @test (@test_logs (:error, err) pix_read_jp2k(bytes; reduction = -1)) === nothing
+    @test (@test_logs (:error, err) pix_read_jp2k(bytes; reduction = 0)) === nothing
+    @test (@test_logs (:error, err) pix_read_jp2k(bytes; reduction = 6)) === nothing
 end
 
 # =================================================================================================
@@ -281,5 +281,5 @@ end
 
     # ---------------------------------------------------------------------------------------------
     # To a byte array.
-    @test (@test_logs (:error, err) pix_write_jp2k(pix)) == nothing
+    @test (@test_logs (:error, err) pix_write_jp2k(pix)) === nothing
 end

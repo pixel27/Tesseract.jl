@@ -324,9 +324,9 @@ function parse_languages(
     local files     = get_json_safe(AbstractVector, json, "files")
 
     version === nothing && return Languages()
-    lastcheck == nothing && return Languages()
-    server == nothing && return Languages()
-    files == nothing && return Languages()
+    lastcheck === nothing && return Languages()
+    server === nothing && return Languages()
+    files === nothing && return Languages()
 
     # -------------------------------------------------------------------------------------
     # Check the version.

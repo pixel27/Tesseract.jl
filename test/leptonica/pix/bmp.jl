@@ -27,7 +27,7 @@
     local original = pix_write_pam(pix)
 
     function unchanged(test)
-        test != nothing && pix_write_pam(test) == original
+        test !== nothing && pix_write_pam(test) == original
     end
 
     # ---------------------------------------------------------------------------------------------
@@ -70,19 +70,19 @@ end
         # -----------------------------------------------------------------------------------------
         # From a file.
         local filename = safe_tmp_file()
-        @test pix_read_bmp(filename) == nothing
-        @test pix_read_bmp("xyzzy.bmp") == nothing
+        @test pix_read_bmp(filename) === nothing
+        @test pix_read_bmp("xyzzy.bmp") === nothing
         rm(filename)
 
         # -----------------------------------------------------------------------------------------
         # From an IOBuffer.
         local buffer = IOBuffer()
-        @test pix_read_bmp(buffer) == nothing
+        @test pix_read_bmp(buffer) === nothing
 
         # -----------------------------------------------------------------------------------------
         # To/From a byte array.
         local bytes = Vector{UInt8}()
-        @test pix_read_bmp(bytes) == nothing
+        @test pix_read_bmp(bytes) === nothing
     end
 end
 
@@ -106,5 +106,5 @@ end
 
     # ---------------------------------------------------------------------------------------------
     # To a byte array.
-    @test (@test_logs (:error, err) pix_write_bmp(pix)) == nothing
+    @test (@test_logs (:error, err) pix_write_bmp(pix)) === nothing
 end

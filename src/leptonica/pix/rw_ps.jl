@@ -92,7 +92,7 @@ function pix_write_ps_i(
 
     # ---------------------------------------------------------------------------------------------
     # If a box was provided allocate a box.
-    if box != nothing
+    if box !== nothing
         boxPtr = ccall(
             (:boxCreate, LEPTONICA),
             Ptr{Cvoid},
@@ -101,7 +101,7 @@ function pix_write_ps_i(
         )
     end
 
-    if box != nothing && boxPtr == C_NULL
+    if box !== nothing && boxPtr == C_NULL
         return (C_NULL, 0)
     end
 
@@ -206,7 +206,7 @@ function pix_write_ps(
         finally
             lept_free(data)
 
-            if file != nothing
+            if file !== nothing
                 close(file)
             end
         end

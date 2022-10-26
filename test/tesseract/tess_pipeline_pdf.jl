@@ -60,7 +60,7 @@ end
     end) == true
 
     @test is_available(output) == true
-    @test output[] != nothing
+    @test output[] !== nothing
 
     @test length(output[]) > 0
 end

@@ -27,7 +27,7 @@ using Test
     local test = TessOutput(String)
 
     @test is_available(test) == false
-    @test test[] == nothing
+    @test test[] === nothing
 
     test.result = "abc"
 

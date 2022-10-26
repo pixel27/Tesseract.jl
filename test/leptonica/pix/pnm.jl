@@ -29,7 +29,7 @@
     # To/From a file.
     local filename = safe_tmp_file()
     @test pix_write_pnm(filename, pix) == true
-    @test pix_read_pnm(filename) != nothing
+    @test pix_read_pnm(filename) !== nothing
     rm(filename)
 
     # ---------------------------------------------------------------------------------------------
@@ -38,7 +38,7 @@
     @test pix_write_pnm(buffer, pix) == true
     @test position(buffer) != 0
     seekstart(buffer)
-    @test pix_read_pnm(buffer) != nothing
+    @test pix_read_pnm(buffer) !== nothing
 
     # ---------------------------------------------------------------------------------------------
     # To/From an IOStream
@@ -47,7 +47,7 @@
     @test pix_write_pnm(file, pix) == true
     @test position(file) != 0
     seekstart(file)
-    @test pix_read_pnm(file) != nothing
+    @test pix_read_pnm(file) !== nothing
     close(file)
     rm(filename)
 
@@ -55,7 +55,7 @@
     # To/From a byte array.
     local bytes = pix_write_pnm(pix)
     @test length(bytes) > 0
-    @test pix_read_pnm(bytes) != nothing
+    @test pix_read_pnm(bytes) !== nothing
 end
 
 # =================================================================================================
@@ -78,5 +78,5 @@ end
 
     # ---------------------------------------------------------------------------------------------
     # To a byte array.
-    @test (@test_logs (:error, err) pix_write_pnm(pix)) == nothing
+    @test (@test_logs (:error, err) pix_write_pnm(pix)) === nothing
 end

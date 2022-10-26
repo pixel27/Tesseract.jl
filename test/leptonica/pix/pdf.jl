@@ -112,10 +112,10 @@ end
     # ---------------------------------------------------------------------------------------------
     # To a byte array.
     local bytes = Vector{UInt8}()
-    @test (@test_logs (:error, err) pix_write_pdf(pix; ppi = 0)) == nothing
-    @test (@test_logs (:error, err) pix_write_pdf(pix; ppi = -300)) == nothing
-    @test (@test_logs (:error, err) pix_write_pdf(pix; ppi = 0, title = "Testing the test")) == nothing
-    @test (@test_logs (:error, err) pix_write_pdf(pix; ppi = -300, title = "Testing the test")) == nothing
+    @test (@test_logs (:error, err) pix_write_pdf(pix; ppi = 0)) === nothing
+    @test (@test_logs (:error, err) pix_write_pdf(pix; ppi = -300)) === nothing
+    @test (@test_logs (:error, err) pix_write_pdf(pix; ppi = 0, title = "Testing the test")) === nothing
+    @test (@test_logs (:error, err) pix_write_pdf(pix; ppi = -300, title = "Testing the test")) === nothing
     @test length(bytes) == 0
 end
 
@@ -139,5 +139,5 @@ end
 
     # ---------------------------------------------------------------------------------------------
     # To a byte array.
-    @test (@test_logs (:error, err) pix_write_pdf(pix)) == nothing
+    @test (@test_logs (:error, err) pix_write_pdf(pix)) === nothing
 end

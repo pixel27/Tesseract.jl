@@ -199,7 +199,7 @@ function pix_write_bmp(
         finally
             lept_free(data)
 
-            if file != nothing
+            if file !== nothing
                 close(file)
             end
         end

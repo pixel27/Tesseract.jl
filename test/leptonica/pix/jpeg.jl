@@ -30,7 +30,7 @@
     # To/From a file.
     local filename = safe_tmp_file()
     @test pix_write_jpeg(filename, pix) == true
-    @test pix_read_jpeg(filename) != nothing
+    @test pix_read_jpeg(filename) !== nothing
     rm(filename)
 
     # ---------------------------------------------------------------------------------------------
@@ -39,7 +39,7 @@
     @test pix_write_jpeg(buffer, pix) == true
     @test position(buffer) != 0
     seekstart(buffer)
-    @test pix_read_jpeg(buffer) != nothing
+    @test pix_read_jpeg(buffer) !== nothing
 
     # ---------------------------------------------------------------------------------------------
     # To/From an IOStream
@@ -48,7 +48,7 @@
     @test pix_write_jpeg(file, pix) == true
     @test position(file) != 0
     seekstart(file)
-    @test pix_read_jpeg(file) != nothing
+    @test pix_read_jpeg(file) !== nothing
     close(file)
     rm(filename)
 
@@ -57,7 +57,7 @@
     local data  = jpeg_with()
     local bytes = pix_write_jpeg(pix)
     @test length(bytes) > 0
-    @test pix_read_jpeg(bytes) != nothing
+    @test pix_read_jpeg(bytes) !== nothing
 end
 
 # =================================================================================================
@@ -71,7 +71,7 @@ end
     # To/From a file.
     local filename = safe_tmp_file()
     @test pix_write_jpeg(filename, pix; quality = quality, progressive = progressive) == true
-    @test pix_read_jpeg(filename) != nothing
+    @test pix_read_jpeg(filename) !== nothing
     rm(filename)
 
     # ---------------------------------------------------------------------------------------------
@@ -80,14 +80,14 @@ end
     @test pix_write_jpeg(buffer, pix; quality = quality, progressive = progressive) == true
     @test position(buffer) != 0
     seekstart(buffer)
-    @test pix_read_jpeg(buffer) != nothing
+    @test pix_read_jpeg(buffer) !== nothing
 
     # ---------------------------------------------------------------------------------------------
     # To/From a byte array.
     local data  = jpeg_with()
     local bytes = pix_write_jpeg(pix; quality = quality, progressive = progressive)
     @test length(bytes) > 0
-    @test pix_read_jpeg(bytes) != nothing
+    @test pix_read_jpeg(bytes) !== nothing
 end
 
 # =================================================================================================
@@ -101,7 +101,7 @@ end
         # To/From a file.
         local filename = safe_tmp_file()
         @test pix_write_jpeg(filename, pix) == true
-        @test pix_read_jpeg(filename; cmap = cmap, reduction = reduction, luminance = luminance) != nothing
+        @test pix_read_jpeg(filename; cmap = cmap, reduction = reduction, luminance = luminance) !== nothing
         rm(filename)
 
         # -----------------------------------------------------------------------------------------
@@ -110,14 +110,14 @@ end
         @test pix_write_jpeg(buffer, pix) == true
         @test position(buffer) != 0
         seekstart(buffer)
-        @test pix_read_jpeg(buffer; cmap = cmap, reduction = reduction, luminance = luminance) != nothing
+        @test pix_read_jpeg(buffer; cmap = cmap, reduction = reduction, luminance = luminance) !== nothing
 
         # -----------------------------------------------------------------------------------------
         # To/From a byte array.
         local data  = jpeg_with()
         local bytes = pix_write_jpeg(pix)
         @test length(bytes) > 0
-        @test pix_read_jpeg(bytes; cmap = cmap, reduction = reduction, luminance = luminance) != nothing
+        @test pix_read_jpeg(bytes; cmap = cmap, reduction = reduction, luminance = luminance) !== nothing
     end
 end
 
@@ -128,19 +128,19 @@ end
         # -----------------------------------------------------------------------------------------
         # From a file.
         local filename = safe_tmp_file()
-        @test pix_read_jpeg(filename) == nothing
-        @test pix_read_jpeg("xyzzy.jpg") == nothing
+        @test pix_read_jpeg(filename) === nothing
+        @test pix_read_jpeg("xyzzy.jpg") === nothing
         rm(filename)
 
         # -----------------------------------------------------------------------------------------
         # From an IOBuffer.
         local buffer = IOBuffer()
-        @test pix_read_jpeg(buffer) == nothing
+        @test pix_read_jpeg(buffer) === nothing
 
         # -----------------------------------------------------------------------------------------
         # To/From a byte array.
         local bytes = Vector{UInt8}()
-        @test pix_read_jpeg(bytes) == nothing
+        @test pix_read_jpeg(bytes) === nothing
     end
 end
 
@@ -172,9 +172,9 @@ end
     @test length(take!(buffer)) == 0
     # ---------------------------------------------------------------------------------------------
     # To a byte array.
-    @test (@test_logs (:error, err) pix_write_jpeg(pix; quality = 0)) == nothing
-    @test (@test_logs (:error, err) pix_write_jpeg(pix; quality = -1)) == nothing
-    @test (@test_logs (:error, err) pix_write_jpeg(pix; quality = 200)) == nothing
+    @test (@test_logs (:error, err) pix_write_jpeg(pix; quality = 0)) === nothing
+    @test (@test_logs (:error, err) pix_write_jpeg(pix; quality = -1)) === nothing
+    @test (@test_logs (:error, err) pix_write_jpeg(pix; quality = 200)) === nothing
 end
 
 # =================================================================================================
@@ -187,9 +187,9 @@ end
     # To/From a file.
     local filename = safe_tmp_file()
     @test pix_write_jpeg(filename, pix) == true
-    @test (@test_logs (:error, err) pix_read_jpeg(filename; reduction = 0)) == nothing
-    @test (@test_logs (:error, err) pix_read_jpeg(filename; reduction = 7)) == nothing
-    @test (@test_logs (:error, err) pix_read_jpeg(filename; reduction = 16)) == nothing
+    @test (@test_logs (:error, err) pix_read_jpeg(filename; reduction = 0)) === nothing
+    @test (@test_logs (:error, err) pix_read_jpeg(filename; reduction = 7)) === nothing
+    @test (@test_logs (:error, err) pix_read_jpeg(filename; reduction = 16)) === nothing
     rm(filename)
 
     # ---------------------------------------------------------------------------------------------
@@ -198,19 +198,19 @@ end
     @test pix_write_jpeg(buffer, pix) == true
     @test position(buffer) != 0
     seekstart(buffer)
-    @test (@test_logs (:error, err) pix_read_jpeg(buffer; reduction = 0)) == nothing
+    @test (@test_logs (:error, err) pix_read_jpeg(buffer; reduction = 0)) === nothing
     seekstart(buffer)
-    @test (@test_logs (:error, err) pix_read_jpeg(buffer; reduction = 7)) == nothing
+    @test (@test_logs (:error, err) pix_read_jpeg(buffer; reduction = 7)) === nothing
     seekstart(buffer)
-    @test (@test_logs (:error, err) pix_read_jpeg(buffer; reduction = 16)) == nothing
+    @test (@test_logs (:error, err) pix_read_jpeg(buffer; reduction = 16)) === nothing
 
     # ---------------------------------------------------------------------------------------------
     # To/From a byte array.
     local bytes = pix_write_jpeg(pix)
     @test length(bytes) > 0
-    @test (@test_logs (:error, err) pix_read_jpeg(bytes; reduction = 0)) == nothing
-    @test (@test_logs (:error, err) pix_read_jpeg(bytes; reduction = 7)) == nothing
-    @test (@test_logs (:error, err) pix_read_jpeg(bytes; reduction = 16)) == nothing
+    @test (@test_logs (:error, err) pix_read_jpeg(bytes; reduction = 0)) === nothing
+    @test (@test_logs (:error, err) pix_read_jpeg(bytes; reduction = 7)) === nothing
+    @test (@test_logs (:error, err) pix_read_jpeg(bytes; reduction = 16)) === nothing
 end
 
 # =================================================================================================
@@ -233,5 +233,5 @@ end
 
     # ---------------------------------------------------------------------------------------------
     # To a byte array.
-    @test (@test_logs (:error, err) pix_write_jpeg(pix)) == nothing
+    @test (@test_logs (:error, err) pix_write_jpeg(pix)) === nothing
 end

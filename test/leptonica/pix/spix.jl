@@ -29,7 +29,7 @@
     # To/From a file.
     local filename = safe_tmp_file()
     @test pix_write_spix(filename, pix) == true
-    @test pix_read_spix(filename) != nothing
+    @test pix_read_spix(filename) !== nothing
     rm(filename)
 
     # ---------------------------------------------------------------------------------------------
@@ -38,7 +38,7 @@
     @test pix_write_spix(buffer, pix) == true
     @test position(buffer) != 0
     seekstart(buffer)
-    @test pix_read_spix(buffer) != nothing
+    @test pix_read_spix(buffer) !== nothing
 
     # ---------------------------------------------------------------------------------------------
     # To/From an IOStream
@@ -47,7 +47,7 @@
     @test pix_write_spix(file, pix) == true
     @test position(file) != 0
     seekstart(file)
-    @test pix_read_spix(file) != nothing
+    @test pix_read_spix(file) !== nothing
     close(file)
     rm(filename)
 
@@ -56,7 +56,7 @@
     local data  = spix_with()
     local bytes = pix_write_spix(pix)
     @test length(bytes) > 0
-    @test pix_read_spix(bytes) != nothing
+    @test pix_read_spix(bytes) !== nothing
 end
 
 # =================================================================================================
@@ -66,27 +66,27 @@ end
         # -----------------------------------------------------------------------------------------
         # From a file.
         local filename = safe_tmp_file()
-        @test pix_read_spix(filename) == nothing
-        @test pix_read_spix("xyzzy.spix") == nothing
+        @test pix_read_spix(filename) === nothing
+        @test pix_read_spix("xyzzy.spix") === nothing
         rm(filename)
 
         # -----------------------------------------------------------------------------------------
         # From an IOBuffer.
         local buffer = IOBuffer()
-        @test pix_read_spix(buffer) == nothing
+        @test pix_read_spix(buffer) === nothing
 
         # -----------------------------------------------------------------------------------------
         # From an IOStream
         local filename = safe_tmp_file()
         local file     = open(filename, read=true, write=true)
-        @test pix_read_spix(file) == nothing
+        @test pix_read_spix(file) === nothing
         close(file)
         rm(filename)
 
         # -----------------------------------------------------------------------------------------
         # To/From a byte array.
         local bytes = Vector{UInt8}()
-        @test pix_read_spix(bytes) == nothing
+        @test pix_read_spix(bytes) === nothing
     end
 end
 
@@ -110,5 +110,5 @@ end
 
     # ---------------------------------------------------------------------------------------------
     # To a byte array.
-    @test (@test_logs (:error, err) pix_write_spix(pix)) == nothing
+    @test (@test_logs (:error, err) pix_write_spix(pix)) === nothing
 end

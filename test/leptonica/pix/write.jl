@@ -27,7 +27,7 @@
     local pix      = pix_with()
 
     @test pix_write(filename, pix) == true
-    @test pix_read(filename) != nothing
+    @test pix_read(filename) !== nothing
 
     rm(filename)
 end
@@ -87,7 +87,7 @@ end
 
     local err = "Pix has been freed."
     pix_delete!(pix)
-    @test (@test_logs (:error, err) pix_write(pix, format)) == nothing
+    @test (@test_logs (:error, err) pix_write(pix, format)) === nothing
 end
 
 # =================================================================================================

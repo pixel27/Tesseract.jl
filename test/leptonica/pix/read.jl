@@ -29,7 +29,7 @@
         ]
     local filename = generator()
 
-    @test pix_read(filename) != nothing
+    @test pix_read(filename) !== nothing
 
     rm(filename)
 end
@@ -39,10 +39,10 @@ end
 @testset "pix_read(filename) | type = jpeg /w parameters" begin
     local filename = jpeg_file_with()
 
-    @test pix_read(filename) != nothing
-    @suppress @test pix_read(filename; jpgLuminance = true) != nothing
-    @test pix_read(filename; jpgFailOnBadData = true) != nothing
-    @suppress @test pix_read(filename; jpgLuminance = true, jpgFailOnBadData = true) != nothing
+    @test pix_read(filename) !== nothing
+    @suppress @test pix_read(filename; jpgLuminance = true) !== nothing
+    @test pix_read(filename; jpgFailOnBadData = true) !== nothing
+    @suppress @test pix_read(filename; jpgLuminance = true, jpgFailOnBadData = true) !== nothing
 
     rm(filename)
 end
@@ -53,14 +53,14 @@ end
 
     local filename = safe_tmp_file()
     @suppress begin
-        @test pix_read(filename) == nothing
-        @test pix_read("xyzzy.dat") == nothing
-        @test pix_read(filename; jpgFailOnBadData = true) == nothing
-        @test pix_read("xyzzy.dat"; jpgFailOnBadData = true) == nothing
-        @test pix_read(filename; jpgLuminance = true) == nothing
-        @test pix_read("xyzzy.dat"; jpgLuminance = true) == nothing
-        @test pix_read(filename; jpgLuminance = true, jpgFailOnBadData = true) == nothing
-        @test pix_read("xyzzy.dat"; jpgLuminance = true, jpgFailOnBadData = true) == nothing
+        @test pix_read(filename) === nothing
+        @test pix_read("xyzzy.dat") === nothing
+        @test pix_read(filename; jpgFailOnBadData = true) === nothing
+        @test pix_read("xyzzy.dat"; jpgFailOnBadData = true) === nothing
+        @test pix_read(filename; jpgLuminance = true) === nothing
+        @test pix_read("xyzzy.dat"; jpgLuminance = true) === nothing
+        @test pix_read(filename; jpgLuminance = true, jpgFailOnBadData = true) === nothing
+        @test pix_read("xyzzy.dat"; jpgLuminance = true, jpgFailOnBadData = true) === nothing
     end
     rm(filename)
 end
@@ -74,14 +74,14 @@ end
         ]
     local data = generator()
 
-    @test pix_read(IOBuffer(data)) != nothing
+    @test pix_read(IOBuffer(data)) !== nothing
 
     local filename = safe_tmp_file()
     write(filename, data)
 
     local file = open(filename; read = true)
 
-    @test pix_read(file) != nothing
+    @test pix_read(file) !== nothing
 
     close(file)
     rm(filename)
@@ -90,7 +90,7 @@ end
 # =================================================================================================
 # Test reading with bad parameters.
 @testset "pix_read(IO) /w empty stream" begin
-    @test pix_read(IOBuffer()) == nothing
+    @test pix_read(IOBuffer()) === nothing
 end
 
 # =================================================================================================
@@ -101,11 +101,11 @@ end
             ("webp", webp_with)
         ]
     local data = generator()
-    @test pix_read(data) != nothing
+    @test pix_read(data) !== nothing
 end
 
 # =================================================================================================
 # Test reading with bad parameters.
 @testset "pix_read(Vector{UInt8}) /w empty stream" begin
-    @test pix_read(Vector{UInt8}()) == nothing
+    @test pix_read(Vector{UInt8}()) === nothing
 end

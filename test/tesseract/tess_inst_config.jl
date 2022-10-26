@@ -55,7 +55,7 @@ end
     local err  = "Instance has been freed."
     local inst = TessInst("eng", datadir)
     tess_delete!(inst)
-    @test (@test_logs (:error, err) tess_initialized_languages(inst)) == nothing
+    @test (@test_logs (:error, err) tess_initialized_languages(inst)) === nothing
 end
 
 # -------------------------------------------------------------------------------------------------
@@ -68,7 +68,7 @@ end
     local err  = "Instance has been freed."
     local inst = TessInst("eng", datadir)
     tess_delete!(inst)
-    @test (@test_logs (:error, err) tess_loaded_languages(inst)) == nothing
+    @test (@test_logs (:error, err) tess_loaded_languages(inst)) === nothing
 end
 
 # -------------------------------------------------------------------------------------------------
@@ -81,7 +81,7 @@ end
     local err  = "Instance has been freed."
     local inst = TessInst("eng", datadir)
     tess_delete!(inst)
-    @test (@test_logs (:error, err) tess_available_languages(inst)) == nothing
+    @test (@test_logs (:error, err) tess_available_languages(inst)) === nothing
 end
 
 # -------------------------------------------------------------------------------------------------
@@ -94,7 +94,7 @@ end
     local err  = "Instance has been freed."
     local inst = TessInst("eng", datadir)
     tess_delete!(inst)
-    @test (@test_logs (:error, err) tess_params(inst)) == nothing
+    @test (@test_logs (:error, err) tess_params(inst)) === nothing
 end
 
 # -------------------------------------------------------------------------------------------------

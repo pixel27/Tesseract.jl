@@ -39,7 +39,7 @@ end
     local inst     = TessInst("eng", datadir)
     local pipeline = TessPipeline(inst)
 
-    @test tess_pipeline_text(pipeline) != nothing
+    @test tess_pipeline_text(pipeline) !== nothing
 
     tess_delete!(inst)
 
@@ -57,7 +57,7 @@ end
     local inst     = TessInst("eng", datadir)
     local pipeline = TessPipeline(inst)
 
-    @test tess_pipeline_text(pipeline) != nothing
+    @test tess_pipeline_text(pipeline) !== nothing
 
     @suppress begin
         @test (tess_run_pipeline(pipeline) do add
@@ -74,7 +74,7 @@ end
     local inst     = TessInst("eng", datadir)
     local pipeline = TessPipeline(inst)
 
-    @test tess_pipeline_text(pipeline) != nothing
+    @test tess_pipeline_text(pipeline) !== nothing
 
     @suppress begin
         @test (tess_run_pipeline(pipeline) do add
@@ -91,7 +91,7 @@ end
     local inst     = TessInst("eng", datadir)
     local pipeline = TessPipeline(inst)
 
-    @test tess_pipeline_text(pipeline) != nothing
+    @test tess_pipeline_text(pipeline) !== nothing
 
     @test (tess_run_pipeline(pipeline) do add
         @test add(pix_with([Line("This is image one.")]), 72) == true

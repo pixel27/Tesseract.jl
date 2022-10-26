@@ -215,7 +215,7 @@ function pix_write_png(
         finally
             lept_free(data)
 
-            if file != nothing
+            if file !== nothing
                 close(file)
             end
         end

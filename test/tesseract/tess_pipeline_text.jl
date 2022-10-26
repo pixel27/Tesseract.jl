@@ -69,7 +69,7 @@ end
     end) == true
 
     @test is_available(output) == true
-    @test output[] != nothing
+    @test output[] !== nothing
 
     local lines = split(output[], r"[\n\f]"; keepempty=false)
     @test length(lines) == 4

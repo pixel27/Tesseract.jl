@@ -30,7 +30,7 @@
     # To/From a file.
     local filename = safe_tmp_file()
     @test pix_write_gif(filename, pix) == true
-    @test pix_read_gif(filename) != nothing
+    @test pix_read_gif(filename) !== nothing
     rm(filename)
 
     # ---------------------------------------------------------------------------------------------
@@ -39,7 +39,7 @@
     @test pix_write_gif(buffer, pix) == true
     @test position(buffer) != 0
     seekstart(buffer)
-    @test pix_read_gif(buffer) != nothing
+    @test pix_read_gif(buffer) !== nothing
 
     # ---------------------------------------------------------------------------------------------
     # To/From an IOStream
@@ -48,7 +48,7 @@
     @test pix_write_gif(file, pix) == true
     @test position(file) != 0
     seekstart(file)
-    @test pix_read_gif(file) != nothing
+    @test pix_read_gif(file) !== nothing
     close(file)
     rm(filename)
 
@@ -56,7 +56,7 @@
     # To/From a byte array.
     local bytes = pix_write_gif(pix)
     @test length(bytes) > 0
-    @test pix_read_gif(bytes) != nothing
+    @test pix_read_gif(bytes) !== nothing
 end
 
 # =================================================================================================
@@ -66,19 +66,19 @@ end
         # -----------------------------------------------------------------------------------------
         # From a file.
         local filename = safe_tmp_file()
-        @test pix_read_gif(filename) == nothing
-        @test pix_read_gif("xyzzy.gif") == nothing
+        @test pix_read_gif(filename) === nothing
+        @test pix_read_gif("xyzzy.gif") === nothing
         rm(filename)
 
         # -----------------------------------------------------------------------------------------
         # From an IOBuffer.
         local buffer = IOBuffer()
-        @test pix_read_gif(buffer) == nothing
+        @test pix_read_gif(buffer) === nothing
 
         # -----------------------------------------------------------------------------------------
         # To/From a byte array.
         local bytes = Vector{UInt8}()
-        @test pix_read_gif(bytes) == nothing
+        @test pix_read_gif(bytes) === nothing
     end
 end
 
@@ -102,5 +102,5 @@ end
 
     # ---------------------------------------------------------------------------------------------
     # To a byte array.
-    @test (@test_logs (:error, err) pix_write_gif(pix)) == nothing
+    @test (@test_logs (:error, err) pix_write_gif(pix)) === nothing
 end

@@ -233,7 +233,7 @@ function tess_parsed_tsv(
         )::Union{Vector{Tsv}, Nothing}
     local text = tess_tsv(inst, page)
 
-    if text == nothing
+    if text === nothing
         return nothing
     end
 

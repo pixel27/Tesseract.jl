@@ -58,7 +58,7 @@ function pix_read_jp2k(
     end
 
     # If a box was provided allocate a box.
-    if box != nothing
+    if box !== nothing
         boxPtr = ccall(
             (:boxCreate, LEPTONICA),
             Ptr{Cvoid},
@@ -67,7 +67,7 @@ function pix_read_jp2k(
         )
     end
 
-    if box != nothing && boxPtr == C_NULL
+    if box !== nothing && boxPtr == C_NULL
         return nothing
     end
 
@@ -177,7 +177,7 @@ function pix_read_jp2k(
     end
 
     # If a box was provided allocate a box.
-    if box != nothing
+    if box !== nothing
         boxPtr = ccall(
             (:boxCreate, LEPTONICA),
             Ptr{Cvoid},
@@ -186,7 +186,7 @@ function pix_read_jp2k(
         )
     end
 
-    if box != nothing && boxPtr == C_NULL
+    if box !== nothing && boxPtr == C_NULL
         return nothing
     end
 

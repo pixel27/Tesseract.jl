@@ -72,5 +72,5 @@ end
 
     # ---------------------------------------------------------------------------------------------
     # To a byte array.
-    @test (@test_logs (:error, err) pix_write_pam(pix)) == nothing
+    @test (@test_logs (:error, err) pix_write_pam(pix)) === nothing
 end

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Process a single image · Tesseract.jl</title><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.045/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.24/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../">Tesseract.jl</a></span></div><form class="docs-search" action="../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../">Tesseract.jl documentation</a></li><li><a class="tocitem" href="../download/">Download required files</a></li><li><a class="tocitem" href="../load/">Load languages</a></li><li class="is-active"><a class="tocitem" href>Process a single image</a></li><li><a class="tocitem" href="../multiple/">Process multiple images</a></li><li><span class="tocitem">Reference</span><ul><li><a class="tocitem" href="../reference/">Index</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Process a single image</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Process a single image</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/pixel27/Tesseract.jl/blob/main/docs/src/single.md" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="Process-a-single-image"><a class="docs-heading-anchor" href="#Process-a-single-image">Process a single image</a><a id="Process-a-single-image-1"></a><a class="docs-heading-anchor-permalink" href="#Process-a-single-image" title="Permalink"></a></h1><p>This method is normally used if you just want to extract the text from an image.  If you want something more like advanced like an ALTO XML, HOCR XML, or PDF file, then you would want to read the next section on scanning multiple files.</p><pre><code class="language-julia hljs">using Tesseract
+
+download_languages()
+
+instance = TessInst()
+pix = sample_pix()
+
+tess_image(instance, pix)
+tess_resolution(instance, 72)
+
+text = tess_text(instance)
+
+print(text)
+
+# output
+
+No one would have believed in the last years of the
+
+the nineteenth century that this world was being watched
+watched keenly and closely by intelligences greater than
+than man’s and yet as mortal as his own; that as men busied
+busied themselves about their various concerns they were
+were scrutinised and studied, perhaps almost as narrowly as
+as a man with a microscope might scrutinise the transient
+transient creatures that swarm and multiply in a drop of
+
+of water. With infinite complacency men went to and fro over
+over this globe about their little affairs, serene in their
+their assurance of their empire over matter. It is possible
+possible that the infusoria under the microscope do the
+
+the same. No one gave a thought to the older worlds of space
+space as sources of human danger, or thought of them only to
+to dismiss the idea of life upon them as impossible or
+
+or improbable. It is curious to recall some of the mental
+mental habits of those departed days. At most terrestrial
+terrestrial men fancied there might be other men upon Mars,
+Mars, perhaps inferior to themselves and ready to welcome a
+a missionary enterprise. Vet across the gulf of space, minds
+minds that are to our minds as ours are to those of the
+
+the beasts that perish, intellects vast and cool and
+
+and unsympathetic, regarded this earth with envious eyes
+eyes, and slowly and surely drew their plans against us. And
+And early in the twentieth century came the great
+
+great disillusionment.</code></pre><p>This example uses <a href="../ref/sample_pix/">sample_pix</a> to get an image with text to test with.  Normally you would use <a href="../ref/pix_read/">pix_read</a> to load an image from disk.  Next <a href="../ref/tess_image/">tess_image</a> is called to pass the image to Tesseract for OCRing.  You need to call <a href="../ref/tess_resolution/">tess_resolution</a> to let Tesseract know the PPI of the image.  For a scanned image this will probably be 300, 600, or higher.</p><p>Finally to get the text Tesseract found you make a call to <a href="../ref/tess_text/">tess_text</a> to retrieve the text.  This method will call <a href="../ref/tess_recognize/">tess_recognize</a> if it has not been called already.  You might also be interested in calling <a href="../ref/tess_confidences/">tess_confidences</a> to get Tesseract&#39;s confidence in the OCR process for each word.  Calling <a href="../ref/tess_parsed_tsv/">tess_parsed_tsv</a> is also helpful to get the details for each word found on the page.</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../load/">« Load languages</a><a class="docs-footer-nextpage" href="../multiple/">Process multiple images »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.23 on <span class="colophon-date" title="Wednesday 26 October 2022 15:53">Wednesday 26 October 2022</span>. Using Julia version 1.6.7.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

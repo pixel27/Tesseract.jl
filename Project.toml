@@ -1,7 +1,7 @@
 name = "Tesseract"
 uuid = "11879493-52b3-4e20-990d-281c54a395a1"
 authors = ["Joshua Gentry <pixel@deathbysoftware.com>"]
-version = "0.4.1"
+version = "0.4.0"
 
 [deps]
 Base64 = "2a0f44e3-6c83-55bd-87e4-b1978d98bd5f"
